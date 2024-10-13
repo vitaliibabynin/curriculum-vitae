@@ -21,7 +21,6 @@ const InterestsSection: React.FC<InterestsSectionProps> = ({ description, imageU
             width={400}
             height={300}
             className="rounded-lg"
-            unoptimized
           />
         </div>
       </div>
