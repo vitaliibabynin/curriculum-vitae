@@ -48,6 +48,7 @@ const Navigation = () => {
     { name: 'Languages', id: 'languages' },
     { name: 'Experience', id: 'experience' },
     { name: 'Skills', id: 'skills' },
+    { name: 'Interests', id: 'interests' },
     { name: 'Contact', id: 'contact' },
   ]
 

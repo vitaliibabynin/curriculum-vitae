@@ -5,9 +5,10 @@ import ProjectsTimeline from '../components/projects-timeline'
 import SkillsSection from '../components/skills-section'
 import EducationSection from '../components/education-section'
 import LanguagesSection from '../components/languages-section'
+import InterestsSection from '../components/interests-section'
 import ContactSection from '../components/contact-section'
 import BackToTopButton from '../components/back-to-top-button'
-import { developerInfo, projects, skillCategories, languages, educations } from './data'
+import { developerInfo, projects, skillCategories, languages, educations, interests } from './data'
 
 export default function Home() {
   return (
@@ -32,6 +33,10 @@ export default function Home() {
         <section id="skills" className="py-16">
           <h2 className="text-4xl font-bold mb-8 text-center">Skills</h2>
           <SkillsSection categories={skillCategories} />
+        </section>
+        <section id="interests" className="py-16">
+          <h2 className="text-4xl font-bold mb-8 text-center">Interests</h2>
+          <InterestsSection {...interests} />
         </section>
         <section id="contact" className="py-16 md:py-24 flex flex-col justify-center">
           <h2 className="text-4xl font-bold mb-8 text-center">Contact</h2>

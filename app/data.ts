@@ -285,3 +285,9 @@ export const skillCategories = [
     ]
   }
 ]
+
+export const interests = {
+  description: "In my free time, I like to compose music on the piano and play guitar." +
+  " I also enjoy biking, boating and traveling to explore new places.",
+  imageUrl: "/images/interests/interests-image.jpg"
+}
