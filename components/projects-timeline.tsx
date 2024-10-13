@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { FaGithub, FaExternalLinkAlt, FaMapMarkerAlt } from 'react-icons/fa'
+import ImageOverlay from './image-overlay'
 
 interface Project {
   title: string
@@ -78,7 +79,7 @@ const ProjectCard: React.FC<Project> = ({
           <h4 className="font-bold mb-2">Project Images:</h4>
           <div className="flex flex-wrap gap-2">
             {images.map((image, index) => (
-              <Image key={index} src={image} alt={`Project image ${index + 1}`} width={200} height={150} className="rounded" />
+              <ImageOverlay key={index} src={image} alt={`Project image ${index + 1}`} />
             ))}
           </div>
         </div>
