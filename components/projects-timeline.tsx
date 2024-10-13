@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import { FaGithub, FaExternalLinkAlt, FaMapMarkerAlt, FaYoutube } from 'react-icons/fa'
 import ImageOverlay from './image-overlay'
 
