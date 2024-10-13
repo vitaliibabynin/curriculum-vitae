@@ -1,101 +1,227 @@
-import Image from "next/image";
+import Navigation from '../components/navigation'
+import ThemeToggle from '../components/theme-toggle'
+import DeveloperCard from '../components/developer-card'
+import ProjectsTimeline from '../components/projects-timeline'
+import SkillsSection from '../components/skills-section'
+import LanguagesSection from '../components/languages-section'
+import ContactSection from '../components/contact-section'
+import BackToTopButton from '../components/back-to-top-button'
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const developerInfo = {
+    name: "Vitalii",
+    surname: "Babynin",
+    title: "Full Stack Developer",
+    phone: "+49 157 320 18 18 8",
+    email: "vitalii.babynin@gmail.com",
+    location: "Mönchengladbach, Germany",
+    linkedIn: "https://www.linkedin.com/in/vitalii-babynin-522085118",
+    github: "https://github.com/vitaliibabynin",
+    resumeUrl: "/resume/resume.pdf",
+    imageUrl: "/images/profile/profile-picture.jpg"
+  }
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
+  const projects = [
+    {
+      title: "E-commerce Platform",
+      startDate: "2024-01-01",
+      endDate: "2026-06-30",
+      location: "New York, NY",
+      workMode: "Hybrid" as const,
+      description: [
+        "Developed a full-stack e-commerce platform with user authentication.",
+        "Implemented product management system with inventory tracking.",
+        "Integrated Stripe for secure payment processing."
+      ],
+      stack: ["React", "Node.js", "Express", "MongoDB", "Stripe"],
+      images: ["/path-to-ecommerce-image1.jpg", "/path-to-ecommerce-image2.jpg"],
+      demoLink: "https://example-ecommerce.com",
+      repoLink: "https://github.com/johndoe/ecommerce-platform"
+    },
+    {
+      title: "Task Management App",
+      startDate: "2022-07-01",
+      endDate: "2022-12-31",
+      workMode: "Remote" as const,
+      description: [
+        "Created a task management application with real-time updates.",
+        "Implemented team collaboration features including shared tasks and comments.",
+        "Designed and implemented a responsive UI using Tailwind CSS."
+      ],
+      stack: ["Vue.js", "Firebase", "Vuex", "Tailwind CSS"],
+      images: ["/path-to-taskmanager-image1.jpg"],
+      demoLink: "https://example-taskmanager.com",
+      repoLink: "https://github.com/johndoe/task-manager"
+    },
+    {
+      title: "Portfolio Website",
+      startDate: "2021-03-15",
+      endDate: "2021-04-30",
+      workMode: "Remote" as const,
+      description: [
+        "Designed and developed a personal portfolio website.",
+        "Implemented responsive design for optimal viewing on all devices.",
+        "Integrated a contact form with email notifications."
+      ],
+      stack: ["React", "Next.js", "Tailwind CSS", "Vercel"],
+      demoLink: "https://johndoe-portfolio.com",
+      repoLink: "https://github.com/johndoe/portfolio"
+    },
+    {
+      title: "E-commerce Platform",
+      startDate: "2019-01-01",
+      endDate: "2019-06-30",
+      location: "New York, NY",
+      workMode: "Hybrid" as const,
+      description: [
+        "Developed a full-stack e-commerce platform with user authentication.",
+        "Implemented product management system with inventory tracking.",
+        "Integrated Stripe for secure payment processing."
+      ],
+      stack: ["React", "Node.js", "Express", "MongoDB", "Stripe"],
+      demoLink: "https://example-ecommerce.com",
+      repoLink: "https://github.com/johndoe/ecommerce-platform"
+    },
+    {
+      title: "E-commerce Platform",
+      startDate: "2018-01-01",
+      endDate: "2018-06-30",
+      location: "New York, NY",
+      workMode: "Hybrid" as const,
+      description: [
+        "Developed a full-stack e-commerce platform with user authentication.",
+        "Implemented product management system with inventory tracking.",
+        "Integrated Stripe for secure payment processing."
+      ],
+      stack: ["React", "Node.js", "Express", "MongoDB", "Stripe"],
+      demoLink: "https://example-ecommerce.com",
+      repoLink: "https://github.com/johndoe/ecommerce-platform"
+    },
+    {
+      title: "E-commerce Platform",
+      startDate: "2017-01-01",
+      endDate: "2017-06-30",
+      location: "New York, NY",
+      workMode: "Hybrid" as const,
+      description: [
+        "Developed a full-stack e-commerce platform with user authentication.",
+        "Implemented product management system with inventory tracking.",
+        "Integrated Stripe for secure payment processing."
+      ],
+      stack: ["React", "Node.js", "Express", "MongoDB", "Stripe"],
+      demoLink: "https://example-ecommerce.com",
+      repoLink: "https://github.com/johndoe/ecommerce-platform"
+    },
+    {
+      title: "E-commerce Platform",
+      startDate: "2015-02-01",
+      endDate: "2020-07-30",
+      location: "New York, NY",
+      workMode: "Hybrid" as const,
+      description: [
+        "Developed a full-stack e-commerce platform with user authentication.",
+        "Implemented product management system with inventory tracking.",
+        "Integrated Stripe for secure payment processing."
+      ],
+      stack: ["React", "Node.js", "Express", "MongoDB", "Stripe"],
+      demoLink: "https://example-ecommerce.com",
+      repoLink: "https://github.com/johndoe/ecommerce-platform"
+    },
+    {
+      title: "E-commerce Platform",
+      startDate: "2015-01-01",
+      endDate: "2015-06-30",
+      location: "New York, NY",
+      workMode: "Hybrid" as const,
+      description: [
+        "Developed a full-stack e-commerce platform with user authentication.",
+        "Implemented product management system with inventory tracking.",
+        "Integrated Stripe for secure payment processing."
+      ],
+      stack: ["React", "Node.js", "Express", "MongoDB", "Stripe"],
+      demoLink: "https://example-ecommerce.com",
+      repoLink: "https://github.com/johndoe/ecommerce-platform"
+    },
+    // Add more projects as needed
+  ]
+
+  const skillCategories = [
+    {
+      name: "Frontend",
+      skills: [
+        { name: "React", level: 90 },
+        { name: "Vue.js", level: 80 },
+        { name: "HTML/CSS", level: 95 },
+        { name: "JavaScript", level: 90 },
+        { name: "TypeScript", level: 85 },
+      ]
+    },
+    {
+      name: "Backend",
+      skills: [
+        { name: "Node.js", level: 85 },
+        { name: "Express", level: 80 },
+        { name: "Python", level: 75 },
+        { name: "Django", level: 70 },
+        { name: "SQL", level: 80 },
+      ]
+    },
+    {
+      name: "DevOps",
+      skills: [
+        { name: "Docker", level: 75 },
+        { name: "Kubernetes", level: 65 },
+        { name: "AWS", level: 70 },
+        { name: "CI/CD", level: 80 },
+      ]
+    },
+    {
+      name: "Tools & Others",
+      skills: [
+        { name: "Git", level: 90 },
+        { name: "Webpack", level: 75 },
+        { name: "Jest", level: 80 },
+        { name: "Agile/Scrum", level: 85 },
+      ]
+    }
+  ]
+
+  const languages = [
+    { name: "English", proficiency: "Native", stars: 5 },
+    { name: "Russian", proficiency: "Native", stars: 5 },
+    { name: "Ukrainian", proficiency: "Native", stars: 5 },
+    { name: "German", proficiency: "A2", stars: 2 },
+    { name: "French", proficiency: "A1", stars: 1.5 },
+  ]
+
+  return (
+    <>
+      <Navigation />
+      <main className="pt-16 text-gray-800 dark:text-white">
+        <section id="about" className="flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+          <DeveloperCard {...developerInfo} />
+        </section>
+        <section id="projects" className="min-h-screen py-16">
+          <h2 className="text-4xl font-bold mb-8 text-center">Projects</h2>
+          <ProjectsTimeline projects={projects} />
+        </section>
+        <section id="skills" className="py-16">
+          <h2 className="text-4xl font-bold mb-8 text-center">Skills</h2>
+          <SkillsSection categories={skillCategories} />
+        </section>
+        <section id="languages" className="py-16">
+          <h2 className="text-4xl font-bold mb-8 text-center">Languages</h2>
+          <LanguagesSection languages={languages} />
+        </section>
+        <section id="contact" className="py-16 md:py-24 flex flex-col justify-center">
+          <h2 className="text-4xl font-bold mb-8 text-center">Contact</h2>
+          <ContactSection {...developerInfo} />
+        </section>
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+      <BackToTopButton />
+      <div className="fixed bottom-4 left-4">
+        <ThemeToggle />
+      </div>
+    </>
+  )
 }
