@@ -13,10 +13,12 @@ You are building a developer portfolio website. The goal is to showcase the deve
      - About
      - Projects
      - Skills
+     - Education
      - Languages
      - Contact
    - Use a fixed navigation bar for easy access to sections.
    - On mobile devices, navigation should be a collapsible hamburger menu.
+   - The hamburger menu should be transparent.
 
 ### **3. Developer Info Card:**
    - This card is displayed below the navigation bar and contains:
