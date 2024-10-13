@@ -49,3 +49,6 @@ next-env.d.ts
 
 # vscode
 .vscode
+
+# screenshots
+/public/screenshots
