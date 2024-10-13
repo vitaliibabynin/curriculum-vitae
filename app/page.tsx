@@ -3,6 +3,7 @@ import ThemeToggle from '../components/theme-toggle'
 import DeveloperCard from '../components/developer-card'
 import ProjectsTimeline from '../components/projects-timeline'
 import SkillsSection from '../components/skills-section'
+import EducationSection from '../components/education-section'
 import LanguagesSection from '../components/languages-section'
 import ContactSection from '../components/contact-section'
 import BackToTopButton from '../components/back-to-top-button'
@@ -12,6 +13,7 @@ export default function Home() {
     name: "Vitalii",
     surname: "Babynin",
     title: "Full Stack Developer",
+    about: "I am a software developer with over 5 years of experience, passionate about learning new technologies and collaborating in team environments. I focus on delivering high-quality, maintainable solutions within deadlines, and I am committed to writing clear and well-documented code.",
     phone: "+49 157 320 18 18 8",
     email: "vitalii.babynin@gmail.com",
     location: "Mönchengladbach, Germany",
@@ -34,7 +36,7 @@ export default function Home() {
         "Integrated Stripe for secure payment processing."
       ],
       stack: ["React", "Node.js", "Express", "MongoDB", "Stripe"],
-      images: ["/path-to-ecommerce-image1.jpg", "/path-to-ecommerce-image2.jpg"],
+      images: ["/images/projects/project1-image1.jpg", "/images/projects/project1-image2.jpg"],
       demoLink: "https://example-ecommerce.com",
       repoLink: "https://github.com/johndoe/ecommerce-platform"
     },
@@ -194,6 +196,26 @@ export default function Home() {
     { name: "French", proficiency: "A1", stars: 1.5 },
   ]
 
+  const educations = [
+    {
+      institution: "State University of Infrastructure and Technology",
+      degree: "Bachelor of Science",
+      field: "Computer Science",
+      startYear: 2014,
+      endYear: 2018,
+      location: "Kyiv, Ukraine",
+      logoUrl: "/images/education/duit-logo.jpg"
+    },
+    {
+      institution: "The University of Edinburgh",
+      field: "Economics",
+      startYear: 2013,
+      endYear: 2014,
+      location: "Edinburgh, United Kingdom",
+      logoUrl: "/images/education/edinburgh-logo.jpg"
+    }
+  ]
+
   return (
     <>
       <Navigation />
@@ -208,6 +230,10 @@ export default function Home() {
         <section id="skills" className="py-16">
           <h2 className="text-4xl font-bold mb-8 text-center">Skills</h2>
           <SkillsSection categories={skillCategories} />
+        </section>
+        <section id="education" className="py-16">
+          <h2 className="text-4xl font-bold mb-8 text-center">Education</h2>
+          <EducationSection educations={educations} />
         </section>
         <section id="languages" className="py-16">
           <h2 className="text-4xl font-bold mb-8 text-center">Languages</h2>

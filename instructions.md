@@ -48,11 +48,21 @@ You are building a developer portfolio website. The goal is to showcase the deve
    - Showcase the developer's technical skills in a visually appealing way (e.g., skill badges, progress bars).
    - Categorize skills if necessary (e.g., Frontend, Backend, DevOps).
 
-### **6. Languages Section:**
+### **6. Education Section:**
+   - Add cards for each education item.
+   - Each education card should include:
+     - Institution name
+     - Degree
+     - Field of study
+     - Start and end year
+     - City and country
+     - Logo of the institution
+     
+### **7. Languages Section:**
    - List languages the developer knows along with proficiency levels (e.g., Native, Fluent, Intermediate).
    - Use progress bars or icons to visually represent proficiency.
 
-### **7. Back to Top Button:**
+### **8. Back to Top Button:**
    - A button that allows users to quickly scroll back to the top of the page.
    - Should be fixed at the bottom right of the page and only appear when the user scrolls down.
 
