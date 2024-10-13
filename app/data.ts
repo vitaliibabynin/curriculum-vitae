@@ -160,20 +160,6 @@ export const projects = [
   // ... (rest of the projects)
 ]
 
-export const skillCategories = [
-  {
-    name: "Frontend",
-    skills: [
-      { name: "React", level: 90 },
-      { name: "Vue.js", level: 80 },
-      { name: "HTML/CSS", level: 95 },
-      { name: "JavaScript", level: 90 },
-      { name: "TypeScript", level: 85 },
-    ]
-  },
-  // ... (rest of the skill categories)
-]
-
 export const languages = [
   { name: "English", proficiency: "Native", stars: 5 },
   { name: "Russian", proficiency: "Native", stars: 5 },
@@ -199,5 +185,103 @@ export const educations = [
     endYear: 2014,
     location: "Edinburgh, United Kingdom",
     logoUrl: "/images/education/edinburgh-logo.jpg"
+  }
+]
+
+export const skillCategories = [
+  {
+    name: "Frontend",
+    skills: [
+      { name: "Next.js", level: 90 },
+      { name: "React.js", level: 85 },
+      { name: "TypeScript", level: 85 },
+      { name: "JavaScript", level: 90 },
+      { name: "HTML", level: 95 },
+      { name: "CSS", level: 95 },
+      { name: "SASS/SCSS", level: 85 },
+      { name: "Tailwind CSS", level: 80 },
+      { name: "Bootstrap", level: 85 },
+      { name: "jQuery", level: 80 },
+    ]
+  },
+  {
+    name: "Backend",
+    skills: [
+      { name: "Node.js", level: 85 },
+      { name: "PHP", level: 75 },
+      { name: "SQL", level: 80 },
+      { name: "C#", level: 70 },
+    ]
+  },
+  {
+    name: "Databases",
+    skills: [
+      { name: "Supabase", level: 80 },
+      { name: "MariaDB", level: 75 },
+    ]
+  },
+  {
+    name: "DevOps & Tools",
+    skills: [
+      { name: "Git", level: 85 },
+      { name: "Vercel", level: 85 },
+      { name: "Webpack", level: 75 },
+      { name: "Composer", level: 70 },
+      { name: "Linux", level: 75 },
+      { name: "Android Studio", level: 70 },
+      { name: "XCode", level: 65 },
+    ]
+  },
+  {
+    name: "CMS & E-commerce",
+    skills: [
+      { name: "Shopify", level: 90 },
+      { name: "Liquid", level: 85 },
+      { name: "WordPress", level: 80 },
+      { name: "Prestashop", level: 75 },
+      { name: "WooCommerce", level: 75 },
+    ]
+  },
+  {
+    name: "APIs & Integrations",
+    skills: [
+      { name: "Stripe", level: 85 },
+      { name: "Clerk", level: 80 },
+      { name: "Facebook API", level: 75 },
+      { name: "YouTube API", level: 75 },
+      { name: "Airbnb API", level: 70 },
+    ]
+  },
+  {
+    name: "Game Development",
+    skills: [
+      { name: "Unity", level: 75 },
+      { name: "Cordova", level: 70 },
+      { name: "PhoneGap", level: 70 },
+    ]
+  },
+  {
+    name: "Blockchain",
+    skills: [
+      { name: "Solidity", level: 65 },
+      { name: "Ethereum", level: 60 },
+    ]
+  },
+  {
+    name: "AI & Machine Learning",
+    skills: [
+      { name: "Claude 3.5 Sonnet", level: 80 },
+      { name: "V0", level: 75 },
+      { name: "Bolt.new", level: 65 },
+    ]
+  },
+  {
+    name: "Other",
+    skills: [
+      { name: "Excel VBA", level: 75 },
+      { name: "Zapier", level: 70 },
+      { name: "Klaviyo", level: 70 },
+      { name: "Upstash", level: 65 },
+    ]
   }
 ]
