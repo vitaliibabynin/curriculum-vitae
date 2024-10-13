@@ -1,13 +1,14 @@
 'use client'
 
 import Image from 'next/image'
-import { FaGithub, FaExternalLinkAlt, FaMapMarkerAlt } from 'react-icons/fa'
+import { FaGithub, FaExternalLinkAlt, FaMapMarkerAlt, FaYoutube } from 'react-icons/fa'
 import ImageOverlay from './image-overlay'
 
 interface Project {
   title: string
+  employer: string
   startDate: string
-  endDate?: string
+  endDate?: string | null
   location?: string
   workMode: 'Remote' | 'Hybrid' | 'On-site'
   description: string[]
@@ -15,10 +16,12 @@ interface Project {
   images?: string[]
   demoLink?: string
   repoLink?: string
+  youtubeLink?: string  // New field for YouTube link
 }
 
 const ProjectCard: React.FC<Project> = ({
   title,
+  employer,
   startDate,
   endDate,
   location,
@@ -27,13 +30,14 @@ const ProjectCard: React.FC<Project> = ({
   stack,
   images,
   demoLink,
-  repoLink
+  repoLink,
+  youtubeLink  // Add youtubeLink to the destructured props
 }) => {
   const formatDate = (date: string) => {
     return new Date(date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
   }
 
-  const calculateDuration = (start: string, end?: string) => {
+  const calculateDuration = (start: string, end?: string | null) => {
     const startDate = new Date(start)
     const endDate = end ? new Date(end) : new Date()
     const diffTime = Math.abs(endDate.getTime() - startDate.getTime())
@@ -48,7 +52,8 @@ const ProjectCard: React.FC<Project> = ({
 
   return (
     <div className="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-6 mb-12 max-w-2xl mx-auto px-4 sm:px-6">
-      <h3 className="text-2xl font-bold mb-2">{title}</h3>
+      <h3 className="text-2xl font-bold mb-1">{title}</h3>
+      <p className="text-xl text-gray-600 dark:text-gray-400 mb-2">{employer}</p>
       <p className="text-gray-600 dark:text-gray-400 mb-2">
         {formatDate(startDate)} - {endDate ? formatDate(endDate) : 'Present'} · {calculateDuration(startDate, endDate)}
       </p>
@@ -84,7 +89,7 @@ const ProjectCard: React.FC<Project> = ({
           </div>
         </div>
       )}
-      <div className="flex space-x-4">
+      <div className="flex flex-wrap gap-4">
         {demoLink && (
           <a href={demoLink} target="_blank" rel="noopener noreferrer" className="flex items-center text-blue-500 hover:text-blue-600">
             <FaExternalLinkAlt className="mr-2" /> Demo
@@ -93,6 +98,11 @@ const ProjectCard: React.FC<Project> = ({
         {repoLink && (
           <a href={repoLink} target="_blank" rel="noopener noreferrer" className="flex items-center text-blue-500 hover:text-blue-600">
             <FaGithub className="mr-2" /> Repository
+          </a>
+        )}
+        {youtubeLink && (
+          <a href={youtubeLink} target="_blank" rel="noopener noreferrer" className="flex items-center text-red-500 hover:text-red-600">
+            <FaYoutube className="mr-2" /> Watch on YouTube
           </a>
         )}
       </div>

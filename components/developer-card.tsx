@@ -48,8 +48,8 @@ const DeveloperCard: React.FC<DeveloperInfo> = ({
             <Image
               src={imageUrl}
               alt={`${name} ${surname}`}
-              layout="fill"
-              objectFit="cover"
+              fill
+              style={{ objectFit: 'cover' }}
               className="rounded-full"
             />
           </div>
