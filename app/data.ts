@@ -34,7 +34,8 @@ export const projects = [
     location: "Düsseldorf, Germany",
     workMode: "Remote" as const,
     description: [
-      "Built custom Shopify websites. Connected payments, tracking & fulfilment.",
+      "Built custom Shopify websites.",
+      "Connected payments, tracking & fulfilment.",
       "Implemented automated chat bot & phone support",
       "Created Facebook Ad & email marketing campaigns."
     ],
