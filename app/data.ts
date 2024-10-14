@@ -239,7 +239,7 @@ export const skillCategories = [
       { name: "Liquid", level: 85 },
       { name: "WordPress", level: 80 },
       { name: "Prestashop", level: 75 },
-      { name: "WooCommerce", level: 75 },
+      { name: "Woo-Commerce", level: 75 },
     ]
   },
   {
@@ -247,6 +247,7 @@ export const skillCategories = [
     skills: [
       { name: "Stripe", level: 85 },
       { name: "Clerk", level: 80 },
+      { name: "Upstash", level: 65 },
       { name: "Facebook API", level: 75 },
       { name: "YouTube API", level: 75 },
       { name: "Airbnb API", level: 70 },
@@ -281,7 +282,6 @@ export const skillCategories = [
       { name: "Excel VBA", level: 75 },
       { name: "Zapier", level: 70 },
       { name: "Klaviyo", level: 70 },
-      { name: "Upstash", level: 65 },
     ]
   }
 ]
