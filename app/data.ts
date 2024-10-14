@@ -51,14 +51,14 @@ export const projects = [
     location: "Hilden, Germany",
     workMode: "On-site" as const,
     description: [
-      "Created & maintained Prestashop and Woocommerce websites.",
+      "Created & maintained Prestashop and WooCommerce websites.",
       "Implemented new design using Bootstrap 5, SCSS.",
       "Added dark mode using CSS Variables.",
       "Built custom modules for Prestashop for additional functionality."
     ],
     stack: [
         "Javascript", "jQuery", "PHP/SQL", "MariaDB", "Composer", "Webpack",
-        "Node.js", "HTML", "SASS/SCSS", "Prestashop", "Woocommerce",
+        "Node.js", "HTML", "SASS/SCSS", "Prestashop", "WooCommerce",
         "Bitbucket", "Sourcetree", "Git", "Jira", "Confluence", "Slack", "Outlook"
     ]
   },
@@ -70,7 +70,7 @@ export const projects = [
     location: "Kyiv, Ukraine",
     workMode: "Hybrid" as const,
     description: [
-      "Solo developed the WeightWatching app, to help people manage their diet.",
+      "Created the WeightWatching app, to help people manage their diet.",
       "Developed puzzle and logic games, in English and Russian.",
       "Used Facebook Graph API to rank players against friends.",
       "Leveraged in-game currency & Google/Appodeal Ads for monetization."
@@ -126,7 +126,8 @@ export const projects = [
     description: [
         "Managed a team, renting out 5 high end apartments, on Airbnb.",
         "Oversaw the creation of the company website and booking system.",
-        "Automated customer support communications. Created tools to coordinate internal tasks such as guest airport pickup."
+        "Automated customer support communications.",
+        "Created tools to coordinate internal tasks such as guest airport pickup."
     ],
     stack: ["Wordpress","Stripe", "Airbnb API", "Google Calendar", "Google Maps"],
     demoLink: "https://soulap.com/"
