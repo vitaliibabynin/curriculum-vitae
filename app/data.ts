@@ -36,7 +36,6 @@ export const projects = [
     description: [
       "Built custom Shopify websites. Connected payments, tracking & fulfilment.",
       "Implemented automated chat bot & phone support",
-      "Maintained and updated existing websites.",
       "Created Facebook Ad & email marketing campaigns."
     ],
     stack: ["Shopify", "Liquid", "Bootstrap", "HTML", "CSS", "Klaviyo",
@@ -92,7 +91,7 @@ export const projects = [
     startDate: "2017-05-06",
     endDate: "2018-09-06",
     location: "Kyiv, Ukraine",
-    workMode: "On-site" as const,
+    workMode: "Hybrid" as const,
     description: [
       "Co-developed and tested a smart contract on the Ethereum blockchain, designed to digitize real estate investment.",
       "Had a leading role in video ads created to promote the project."
