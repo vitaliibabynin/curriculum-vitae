@@ -238,7 +238,7 @@ export const skillCategories = [
       { name: "Liquid", level: 85 },
       { name: "WordPress", level: 80 },
       { name: "Prestashop", level: 75 },
-      { name: "Woo-Commerce", level: 75 },
+      { name: "WooCommerce", level: 75 },
     ]
   },
   {

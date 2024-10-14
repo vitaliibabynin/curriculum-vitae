@@ -33,7 +33,7 @@ const SkillsSection: React.FC<{ categories: SkillCategory[] }> = ({ categories }
       {categories.map((category, index) => (
         <div key={index} className="mb-8">
           <h3 className="text-xl font-bold mb-4">{category.name}</h3>
-          <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4 gap-3">
             {category.skills.map((skill, skillIndex) => (
               <SkillBadge key={skillIndex} {...skill} />
             ))}
