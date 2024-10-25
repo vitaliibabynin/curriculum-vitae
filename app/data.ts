@@ -294,3 +294,26 @@ export const interests = {
   " I also enjoy biking, boating and traveling to explore new places.",
   imageUrl: "/images/interests/interests-image.jpg"
 }
+
+export const caseStudies = [
+  {
+    title: "3D models for industrial installations",
+    shortDescription: "Interactive 3D visualization of industrial installations using Three.js",
+    longDescription: "This project showcases the power of Three.js for creating immersive 3D experiences on the web. It features interactive 3D models of industrial installations, allowing users to explore complex structures in detail. The application demonstrates responsive design and optimized performance for smooth rendering across various devices.",
+    techStack: ["Three.js", "Next.js", "TypeScript", "Tailwind CSS"],
+    websiteUrl: "https://threejsmvp.vercel.app/",
+    githubUrl: "https://github.com/vitaliibabynin/threejsmvp",
+    mobileOnly: false,
+    screenshotUrl: "/images/case-studies/3d-models-screenshot.jpg" // Add this line
+  },
+  {
+    title: "WeightWatch - Keep track of your diet",
+    shortDescription: "A WebGL-based weight tracking and diet management application",
+    longDescription: "WeightWatch is a powerful tool for tracking weight loss progress and managing dietary habits. It utilizes WebGL for smooth, interactive graphs and provides insightful analytics to help users achieve their fitness goals. The application features a user-friendly interface, customizable goal setting, and comprehensive data visualization to support users in their health journey.",
+    techStack: ["WebGL", "Unity", "C#"],
+    websiteUrl: "https://vitaliybabynin.github.io/WeightWatchWebGL/index.html",
+    githubUrl: "https://github.com/VitaliyBabynin/WeightWatchWebGL",
+    mobileOnly: true,
+    screenshotUrl: "/images/experiences/WeightWatching.jpg" // Add this line
+  }
+];

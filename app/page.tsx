@@ -1,6 +1,7 @@
 import Navigation from '../components/navigation'
 import ThemeToggle from '../components/theme-toggle'
 import DeveloperCard from '../components/developer-card'
+import CaseStudiesSection from '../components/case-studies-section'
 import ExperiencesTimeline from '../components/experiences-timeline'
 import SkillsSection from '../components/skills-section'
 import EducationSection from '../components/education-section'
@@ -17,6 +18,10 @@ export default function Home() {
       <main className="pt-16 text-gray-800 dark:text-white">
         <section id="about" className="flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
           <DeveloperCard {...developerInfo} />
+        </section>
+        <section id="case-studies" className="py-16">
+          <h2 className="text-4xl font-bold mb-8 text-center">Case Studies</h2>
+          <CaseStudiesSection />
         </section>
         <section id="experience" className="min-h-screen py-16">
           <h2 className="text-4xl font-bold mb-8 text-center">Experience</h2>

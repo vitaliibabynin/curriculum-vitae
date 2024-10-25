@@ -44,6 +44,7 @@ const Navigation = () => {
 
   const navItems = [
     { name: 'About', id: 'about' },
+    { name: 'Case Studies', id: 'case-studies' },
     { name: 'Experience', id: 'experience' },
     { name: 'Education', id: 'education' },
     { name: 'Languages', id: 'languages' },
