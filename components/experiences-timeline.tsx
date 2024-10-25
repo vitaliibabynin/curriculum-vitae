@@ -18,7 +18,7 @@ interface Project {
   youtubeLink?: string  // New field for YouTube link
 }
 
-const ProjectCard: React.FC<Project> = ({
+const ExperienceCard: React.FC<Project> = ({
   title,
   employer,
   startDate,
@@ -109,17 +109,17 @@ const ProjectCard: React.FC<Project> = ({
   )
 }
 
-const ProjectsTimeline: React.FC<{ projects: Project[] }> = ({ projects }) => {
+const ExperiencesTimeline: React.FC<{ experiences: Project[] }> = ({ experiences }) => {
   const currentYear = new Date().getFullYear()
   const years = Array.from({length: currentYear - 2014}, (_, i) => currentYear - i)
   
-  const projectsByYear: {[key: number]: Project[]} = {}
-  projects.forEach(project => {
+  const experiencesByYear: {[key: number]: Project[]} = {}
+  experiences.forEach(project => {
     const year = new Date(project.startDate).getFullYear()
-    if (!projectsByYear[year]) {
-      projectsByYear[year] = []
+    if (!experiencesByYear[year]) {
+      experiencesByYear[year] = []
     }
-    projectsByYear[year].push(project)
+    experiencesByYear[year].push(project)
   })
 
   return (
@@ -127,11 +127,11 @@ const ProjectsTimeline: React.FC<{ projects: Project[] }> = ({ projects }) => {
       <div className="absolute left-1/2 top-0 bottom-0 w-px bg-gray-300 dark:bg-gray-700 transform -translate-x-1/2"></div>
       {years.map(year => (
         <div key={year} className="mb-16 relative">
-          {projectsByYear[year]?.length > 0 && (
+          {experiencesByYear[year]?.length > 0 && (
             <>
               <div>
-                {projectsByYear[year].map((project, index) => (
-                  <ProjectCard key={index} {...project} />
+                {experiencesByYear[year].map((project, index) => (
+                  <ExperienceCard key={index} {...project} />
                 ))}
               </div>
               <div className="flex justify-center items-center mt-8">
@@ -147,4 +147,4 @@ const ProjectsTimeline: React.FC<{ projects: Project[] }> = ({ projects }) => {
   )
 }
 
-export default ProjectsTimeline
+export default ExperiencesTimeline

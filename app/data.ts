@@ -12,7 +12,7 @@ export const developerInfo = {
   imageUrl: "/images/profile/profile-picture.jpg"
 }
 
-export const projects = [
+export const experiences = [
   {
     title: "Ai Enhanced Full Stack Developer",
     employer: "Freelance",
@@ -82,7 +82,7 @@ export const projects = [
         "Android Studio", "XCode", "Facebook Graph API", "GitLab",
         "Google Disk", "Todoist", "WakaTime", "Trello"
     ],
-    images: ["/images/projects/WeightWatching.jpg", "/images/projects/FindWords.jpg"],
+    images: ["/images/experiences/WeightWatching.jpg", "/images/experiences/FindWords.jpg"],
     demoLink: "https://vitaliybabynin.github.io/WeightWatchWebGL/index.html",
     repoLink: "https://github.com/VitaliyBabynin/WeightWatchWebGL"
   },
@@ -158,7 +158,7 @@ export const projects = [
     ],
     stack: ["Linux", "HTML", "CSS", "PHP", "SQL"]
   },
-  // ... (rest of the projects)
+  // ... (rest of the experiences)
 ]
 
 export const languages = [

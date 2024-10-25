@@ -11,10 +11,11 @@ You are building a developer portfolio website. The goal is to showcase the deve
    - The website is a single-page application, using smooth scrolling between sections.
    - Sections include:
      - About
-     - Projects
-     - Skills
+     - Case Studies
+     - Experience
      - Education
      - Languages
+     - Skills
      - Contact
    - Use a fixed navigation bar for easy access to sections.
    - On mobile devices, navigation should be a collapsible hamburger menu.
