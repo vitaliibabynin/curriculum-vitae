@@ -24,7 +24,9 @@ export const experiences = [
       "Building custom projects, at maximum speed to market, using the latest available technologies."
     ],
     stack: ["Next.js", "Typescript", "Tailwind CSS", "Supabase", "Stripe", "Clerk",
-        "Upstash", "Vercel", "V0", "Claude 3.5 Sonnet", "Cursor", "Bolt.new"]
+        "Upstash", "Vercel", "V0", "Claude 3.5 Sonnet", "Cursor", "Bolt.new"],
+    demoLink: "https://threejsmvp.vercel.app/",
+    repoLink: "https://github.com/vitaliibabynin/threejsmvp"
   },
   {
     title: "Shopify Web Developer",
