@@ -32,8 +32,7 @@ const CaseStudyCard: React.FC<(typeof caseStudies)[0]> = ({
             alt={`Screenshot of ${title}`}
             width={1200}
             height={675}
-            layout="responsive"
-            className="rounded-lg"
+            className="rounded-lg w-full h-auto"
           />
         </div>
       </div>
