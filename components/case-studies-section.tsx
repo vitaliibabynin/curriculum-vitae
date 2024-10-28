@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import { FaExternalLinkAlt, FaGithub } from 'react-icons/fa';
 import { caseStudies } from '../app/data';
+import IPhoneFrame from './iphone-frame';
 
 const CaseStudyCard: React.FC<(typeof caseStudies)[0]> = ({
   title,
@@ -17,15 +18,28 @@ const CaseStudyCard: React.FC<(typeof caseStudies)[0]> = ({
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-8">
       <h3 className="text-2xl font-bold mb-2">{title}</h3>
       <p className="text-gray-600 dark:text-gray-300 mb-4">{shortDescription}</p>
-      <div className={`mb-4 ${mobileOnly ? 'md:aspect-[9/16] md:w-[28.125%]' : 'aspect-video'} w-full mx-auto relative`}>
-        <div className="hidden md:block w-full h-full">
-          <iframe
-            src={websiteUrl}
-            title={title}
-            className="absolute top-0 left-0 w-full h-full border-none rounded-lg"
-            allowFullScreen
-          />
-        </div>
+      <div className={`mb-4 ${mobileOnly ? 'md:w-fit' : 'aspect-video w-full'} mx-auto relative`}>
+        {mobileOnly ? (
+          <div className="hidden md:block">
+            <IPhoneFrame>
+              <iframe
+                src={websiteUrl}
+                title={title}
+                className="w-full h-full border-none"
+                allowFullScreen
+              />
+            </IPhoneFrame>
+          </div>
+        ) : (
+          <div className="hidden md:block w-full aspect-video">
+            <iframe
+              src={websiteUrl}
+              title={title}
+              className="absolute top-0 left-0 w-full h-full border-none rounded-lg"
+              allowFullScreen
+            />
+          </div>
+        )}
         <div className="md:hidden w-full relative">
           <Image
             src={screenshotUrl}
