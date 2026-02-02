@@ -55,3 +55,6 @@ public/screenshots
 
 # playwright
 .playwright-mcp
+
+# resources
+/resources
