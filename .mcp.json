@@ -1,10 +1,12 @@
 {
   "mcpServers": {
-    "playwright": {
+    "playwriter": {
       "type": "stdio",
       "command": "cmd",
-      "args": ["/c", "npx", "-y", "@playwright/mcp@latest"],
-      "env": {}
+      "args": ["/c", "npx", "playwriter"],
+      "env": {
+        "PLAYWRITER_AUTO_ENABLE": "1"
+      }
     }
   }
 }
