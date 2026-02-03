@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import BackgroundEffect from '../components/background-effect'
+import SmoothScroll from '../components/smooth-scroll'
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -15,8 +16,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Developer Portfolio",
-  description: "A showcase of my projects and skills",
+  title: "Vitalii Babynin | Software Engineer & AI Architect",
+  description: "Delivering full-stack solutions through AI-assisted development",
 };
 
 export default function RootLayout({
@@ -30,9 +31,11 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased relative min-h-screen`}
       >
         <BackgroundEffect />
-        <div className="relative z-0">
-          {children}
-        </div>
+        <SmoothScroll>
+          <div className="relative z-0">
+            {children}
+          </div>
+        </SmoothScroll>
       </body>
     </html>
   );

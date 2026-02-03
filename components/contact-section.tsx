@@ -1,72 +1,100 @@
 'use client'
 
-import { useState } from 'react'
-import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaLinkedin, FaGithub } from 'react-icons/fa'
+import { motion } from 'framer-motion'
+import { FaLinkedin, FaGithub, FaEnvelope, FaFileDownload, FaMapMarkerAlt } from 'react-icons/fa'
 
-interface ContactInfo {
-  name: string
-  surname: string
-  title: string
-  phone: string
+interface ContactSectionProps {
   email: string
-  location: string
-  linkedIn: string
+  linkedin: string
   github: string
+  resumePath: string
+  location: string
 }
 
-const ContactSection: React.FC<ContactInfo> = ({
-  name,
-  surname,
-  title,
-  phone,
+const ContactSection: React.FC<ContactSectionProps> = ({
   email,
-  location,
-  linkedIn,
-  github
+  linkedin,
+  github,
+  resumePath,
+  location
 }) => {
-  const [copiedField, setCopiedField] = useState<string | null>(null)
-
-  const copyToClipboard = (text: string, field: string) => {
-    navigator.clipboard.writeText(text)
-    setCopiedField(field)
-    setTimeout(() => setCopiedField(null), 2000) // Reset after 2 seconds
-  }
-
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-8">
-        <h2 className="text-3xl font-bold mb-6 text-center">{name} {surname}</h2>
-        <p className="text-xl text-center mb-8">{title}</p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="space-y-4">
-            <div className="flex items-center">
-              <FaPhone className="mr-4 text-gray-600 dark:text-gray-400" />
-              <button onClick={() => copyToClipboard(phone, 'phone')} className="text-blue-500 hover:underline">{phone}</button>
-              {copiedField === 'phone' && <span className="ml-2 text-green-500 text-sm">Copied!</span>}
-            </div>
-            <div className="flex items-center">
-              <FaEnvelope className="mr-4 text-gray-600 dark:text-gray-400" />
-              <button onClick={() => copyToClipboard(email, 'email')} className="text-blue-500 hover:underline">{email}</button>
-              {copiedField === 'email' && <span className="ml-2 text-green-500 text-sm">Copied!</span>}
-            </div>
+    <section
+      id="contact"
+      className="border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50"
+    >
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-center space-y-8"
+        >
+          {/* Section Title */}
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
+            Get In Touch
+          </h2>
+
+          {/* Contact Links */}
+          <div className="flex flex-wrap justify-center items-center gap-6">
+            {/* Email */}
+            <a
+              href={`mailto:${email}`}
+              className="flex items-center gap-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            >
+              <FaEnvelope className="text-lg" />
+              <span className="text-sm sm:text-base">{email}</span>
+            </a>
+
+            {/* LinkedIn */}
+            <a
+              href={linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            >
+              <FaLinkedin className="text-lg" />
+              <span className="text-sm sm:text-base">LinkedIn</span>
+            </a>
+
+            {/* GitHub */}
+            <a
+              href={github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            >
+              <FaGithub className="text-lg" />
+              <span className="text-sm sm:text-base">GitHub</span>
+            </a>
+
+            {/* Resume Download */}
+            <a
+              href={resumePath}
+              download
+              className="flex items-center gap-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            >
+              <FaFileDownload className="text-lg" />
+              <span className="text-sm sm:text-base">Resume</span>
+            </a>
           </div>
-          <div className="space-y-4">
-            <div className="flex items-center">
-              <FaMapMarkerAlt className="mr-4 text-gray-600 dark:text-gray-400" />
-              <span>{location}</span>
-            </div>
-            <div className="flex space-x-4">
-              <a href={linkedIn} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800">
-                <FaLinkedin size={24} />
-              </a>
-              <a href={github} target="_blank" rel="noopener noreferrer" className="text-gray-800 dark:text-white hover:text-gray-600 dark:hover:text-gray-300">
-                <FaGithub size={24} />
-              </a>
-            </div>
+
+          {/* Location */}
+          <div className="flex items-center justify-center gap-2 text-gray-600 dark:text-gray-400 text-sm">
+            <FaMapMarkerAlt className="text-base" />
+            <span>{location}</span>
           </div>
-        </div>
+
+          {/* Copyright */}
+          <div className="pt-6 border-t border-gray-200 dark:border-gray-800">
+            <p className="text-sm text-gray-500 dark:text-gray-500">
+              © 2024 Vitalii Babynin
+            </p>
+          </div>
+        </motion.div>
       </div>
-    </div>
+    </section>
   )
 }
 
