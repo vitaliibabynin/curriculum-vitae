@@ -15,6 +15,26 @@
 
 ---
 
+## Documentation Structure
+
+Keep `CLAUDE.md` minimal (commands + high-level architecture only). Move detailed technical documentation to `/docs`:
+
+```
+/docs
+├── animations.md         # Framer Motion, GSAP, Lenis patterns and usage
+├── 3d-cube-carousel.md   # CSS 3D transforms, scroll-driven rotation, mobile fallback
+├── smooth-scroll.md      # Lenis + GSAP synchronization setup
+└── components.md         # Component API reference and props
+```
+
+**CLAUDE.md updates:**
+- Update tech stack version (Next.js 16, React 19, Tailwind CSS 4)
+- Update section flow to new 5-section structure
+- Add link: "See `/docs` for detailed technical documentation"
+- Remove any verbose implementation details
+
+---
+
 ## Contact Information
 - **Email:** vitalii.babynin@gmail.com
 - **Location:** Mönchengladbach, Germany
@@ -191,6 +211,14 @@ gsap.ticker.lagSmoothing(0)
 
 ## File Changes
 
+### New Documentation
+| File | Purpose |
+|------|---------|
+| `docs/animations.md` | Framer Motion + GSAP patterns, scroll-triggered animations |
+| `docs/3d-cube-carousel.md` | CSS 3D transforms, perspective, ScrollTrigger integration |
+| `docs/smooth-scroll.md` | Lenis setup, GSAP ticker sync, troubleshooting |
+| `docs/components.md` | Component props, usage examples, server/client boundaries |
+
 ### New Components
 | File | Purpose |
 |------|---------|
@@ -204,6 +232,7 @@ gsap.ticker.lagSmoothing(0)
 ### Modified Files
 | File | Changes |
 |------|---------|
+| `CLAUDE.md` | Update tech stack versions, new 5-section flow, link to `/docs` |
 | `app/data.ts` | New project data, updated title/about, skills as tags (no levels) |
 | `app/page.tsx` | New 5-section layout with new component imports |
 | `app/layout.tsx` | Wrap with SmoothScroll provider |
@@ -244,10 +273,12 @@ Use playwriter or browser DevTools to capture. Ensure the hero/landing view is v
 
 ### Phase 1: Foundation
 1. Install dependencies (`framer-motion`, `gsap`, `lenis`)
-2. Create `smooth-scroll.tsx` with Lenis + GSAP sync
-3. Restructure `app/data.ts` with new data shapes
-4. Update `app/layout.tsx` with SmoothScroll wrapper
-5. Scaffold `app/page.tsx` with new 5-section structure
+2. Create `/docs` folder structure
+3. Create `smooth-scroll.tsx` with Lenis + GSAP sync
+4. Create `docs/smooth-scroll.md` with setup details
+5. Restructure `app/data.ts` with new data shapes
+6. Update `app/layout.tsx` with SmoothScroll wrapper
+7. Scaffold `app/page.tsx` with new 5-section structure
 
 ### Phase 2: Hero
 1. Build `hero-section.tsx` with Framer Motion text reveal
@@ -259,8 +290,9 @@ Use playwriter or browser DevTools to capture. Ensure the hero/landing view is v
 2. Build `project-cube.tsx` with CSS 3D transforms
 3. Build `projects-section.tsx` with GSAP ScrollTrigger pin + scrub
 4. Build `project-card.tsx` for cube face content
-5. Add WeightWatch Original (Unity/WebGL) as separate showcase below cube
-6. Implement mobile fallback (horizontal swipe carousel)
+5. Create `docs/3d-cube-carousel.md` with CSS 3D and scroll-trigger patterns
+6. Add WeightWatch Original (Unity/WebGL) as separate showcase below cube
+7. Implement mobile fallback (horizontal swipe carousel)
 
 ### Phase 4: Experience
 1. Rewrite `experiences-timeline.tsx` — condensed cards, Framer Motion reveals
@@ -271,12 +303,15 @@ Use playwriter or browser DevTools to capture. Ensure the hero/landing view is v
 2. Rewrite `contact-section.tsx` as minimal footer
 3. Update `navigation.tsx` (4 items, Lenis integration, active indicator)
 
-### Phase 6: Polish
+### Phase 6: Polish & Documentation
 1. Dark mode verification across all new components
 2. Mobile responsiveness testing
 3. Performance: `will-change: transform`, lazy image loading
 4. Theme toggle repositioning (into nav or keep floating)
 5. `prefers-reduced-motion` support
+6. Create `docs/animations.md` with Framer Motion patterns
+7. Create `docs/components.md` with component API reference
+8. Update `CLAUDE.md`: new tech stack versions, 5-section flow, link to `/docs`
 
 ---
 
@@ -288,3 +323,5 @@ Use playwriter or browser DevTools to capture. Ensure the hero/landing view is v
 5. Click nav items: smooth scroll to sections via Lenis
 6. `npm run build` — no TypeScript errors, no build warnings
 7. Test on actual mobile device or Chrome DevTools mobile emulation
+8. Verify `/docs` folder has all 4 documentation files
+9. Verify `CLAUDE.md` is concise and links to `/docs`
