@@ -1,9 +1,11 @@
+// Portfolio Data - Single source of truth for all content
+
 export const developerInfo = {
   name: "Vitalii",
   surname: "Babynin",
-  title: "Full Stack Developer",
-  about: "I am a software developer with over 5 years of experience, passionate about learning new technologies and collaborating in team environments. I focus on delivering high-quality, maintainable solutions within deadlines, and I am committed to writing clear and well-documented code.",
-  phone: "+4917632178042",
+  title: "Software Engineer & AI Architect",
+  tagline: "Delivering full-stack solutions through AI-assisted development",
+  about: "I'm a software developer with over 8 years of experience, passionate about building high-quality applications with modern technologies. I specialize in AI-enhanced development, delivering solutions at maximum speed to market while maintaining exceptional code quality.",
   email: "vitalii.babynin@gmail.com",
   location: "Mönchengladbach, Germany",
   linkedIn: "https://www.linkedin.com/in/vitalii-babynin-522085118",
@@ -12,308 +14,221 @@ export const developerInfo = {
   imageUrl: "/images/profile/profile-picture.jpg"
 }
 
-export const experiences = [
+// Projects for the 3D cube carousel
+// Order matters: index 0=front(0°), 1=right(90°), 2=back(180°), 3=left(270°)
+export const projects = [
   {
-    title: "Ai Enhanced Full Stack Developer",
+    id: "shukai",
+    title: "Shukai",
+    description: "Outdoor treasure hunt game platform with event management, team registration, QR code scanning, and leaderboard system.",
+    techStack: ["Next.js", "Convex", "TypeScript", "Tailwind CSS", "i18n"],
+    websiteUrl: "https://www.shukai.eu",
+    screenshotUrlLight: "/images/projects/shukai-light-v5.jpg",
+    screenshotUrlDark: "/images/projects/shukai-dark-v5.jpg",
+    hasDarkMode: true,
+    face: "front" as const
+  },
+  {
+    id: "synergycamp",
+    title: "SynergyCamp / Forest Spirits",
+    description: "Gamified children's camp experience with NFC bracelet scanning, progress tracking, and themed fantasy UI.",
+    techStack: ["Next.js", "TypeScript", "Tailwind CSS", "i18n"],
+    websiteUrl: "https://www.synergycamp.de",
+    screenshotUrlLight: "/images/projects/synergycamp-light-v4.jpg",
+    screenshotUrlDark: "/images/projects/synergycamp-light-v4.jpg",
+    hasDarkMode: false,
+    face: "right" as const
+  },
+  {
+    id: "threejs-industrial",
+    title: "3D Industrial Models",
+    description: "Interactive 3D visualization of industrial installations using Three.js for immersive web experiences.",
+    techStack: ["Three.js", "Next.js", "TypeScript", "Tailwind CSS"],
+    websiteUrl: "https://threejsmvp.vercel.app",
+    githubUrl: "https://github.com/vitaliibabynin/threejsmvp",
+    screenshotUrlLight: "/images/projects/threejs-industrial-light-v5.jpg",
+    screenshotUrlDark: "/images/projects/threejs-industrial-light-v5.jpg",
+    hasDarkMode: false,
+    face: "back" as const
+  },
+  {
+    id: "weightwatch-remaster",
+    title: "WeightWatch Remaster",
+    description: "Diet and weight tracking SaaS with weekly calorie/points tracking, food logging, user auth, and dark/light theme.",
+    techStack: ["Next.js", "Supabase", "TypeScript", "Tailwind CSS", "i18n"],
+    websiteUrl: "https://weightwatch-remaster.vercel.app",
+    screenshotUrlLight: "/images/projects/weightwatch-remaster-light-v4.jpg",
+    screenshotUrlDark: "/images/projects/weightwatch-remaster-dark-v4.jpg",
+    hasDarkMode: true,
+    face: "left" as const
+  }
+]
+
+// Additional project (shown outside cube)
+export const legacyProject = {
+  id: "weightwatch-original",
+  title: "WeightWatch Original",
+  description: "Unity/WebGL mobile weight tracking app - legacy project showcasing mobile development skills.",
+  techStack: ["Unity", "C#", "WebGL"],
+  websiteUrl: "https://vitaliybabynin.github.io/WeightWatchWebGL/index.html",
+  githubUrl: "https://github.com/VitaliyBabynin/WeightWatchWebGL",
+  screenshotUrl: "/images/projects/weightwatch-original-v2.jpg"
+}
+
+// Top 5 experiences (condensed timeline)
+export const topExperiences = [
+  {
+    title: "AI Enhanced Full Stack Developer",
     employer: "Freelance",
-    startDate: "2024-09-06",
-    endDate: "",
+    period: "Sep 2024 – Present",
     location: "Mönchengladbach, Germany",
     workMode: "Remote" as const,
-    description: [
-      "Building custom projects, at maximum speed to market, using the latest available technologies."
-    ],
-    stack: ["Next.js", "Typescript", "Tailwind CSS", "Supabase", "Stripe", "Clerk",
-        "Upstash", "Vercel", "V0", "Claude 3.5 Sonnet", "Cursor", "Bolt.new"],
-    demoLink: "https://threejsmvp.vercel.app/",
-    repoLink: "https://github.com/vitaliibabynin/threejsmvp"
+    description: "Building custom projects at maximum speed to market using latest AI tools and modern frameworks.",
+    stack: ["Next.js", "TypeScript", "Tailwind CSS", "Supabase", "Convex", "Stripe", "Clerk", "Vercel", "Claude", "Cursor"]
   },
   {
     title: "Shopify Web Developer",
     employer: "Freelance",
-    startDate: "2021-03-06",
-    endDate: "2024-09-05",
+    period: "Mar 2021 – Sep 2024",
     location: "Düsseldorf, Germany",
     workMode: "Remote" as const,
-    description: [
-      "Built custom Shopify websites.",
-      "Connected payments, tracking & fulfilment.",
-      "Implemented automated chat bot & phone support",
-      "Created Facebook Ad & email marketing campaigns."
-    ],
-    stack: ["Shopify", "Liquid", "Bootstrap", "HTML", "CSS", "Klaviyo",
-        "CJDropshipping", "Debutify", "GemPages", "Vimeo", "Zapier",
-        "Aftership", "Route", "Loox", "Sweet Upsell", "Yandex Metrics",
-        "Tidio", "TollFreeForwarding", "Facebook Business Manager"]
+    description: "Built custom Shopify websites with payments, tracking, fulfillment, chatbots, and marketing integrations.",
+    stack: ["Shopify", "Liquid", "Bootstrap", "Klaviyo", "Zapier", "Facebook Business Manager"]
   },
   {
     title: "Full Stack Developer",
     employer: "SHR Germany GmbH",
-    startDate: "2021-01-04",
-    endDate: "2021-03-05",
+    period: "Jan 2021 – Mar 2021",
     location: "Hilden, Germany",
     workMode: "On-site" as const,
-    description: [
-      "Created & maintained Prestashop and WooCommerce websites.",
-      "Implemented new design using Bootstrap 5, SCSS.",
-      "Added dark mode using CSS Variables.",
-      "Built custom modules for Prestashop for additional functionality."
-    ],
-    stack: [
-        "Javascript", "jQuery", "PHP/SQL", "MariaDB", "Composer", "Webpack",
-        "Node.js", "HTML", "SASS/SCSS", "Prestashop", "WooCommerce",
-        "Bitbucket", "Sourcetree", "Git", "Jira", "Confluence", "Slack", "Outlook"
-    ]
+    description: "Created and maintained Prestashop/WooCommerce websites with Bootstrap 5, dark mode, and custom modules.",
+    stack: ["JavaScript", "jQuery", "PHP/SQL", "MariaDB", "SASS", "Prestashop", "WooCommerce"]
   },
   {
     title: "Mobile App Developer",
     employer: "SmallDevTeam",
-    startDate: "2016-09-06",
-    endDate: "2021-01-03",
+    period: "Sep 2016 – Jan 2021",
     location: "Kyiv, Ukraine",
     workMode: "Hybrid" as const,
-    description: [
-      "Created the WeightWatching app, to help people manage their diet.",
-      "Developed puzzle and logic games, in English and Russian.",
-      "Used Facebook Graph API to rank players against friends.",
-      "Leveraged in-game currency & Google/Appodeal Ads for monetization."
-    ],
-    stack: [
-        "C#", "Unity", "JavaScript", "jQuery", "React.js", "Node.js",
-        "Cordova", "PhoneGap", "HTML5", "SASS", "CSS", "Git",
-        "Android Studio", "XCode", "Facebook Graph API", "GitLab",
-        "Google Disk", "Todoist", "WakaTime", "Trello"
-    ],
-    images: ["/images/experiences/WeightWatching.jpg", "/images/experiences/FindWords.jpg"],
-    demoLink: "https://vitaliybabynin.github.io/WeightWatchWebGL/index.html",
-    repoLink: "https://github.com/VitaliyBabynin/WeightWatchWebGL"
+    description: "Created WeightWatching app, puzzle/logic games, and Facebook Graph API integrations.",
+    stack: ["C#", "Unity", "React.js", "Cordova", "PhoneGap"]
   },
   {
     title: "Blockchain Developer",
     employer: "Soulestate.io",
-    startDate: "2017-05-06",
-    endDate: "2018-09-06",
+    period: "May 2017 – Sep 2018",
     location: "Kyiv, Ukraine",
     workMode: "Hybrid" as const,
-    description: [
-      "Co-developed and tested a smart contract on the Ethereum blockchain, designed to digitize real estate investment.",
-      "Had a leading role in video ads created to promote the project."
-    ],
-    stack: [
-        "Solidity", "Ethereum", "Git", "Bitbucket", "Slack"
-    ],
+    description: "Developed smart contract on Ethereum for real estate investment digitization.",
+    stack: ["Solidity", "Ethereum"],
     youtubeLink: "https://www.youtube.com/watch?v=Ti0wd2Cbtz0&t=43s"
-  },
+  }
+]
+
+// Additional experiences (expandable)
+export const additionalExperiences = [
   {
     title: "Accounting Automation",
     employer: "Asymmetric Fund",
-    startDate: "2016-03-06",
-    endDate: "2018-08-06",
-    location: "Kyiv, Ukraine",
-    workMode: "Hybrid" as const,
-    description: [
-        "Created and maintained automated accounting of investor funds, using Excel VBA.",
-        "Generated automated fund performance report emails."
-    ],
-    stack: [
-        "Excel VBA"
-    ]
+    period: "2016 – 2018",
+    description: "Created automated accounting systems using Excel VBA for investor fund management."
   },
   {
     title: "General Manager",
     employer: "Soul Apartments",
-    startDate: "2016-03-06",
-    endDate: "2017-06-06",
-    location: "Kyiv, Ukraine",
-    workMode: "Hybrid" as const,
-    description: [
-        "Managed a team, renting out 5 high end apartments, on Airbnb.",
-        "Oversaw the creation of the company website and booking system.",
-        "Automated customer support communications.",
-        "Created tools to coordinate internal tasks such as guest airport pickup."
-    ],
-    stack: ["Wordpress","Stripe", "Airbnb API", "Google Calendar", "Google Maps"],
-    demoLink: "https://soulap.com/"
+    period: "2016 – 2017",
+    description: "Managed Airbnb rentals, company website, booking system, and automated customer support."
   },
   {
     title: "Web Developer",
     employer: "Freelance",
-    startDate: "2016-09-06",
-    endDate: "2017-02-06",
-    location: "Kyiv, Ukraine",
-    workMode: "Remote" as const,
-    description: [
-        "Created neat, modern and reliable websites using proven WordPress templates and plugins.",
-        "Used YouTube and Facebook APIs to display the clients’ social media content."
-    ],
-    stack: ["Wordpress", "Facebook API", "YouTube API"]
+    period: "2016 – 2017",
+    description: "Built WordPress websites with YouTube and Facebook API integrations."
   },
   {
     title: "PHP/SQL Developer",
     employer: "Altima Web Systems",
-    startDate: "2015-02-06",
-    endDate: "2015-05-07",
-    location: "Kyiv, Ukraine",
-    workMode: "On-site" as const,
-    description: [
-        "Built a searchable book directory with user authentication."
-    ],
-    stack: ["Linux", "HTML", "CSS", "PHP", "SQL"]
+    period: "2015",
+    description: "Built a searchable book directory with user authentication."
+  }
+]
+
+// Skills as grouped tags (no percentages)
+export const skillGroups = [
+  {
+    name: "Frontend",
+    skills: ["Next.js", "React.js", "TypeScript", "JavaScript", "HTML", "CSS", "SASS/SCSS", "Tailwind CSS", "Bootstrap", "jQuery"]
   },
-  // ... (rest of the experiences)
+  {
+    name: "Backend",
+    skills: ["Node.js", "PHP", "SQL", "C#"]
+  },
+  {
+    name: "Databases",
+    skills: ["Supabase", "Convex", "MariaDB"]
+  },
+  {
+    name: "DevOps & Tools",
+    skills: ["Git", "Vercel", "Webpack", "Linux", "Android Studio", "XCode"]
+  },
+  {
+    name: "CMS & E-commerce",
+    skills: ["Shopify", "Liquid", "WordPress", "Prestashop", "WooCommerce"]
+  },
+  {
+    name: "APIs & Integrations",
+    skills: ["Stripe", "Clerk", "Upstash", "Facebook API", "YouTube API", "Airbnb API"]
+  },
+  {
+    name: "Game Development",
+    skills: ["Unity", "Cordova", "PhoneGap"]
+  },
+  {
+    name: "Blockchain",
+    skills: ["Solidity", "Ethereum"]
+  },
+  {
+    name: "AI & Tooling",
+    skills: ["Claude", "Cursor", "V0", "Bolt.new"]
+  }
 ]
 
-export const languages = [
-  { name: "English", proficiency: "Native", stars: 5 },
-  { name: "Russian", proficiency: "Native", stars: 5 },
-  { name: "Ukrainian", proficiency: "Native", stars: 5 },
-  { name: "German", proficiency: "A2", stars: 2 },
-  { name: "French", proficiency: "A1", stars: 1.5 },
-]
-
+// Education
 export const educations = [
   {
     institution: "State University of Infrastructure and Technology",
     degree: "Bachelor of Science",
     field: "Computer Science",
-    startYear: 2014,
-    endYear: 2018,
+    period: "2014 – 2018",
     location: "Kyiv, Ukraine",
     logoUrl: "/images/education/duit-logo.jpg"
   },
   {
     institution: "The University of Edinburgh",
     field: "Economics",
-    startYear: 2013,
-    endYear: 2014,
-    location: "Edinburgh, United Kingdom",
+    period: "2013 – 2014",
+    location: "Edinburgh, UK",
     logoUrl: "/images/education/edinburgh-logo.jpg"
   }
 ]
 
-export const skillCategories = [
-  {
-    name: "Frontend",
-    skills: [
-      { name: "Next.js", level: 90 },
-      { name: "React.js", level: 85 },
-      { name: "TypeScript", level: 85 },
-      { name: "JavaScript", level: 90 },
-      { name: "HTML", level: 95 },
-      { name: "CSS", level: 95 },
-      { name: "SASS/SCSS", level: 85 },
-      { name: "Tailwind CSS", level: 80 },
-      { name: "Bootstrap", level: 85 },
-      { name: "jQuery", level: 80 },
-    ]
-  },
-  {
-    name: "Backend",
-    skills: [
-      { name: "Node.js", level: 85 },
-      { name: "PHP", level: 75 },
-      { name: "SQL", level: 80 },
-      { name: "C#", level: 70 },
-    ]
-  },
-  {
-    name: "Databases",
-    skills: [
-      { name: "Supabase", level: 80 },
-      { name: "MariaDB", level: 75 },
-    ]
-  },
-  {
-    name: "DevOps & Tools",
-    skills: [
-      { name: "Git", level: 85 },
-      { name: "Vercel", level: 85 },
-      { name: "Webpack", level: 75 },
-      { name: "Composer", level: 70 },
-      { name: "Linux", level: 75 },
-      { name: "Android Studio", level: 70 },
-      { name: "XCode", level: 65 },
-    ]
-  },
-  {
-    name: "CMS & E-commerce",
-    skills: [
-      { name: "Shopify", level: 90 },
-      { name: "Liquid", level: 85 },
-      { name: "WordPress", level: 80 },
-      { name: "Prestashop", level: 75 },
-      { name: "WooCommerce", level: 75 },
-    ]
-  },
-  {
-    name: "APIs & Integrations",
-    skills: [
-      { name: "Stripe", level: 85 },
-      { name: "Clerk", level: 80 },
-      { name: "Upstash", level: 65 },
-      { name: "Facebook API", level: 75 },
-      { name: "YouTube API", level: 75 },
-      { name: "Airbnb API", level: 70 },
-    ]
-  },
-  {
-    name: "Game Development",
-    skills: [
-      { name: "Unity", level: 75 },
-      { name: "Cordova", level: 70 },
-      { name: "PhoneGap", level: 70 },
-    ]
-  },
-  {
-    name: "Blockchain",
-    skills: [
-      { name: "Solidity", level: 65 },
-      { name: "Ethereum", level: 60 },
-    ]
-  },
-  {
-    name: "AI & Machine Learning",
-    skills: [
-      { name: "Claude 3.5 Sonnet", level: 80 },
-      { name: "V0", level: 75 },
-      { name: "Bolt.new", level: 65 },
-    ]
-  },
-  {
-    name: "Other",
-    skills: [
-      { name: "Excel VBA", level: 75 },
-      { name: "Zapier", level: 70 },
-      { name: "Klaviyo", level: 70 },
-    ]
-  }
+// Languages
+export const languages = [
+  { name: "English", level: "Native" },
+  { name: "Russian", level: "Native" },
+  { name: "Ukrainian", level: "Native" },
+  { name: "German", level: "A2" },
+  { name: "French", level: "A1" }
 ]
 
-export const interests = {
-  description: "In my free time, I like to compose music on the piano and play guitar." +
-  " I also enjoy biking, boating and traveling to explore new places.",
-  imageUrl: "/images/interests/interests-image.jpg"
-}
+// Interests
+export const interests = ["Piano composition", "Guitar", "Biking", "Boating", "Traveling"]
 
-export const caseStudies = [
-  {
-    title: "3D models for industrial installations",
-    shortDescription: "Interactive 3D visualization of industrial installations using Three.js",
-    longDescription: "This project showcases the power of Three.js for creating immersive 3D experiences on the web. It features interactive 3D models of industrial installations, allowing users to explore complex structures in detail. The application demonstrates responsive design and optimized performance for smooth rendering across various devices.",
-    techStack: ["Three.js", "Next.js", "TypeScript", "Tailwind CSS"],
-    websiteUrl: "https://threejsmvp.vercel.app/",
-    githubUrl: "https://github.com/vitaliibabynin/threejsmvp",
-    mobileOnly: false,
-    screenshotUrl: "/images/case-studies/3d-models-screenshot.jpg" // Add this line
-  },
-  {
-    title: "WeightWatch - Keep track of your diet",
-    shortDescription: "A WebGL-based weight tracking and diet management application",
-    longDescription: "WeightWatch is a powerful tool for tracking weight loss progress and managing dietary habits. It utilizes WebGL for smooth, interactive graphs and provides insightful analytics to help users achieve their fitness goals. The application features a user-friendly interface, customizable goal setting, and comprehensive data visualization to support users in their health journey.",
-    techStack: ["WebGL", "Unity", "C#"],
-    websiteUrl: "https://vitaliybabynin.github.io/WeightWatchWebGL/index.html",
-    githubUrl: "https://github.com/VitaliyBabynin/WeightWatchWebGL",
-    mobileOnly: true,
-    screenshotUrl: "/images/experiences/WeightWatching.jpg" // Add this line
-  }
-];
+// Navigation items (new 5-section structure)
+export const navItems = [
+  { name: 'Home', id: 'hero' },
+  { name: 'Projects', id: 'projects' },
+  { name: 'Experience', id: 'experience' },
+  { name: 'About', id: 'about' },
+  { name: 'Contact', id: 'contact' }
+]

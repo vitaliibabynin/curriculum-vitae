@@ -52,6 +52,7 @@ next-env.d.ts
 
 # screenshots
 public/screenshots
+/screenshots
 
 # playwright
 .playwright-mcp

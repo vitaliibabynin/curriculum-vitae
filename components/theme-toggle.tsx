@@ -5,34 +5,56 @@ import { FaSun, FaMoon } from 'react-icons/fa'
 
 const ThemeToggle = () => {
   const [darkMode, setDarkMode] = useState(false)
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    // Check localStorage for saved theme preference
+    setMounted(true)
+    // Check localStorage for saved theme preference or system preference
     const savedTheme = localStorage.getItem('theme')
-    if (savedTheme === 'dark') {
-      setDarkMode(true)
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+    
+    const shouldBeDark = savedTheme === 'dark' || (!savedTheme && systemPrefersDark)
+    
+    setDarkMode(shouldBeDark)
+    if (shouldBeDark) {
       document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
     }
   }, [])
 
   const toggleTheme = () => {
-    setDarkMode(!darkMode)
-    if (darkMode) {
-      document.documentElement.classList.remove('dark')
-      localStorage.setItem('theme', 'light')
-    } else {
+    const newDarkMode = !darkMode
+    setDarkMode(newDarkMode)
+    
+    if (newDarkMode) {
       document.documentElement.classList.add('dark')
       localStorage.setItem('theme', 'dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+      localStorage.setItem('theme', 'light')
     }
+  }
+
+  // Prevent hydration mismatch
+  if (!mounted) {
+    return (
+      <button
+        className="p-2 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors"
+        aria-label="Toggle theme"
+      >
+        <FaMoon size={18} />
+      </button>
+    )
   }
 
   return (
     <button
       onClick={toggleTheme}
-      className="p-2 rounded-full bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200"
+      className="p-2 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
       aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
     >
-      {darkMode ? <FaSun size={20} /> : <FaMoon size={20} />}
+      {darkMode ? <FaSun size={18} /> : <FaMoon size={18} />}
     </button>
   )
 }

@@ -1,46 +1,88 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
-## Commands
+## Quick Commands
 
 ```bash
-npm run dev      # Start development server at localhost:3000
-npm run build    # Build for production
-npm run lint     # Run ESLint
-npm run start    # Start production server
+# Development
+npm run dev          # Start dev server (port 3000)
+
+# Build
+npm run build        # Production build
+npm run start        # Start production server
+
+# Lint
+npm run lint         # Run ESLint
 ```
+
+## Tech Stack
+
+- Next.js 16 (App Router)
+- React 19
+- TypeScript 5
+- Tailwind CSS 4
+- Framer Motion
+- GSAP + ScrollTrigger
+- Lenis (smooth scroll)
 
 ## Architecture
 
-This is a Next.js 14 developer portfolio website using the App Router. It's a single-page application with smooth scrolling between sections.
+### Section Structure (5 sections)
 
-### Project Structure
+```
+Navigation (fixed, 5 items + logo)
+├── 1. Hero          #about - Full viewport, name + tagline
+├── 2. Projects      #projects - 3D cube carousel
+├── 3. Experience    #experience - Animated timeline
+├── 4. About         #about - Skills, education, languages
+└── 5. Contact       #contact - Footer with links
+```
 
-- **`/app`** - Next.js App Router pages and layouts
-  - `page.tsx` - Main entry point composing all sections
-  - `layout.tsx` - Root layout with fonts and BackgroundEffect
-  - `data.ts` - All portfolio data (developer info, experiences, skills, education, etc.)
-- **`/components`** - React components (kebab-case naming: `example-component.tsx`)
-- **`/public`** - Static assets (images, resume PDF)
+### File Structure
 
-### Key Patterns
+```
+app/
+├── page.tsx              # Main page with 5 sections
+├── layout.tsx            # Root layout with SmoothScroll
+├── data.ts               # All portfolio content
+└── globals.css           # Tailwind + global styles
 
-- **Data-driven**: All content lives in `app/data.ts` - modify this file to update portfolio content
-- **Server/Client split**: Page components are server-side; interactive components use `'use client'` directive
-- **Theme support**: Light/dark themes via `theme-toggle.tsx`, persisted to localStorage
-- **3D Background**: `background-effect.tsx` renders animated particle background in layout
+components/
+├── navigation.tsx        # Fixed header with Lenis scroll
+├── hero-section.tsx      # Text animations, particle bg
+├── projects-section.tsx  # Cube + legacy project
+├── project-cube.tsx      # 3D CSS carousel
+├── experiences-timeline.tsx # Animated timeline
+├── about-section.tsx     # Skills, education, languages
+├── contact-section.tsx   # Footer
+├── background-effect.tsx # Canvas particles
+├── smooth-scroll.tsx     # Lenis + GSAP sync
+└── theme-toggle.tsx      # Light/dark toggle
 
-### Sections Flow (in page.tsx)
+docs/
+├── animations.md         # Framer Motion + GSAP patterns
+├── 3d-cube-carousel.md   # CSS 3D transforms
+├── smooth-scroll.md      # Lenis setup
+└── components.md         # Component API reference
 
-Navigation → DeveloperCard → CaseStudies → Experience → Education → Languages → Skills → Interests → Contact
+public/images/projects/   # Project screenshots
+```
 
-### Styling
+## Key Dependencies
 
-- Tailwind CSS for all styling
-- Dark mode via Tailwind's `dark:` variant
-- Geist font family (local fonts in `/app/fonts`)
+```bash
+npm install framer-motion gsap lenis
+```
 
-### Type Definitions
+## Development Notes
 
-TypeScript interfaces are defined inline in `data.ts` via type inference. Work modes are typed as const assertions (e.g., `"Remote" as const`).
+- All interactive components use `'use client'`
+- Data-driven from `app/data.ts`
+- Dark mode via `dark` class on `html`
+- Smooth scroll via Lenis (see `docs/smooth-scroll.md`)
+
+## Documentation
+
+See `/docs` for detailed technical documentation:
+- Animation patterns
+- 3D cube implementation
+- Component APIs
