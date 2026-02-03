@@ -51,7 +51,7 @@ export default function BackgroundEffect() {
     }
 
     const createParticles = () => {
-      const colors = getThemeColors()
+      getThemeColors() // Update isDarkRef
       const particles: Particle[] = []
       
       for (let i = 0; i < PARTICLE_COUNT; i++) {

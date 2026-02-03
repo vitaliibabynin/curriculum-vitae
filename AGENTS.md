@@ -33,7 +33,9 @@ This is a **personal developer portfolio website** for Vitalii Babynin, a Softwa
 - `kill-port` - Used in dev script to free port 3000
 
 ### Dev Dependencies
-- ESLint 9 with Next.js configs
+- ESLint 9 with flat config
+- @next/eslint-plugin-next
+- @typescript-eslint/eslint-plugin & parser
 - Playwriter (for MCP integration)
 - TypeScript type definitions
 
@@ -243,6 +245,7 @@ The `background-effect.tsx` component renders an animated particle system:
 | `components/smooth-scroll.tsx` | Scroll provider | Lenis + GSAP sync |
 | `app/globals.css` | Global styles | Tailwind imports, CSS variables, animations |
 | `tailwind.config.ts` | Theme config | Custom animations, dark mode |
+| `eslint.config.mjs` | ESLint config | Flat config for ESLint v9+ |
 
 ## Static Assets
 
@@ -276,6 +279,12 @@ All static files in `/public`:
 
 ### Port already in use
 The dev script uses `kill-port` to free port 3000 automatically.
+
+### ESLint flat config issues
+ESLint v9+ uses flat config format (`eslint.config.mjs`):
+- Uses `@next/eslint-plugin-next` directly
+- Includes `@typescript-eslint` plugin and parser
+- Run `npx eslint .` directly for better error messages
 
 ### TypeScript errors
 - Check `tsconfig.json` includes all relevant files
@@ -322,6 +331,9 @@ const ROTATION_TO_INDEX: Record<number, number> = {
 | `react-icons` | Icon components |
 | `tailwindcss` | Utility-first CSS |
 | `@tailwindcss/postcss` | PostCSS integration |
+| `@next/eslint-plugin-next` | Next.js ESLint rules |
+| `@typescript-eslint/eslint-plugin` | TypeScript ESLint rules |
+| `@typescript-eslint/parser` | TypeScript parser |
 | `kill-port` | Dev utility |
 | `playwriter` | Browser automation (MCP) |
 
@@ -335,5 +347,5 @@ See `/docs` folder for detailed technical documentation:
 
 ---
 
-**Last Updated**: 2026-02-03
+**Last Updated**: 2026-02-04
 **Maintainer**: Vitalii Babynin

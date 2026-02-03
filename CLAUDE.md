@@ -11,7 +11,8 @@ npm run build        # Production build
 npm run start        # Start production server
 
 # Lint
-npm run lint         # Run ESLint
+npm run lint         # Run ESLint (Next.js wrapper)
+npx eslint .         # Run ESLint directly (flat config)
 ```
 
 ## Tech Stack
