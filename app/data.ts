@@ -37,17 +37,16 @@ export const projects = [
     screenshotUrlLight: "/images/projects/synergycamp-light-v4.jpg",
     screenshotUrlDark: "/images/projects/synergycamp-light-v4.jpg",
     hasDarkMode: false,
-    face: "right" as const
+    face: "left" as const
   },
   {
-    id: "threejs-industrial",
-    title: "3D Industrial Models",
-    description: "Interactive 3D visualization of industrial installations using Three.js for immersive web experiences.",
-    techStack: ["Three.js", "Next.js", "TypeScript", "Tailwind CSS"],
-    websiteUrl: "https://threejsmvp.vercel.app",
-    githubUrl: "https://github.com/vitaliibabynin/threejsmvp",
-    screenshotUrlLight: "/images/projects/threejs-industrial-light-v5.jpg",
-    screenshotUrlDark: "/images/projects/threejs-industrial-light-v5.jpg",
+    id: "wealthgame",
+    title: "Wealth Game",
+    description: "Interactive financial education game teaching teens real-world money skills: investing, taxes, business building, and wealth management through 40-turn simulation with real market data.",
+    techStack: ["Next.js", "TypeScript", "Tailwind CSS", "i18n"],
+    websiteUrl: "https://wealthgame-five.vercel.app",
+    screenshotUrlLight: "/images/projects/wealthgame-dark-v1.png",
+    screenshotUrlDark: "/images/projects/wealthgame-dark-v1.png",
     hasDarkMode: false,
     face: "back" as const
   },
@@ -60,7 +59,7 @@ export const projects = [
     screenshotUrlLight: "/images/projects/weightwatch-remaster-light-v4.jpg",
     screenshotUrlDark: "/images/projects/weightwatch-remaster-dark-v4.jpg",
     hasDarkMode: true,
-    face: "left" as const
+    face: "right" as const
   }
 ]
 

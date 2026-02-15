@@ -17,12 +17,13 @@ const facePositions = {
 }
 
 // Map rotation angles to project indices
-// Cube rotates clockwise (positive rotation), so:
-// 0° -> front (Shukai), 90° -> right (SynergyCamp), 180° -> back (3D Industrial), 270° -> left (WeightWatch)
+// Cube rotates clockwise (positive rotation). Due to CSS 3D transforms,
+// at +90° the left face becomes visible, at +270° the right face becomes visible:
+// 0° -> front (Shukai), 90° -> left (SynergyCamp), 180° -> back (Wealth Game), 270° -> right (WeightWatch)
 const ROTATION_TO_INDEX: Record<number, number> = {
   0: 0,    // front - Shukai
   90: 1,   // right - SynergyCamp
-  180: 2,  // back - 3D Industrial
+  180: 2,  // back - Wealth Game
   270: 3,  // left - WeightWatch
 }
 
@@ -195,9 +196,9 @@ export default function ProjectCube() {
               <FaExternalLinkAlt size={14} />
               Visit Site
             </a>
-            {activeProject.githubUrl && (
+            {(activeProject as { githubUrl?: string }).githubUrl && (
               <a
-                href={activeProject.githubUrl}
+                href={(activeProject as { githubUrl?: string }).githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-900 transition-colors"
@@ -309,9 +310,9 @@ export default function ProjectCube() {
                 <FaExternalLinkAlt size={12} />
                 Visit Site
               </a>
-              {activeProject.githubUrl && (
+              {(activeProject as { githubUrl?: string }).githubUrl && (
                 <a
-                  href={activeProject.githubUrl}
+                  href={(activeProject as { githubUrl?: string }).githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"

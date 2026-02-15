@@ -72,21 +72,23 @@ ScrollTrigger.create({
 
 ## Face Configuration
 
-| Face | Rotation | Project | Index | Progress Line |
-|------|----------|---------|-------|---------------|
+| CSS Face | Rotation | Project | Index | Progress Line |
+|----------|----------|---------|-------|---------------|
 | Front | 0° | Shukai | 0 | 1st (left) |
-| Right | 90° | SynergyCamp | 1 | 2nd |
-| Back | 180° | 3D Industrial Models | 2 | 3rd |
-| Left | 270° | WeightWatch Remaster | 3 | 4th (right) |
+| Left | 90° | SynergyCamp | 1 | 2nd |
+| Back | 180° | Wealth Game | 2 | 3rd |
+| Right | 270° | WeightWatch Remaster | 3 | 4th (right) |
+
+Note: Due to CSS 3D transforms, a positive +90° rotation makes the **left** face visible (not the right). The `face` property in `data.ts` assigns projects to CSS positions accordingly.
 
 ### Rotation to Index Mapping
 
 ```typescript
 const ROTATION_TO_INDEX: Record<number, number> = {
   0: 0,    // front - Shukai
-  90: 1,   // right - SynergyCamp
-  180: 2,  // back - 3D Industrial
-  270: 3,  // left - WeightWatch
+  90: 1,   // left - SynergyCamp
+  180: 2,  // back - Wealth Game
+  270: 3,  // right - WeightWatch
 }
 ```
 
@@ -111,9 +113,9 @@ The 4 lines under the cube indicate the current face:
 
 - Lines fill left to right as user scrolls down
 - Line 1: Shukai (front face at 0°)
-- Line 2: SynergyCamp (right face at 90°)
-- Line 3: 3D Industrial (back face at 180°)
-- Line 4: WeightWatch (left face at 270°)
+- Line 2: SynergyCamp (left face at 90°)
+- Line 3: Wealth Game (back face at 180°)
+- Line 4: WeightWatch (right face at 270°)
 
 ## Mobile Fallback
 
