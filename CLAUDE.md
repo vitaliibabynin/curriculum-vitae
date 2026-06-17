@@ -26,7 +26,7 @@ Each subfolder's `CLAUDE.md` owns the conventions for that folder. Read it befor
 
 ```bash
 cd web
-npm run dev          # dev server (kills port 3000, then next dev)
+npm run dev          # dev server (next dev; auto-picks a free port if 3000 is busy)
 npm run build        # production build
 npm run start        # serve the production build
 npm run lint         # ESLint (flat config, eslint.config.mjs)

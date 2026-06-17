@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { FaEnvelope, FaLinkedin, FaGithub, FaMapMarkerAlt } from 'react-icons/fa'
+import { FaEnvelope, FaLinkedin, FaGithub, FaFileDownload, FaMapMarkerAlt } from 'react-icons/fa'
 import { developerInfo } from '../app/data'
 
 const containerVariants = {
@@ -86,6 +86,18 @@ export default function ContactSection() {
             >
               <FaGithub className="text-gray-800 dark:text-gray-200" />
               GitHub
+            </motion.a>
+
+            <motion.a
+              variants={itemVariants}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              href={developerInfo.resumeUrl}
+              download
+              className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-full shadow-sm dark:shadow-gray-900/20 hover:shadow-md dark:hover:shadow-gray-900/30 hover:bg-blue-700 transition-all"
+            >
+              <FaFileDownload />
+              Resume
             </motion.a>
           </motion.div>
 

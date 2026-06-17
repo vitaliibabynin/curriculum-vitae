@@ -7,7 +7,7 @@ this folder** (`cd web`). Repo-level docs/plans/strategy and the Claude harness 
 ## Quick commands
 
 ```bash
-npm run dev          # dev server (kills port 3000, then next dev)
+npm run dev          # dev server (next dev; auto-picks a free port if 3000 is busy)
 npm run build        # production build
 npm run start        # serve the production build
 npm run lint         # ESLint (flat config, eslint.config.mjs)
@@ -59,6 +59,8 @@ components/
 
 public/images/projects/    # Selected Work screenshots
 public/images/education/    # Institution logos
+public/resume/             # resume.pdf (live, Resume-button target) + archive/ (versioned old PDFs) + README
+resume-src/                # HTML source for resume.pdf + regeneration steps (not served; rendered to public/)
 ```
 
 Technical reference docs live at the **repo root** `docs/` (`animations.md`, `skills-globe.md`,

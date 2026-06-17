@@ -97,7 +97,7 @@ See `docs/3d-cube-carousel.md` for the cube implementation if you revive it.
 
 **Features:**
 - Centered footer layout
-- Email, LinkedIn, GitHub links (Resume button hidden until the PDF is regenerated)
+- Email, LinkedIn, GitHub links + a filled-blue **Resume** download button (`/resume/resume.pdf`; generated from `web/resume-src/`)
 - Location display
 - Copyright notice
 

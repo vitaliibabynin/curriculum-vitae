@@ -10,7 +10,7 @@ export const developerInfo = {
   location: "Mönchengladbach, Germany",
   linkedIn: "https://www.linkedin.com/in/vitalii-babynin-522085118",
   github: "https://github.com/vitaliibabynin",
-  // STALE — regenerate from cv-full.md before re-enabling. Resume button is hidden in contact-section.tsx for now.
+  // Live two-page CV — generated from cv-full.md via web/resume-src/. Stable URL; old versions in public/resume/archive/.
   resumeUrl: "/resume/resume.pdf",
   imageUrl: "/images/profile/profile-picture.jpg"
 }

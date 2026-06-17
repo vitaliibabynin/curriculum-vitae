@@ -20,8 +20,10 @@ Navigation (fixed)
 ```
 
 The old 3D project **cube** lives in `components/playground-section.tsx` / `project-cube.tsx` — **kept but not
-rendered** (relocated during the skills-globe rebuild; may return as a "Playground" section later). The resume
-button is currently hidden (stale PDF, to regenerate).
+rendered** (relocated during the skills-globe rebuild; may return as a "Playground" section later). The Contact
+section's **Resume** button is live again (2026-06-17): it links to `/resume/resume.pdf`, a two-page ATS-friendly
+CV generated from the career KB's `cv-full.md`. Source + regeneration steps live in `web/resume-src/`; superseded
+PDFs are versioned under `web/public/resume/archive/` (see that folder's `README.md`).
 
 ## Repo structure (post harness-upgrade, 2026-06-17)
 

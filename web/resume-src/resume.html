@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Vitalii Babynin — CV</title>
+<style>
+  /* ATS-friendly: single column, standard fonts, real selectable text, logical order.
+     Print geometry controlled here; rendered to PDF via headless Chrome (see README.md). */
+  @page {
+    size: A4;
+    margin: 12mm 14mm;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    color: #111;
+    background: #fff;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 10.3pt;
+    line-height: 1.29;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  a { color: #111; text-decoration: none; }
+
+  header { margin-bottom: 8pt; }
+  h1 {
+    font-size: 21pt;
+    margin: 0 0 1pt 0;
+    letter-spacing: 0.3pt;
+  }
+  .title {
+    font-size: 11pt;
+    font-weight: bold;
+    margin: 0 0 3pt 0;
+  }
+  .contact {
+    font-size: 9pt;
+    color: #333;
+    margin: 0;
+  }
+  .contact span { white-space: nowrap; }
+
+  h2 {
+    font-size: 10.5pt;
+    text-transform: uppercase;
+    letter-spacing: 0.6pt;
+    border-bottom: 1px solid #999;
+    padding-bottom: 2pt;
+    margin: 9pt 0 5pt 0;
+  }
+
+  p { margin: 0 0 5pt 0; }
+  ul { margin: 0 0 5pt 0; padding-left: 15pt; }
+  li { margin: 0 0 2.5pt 0; }
+
+  .summary { margin-bottom: 2pt; }
+
+  /* Experience / project entries: keep each block together across the page break. */
+  .entry { margin-bottom: 5pt; page-break-inside: avoid; }
+  .entry-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10pt;
+  }
+  .entry-role { font-weight: bold; }
+  .entry-meta { font-size: 9pt; color: #444; white-space: nowrap; }
+  .entry-sub { font-style: italic; color: #333; font-size: 9.5pt; margin: 0 0 2pt 0; }
+  .entry-body { margin: 0; }
+
+  .proj { margin-bottom: 4.5pt; page-break-inside: avoid; }
+  .proj .name { font-weight: bold; }
+  .proj .tag { font-style: italic; color: #444; }
+
+  .skills b { display: inline-block; min-width: 0; }
+  .skills p { margin-bottom: 3pt; }
+
+  .two-col {
+    /* compact lists that read fine as text but save vertical space */
+    margin: 0 0 5pt 0;
+  }
+  .muted { color: #444; }
+  h2 { page-break-after: avoid; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Vitalii Babynin</h1>
+  <p class="title">Software Engineer &amp; AI Architect</p>
+  <p class="contact">
+    Mönchengladbach, Germany · Authorized to work in Germany / EU &nbsp;|&nbsp;
+    <span>vitalii.babynin@gmail.com</span> &nbsp;|&nbsp;
+    <span><a href="https://www.linkedin.com/in/vitalii-babynin-522085118">linkedin.com/in/vitalii-babynin</a></span> &nbsp;|&nbsp;
+    <span><a href="https://github.com/vitaliibabynin">github.com/vitaliibabynin</a></span> &nbsp;|&nbsp;
+    <span><a href="https://vitaliibabynin.com">vitaliibabynin.com</a></span>
+  </p>
+</header>
+
+<section>
+  <h2>Summary</h2>
+  <p class="summary">AI-native full-stack engineer with a decade building software (professionally since 2015),
+  the last two years focused on building LLM-powered products end-to-end as sole senior technical lead. I design
+  and operate systems that turn <b>voice, text and documents into structured, auditable data</b> — OCR/extraction
+  pipelines, voice/chat agents, semantic search, multi-tenant SaaS and offline-first mobile — built to real
+  governance standards (GDPR, HIPAA-architected, EU data residency, audit logging, privacy-first/local LLMs).
+  Comfortable from architecture through deployment to operations across the Azure and Convex/Vercel stacks.
+  UK-educated (Winchester College), native English.</p>
+</section>
+
+<section>
+  <h2>Core Competencies</h2>
+  <ul>
+    <li><b>AI / LLM engineering:</b> document extraction &amp; OCR → structured data (Azure Document Intelligence,
+      Claude Vision, langextract); voice agents (Retell AI); semantic/vector search &amp; RAG (Azure AI Search,
+      embeddings, ChromaDB); multi-model orchestration (Claude · GPT · Gemini); local/on-prem LLMs for privacy
+      (LM Studio, Hermes, ComfyUI); custom MCP servers.</li>
+    <li><b>Full-stack:</b> Next.js / React / React Native (Expo), TypeScript, Tailwind; Convex, Supabase, FastAPI,
+      Node.js, Prisma, Azure SQL, DuckDB; Python.</li>
+    <li><b>Cloud &amp; integration:</b> Azure (App Service, Entra ID SSO, Graph API + webhooks, AI Search, Document
+      Intelligence, Foundry/GPT-4o), GCloud, Vercel, RunPod; Stripe, Clerk, Resend.</li>
+    <li><b>Governance:</b> HIPAA &amp; GDPR architectures, multi-tenant isolation, encryption, audit logging,
+      EU-only residency, secure credential handling.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Selected Projects</h2>
+
+  <p class="proj"><span class="name">Robot Army HQ</span> — multi-tenant AI-receptionist SaaS. Retell voice + chat
+  agent capturing booking requests, auto-generated per-prospect demo sites, Stripe billing, Clerk auth, real
+  server-side multi-tenant isolation; architected toward HIPAA/GDPR. Next.js/React 19, Convex, Anthropic SDK.</p>
+
+  <p class="proj"><span class="name">FastPermits</span> <span class="tag">(co-founded)</span> — AI building-permit
+  compliance: parses permits and architectural floor plans (rooms, windows, dimensions), checks them against
+  scraped building codes, flags violations. Multi-model document-parsing pipelines.</p>
+
+  <p class="proj"><span class="name">IPC platform</span> — working prototypes on an EU Azure tenant: an
+  expert-management system (Azure DI OCR + GPT-4o extraction, semantic CV search via Azure AI Search, ToR→expert
+  matching, SharePoint read/write via Graph + webhooks, Entra SSO); a governed tender pipeline (approval workflow,
+  append-only audit log, GDPR redaction, Azure OpenAI Foundry); and a Claude-based proposal-writing cockpit
+  (15-step gated workflow, QC, DOCX/Excel export).</p>
+
+  <p class="proj"><span class="name">Document Sorter</span> — Claude Vision tool that auto-organizes piles of messy
+  scanned documents: extraction, dedup, normalization, cross-batch reconciliation, confidence-scored matching.</p>
+
+  <p class="proj"><span class="name">Shukai</span> <span class="tag">(in production, shukai.eu)</span> — treasure-hunt
+  event platform: live web app plus an in-development React Native/Expo mobile app with AR and offline-first sync
+  (PowerSync + Supabase), role-based access, admin approval workflows, i18n — for events in poor-connectivity areas.</p>
+
+  <p class="proj"><span class="name">Leads Database</span> — 35-step outbound data pipeline over 1.5B+ records
+  (DuckDB) with multi-model AI orchestration (GPT + Gemini) under cost constraints.</p>
+
+  <p class="proj"><span class="name">Financier</span> <span class="tag">(in production, financier.site)</span> —
+  multi-exchange/account finance dashboard (CCXT, Convex, encrypted credentials, time-series snapshots, 20+ ADRs).</p>
+
+  <p class="proj"><span class="name">Organizer</span> — privacy-first Outlook/file CLI using Microsoft Graph API with
+  a local LLM (no cloud), DPAPI-secured, read-only audits before mutations.</p>
+</section>
+
+<section>
+  <h2>Professional Experience</h2>
+
+  <div class="entry">
+    <div class="entry-head">
+      <span class="entry-role">Chirayou GmbH — Senior Software Engineer &amp; Head of AI Development</span>
+      <span class="entry-meta">May 2026 – present</span>
+    </div>
+    <p class="entry-sub">Königswinter, Germany (remote, reports to CTO) · Health-tech</p>
+    <p class="entry-body">Leads AI-assisted development across the company's digital products (app, backend, website),
+    implements AI functionality into the product, and builds marketing-automation and AI-driven internal workflows
+    that cut manual work. (Internal specifics under NDA.)</p>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head">
+      <span class="entry-role">Robot Army — Founder &amp; Technical Lead</span>
+      <span class="entry-meta">Sep 2024 – present</span>
+    </div>
+    <p class="entry-sub">Independent AI software practice · Mönchengladbach, Germany (remote)</p>
+    <p class="entry-body">Architects, builds, deploys and operates production AI products end-to-end as sole senior
+    technical lead: voice/chat agents, document-extraction pipelines, multi-tenant SaaS, semantic search,
+    offline-first mobile. Next.js/React/React Native, TypeScript, Convex, Clerk, Stripe, Azure &amp; GCloud,
+    Python; Claude/GPT/Gemini + local models. (See Selected Projects.)</p>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head">
+      <span class="entry-role">Freelance — Shopify Web Developer</span>
+      <span class="entry-meta">Mar 2021 – Sep 2024</span>
+    </div>
+    <p class="entry-sub">Düsseldorf / Mönchengladbach, Germany (remote)</p>
+    <p class="entry-body">Built custom Shopify storefronts with payments, tracking, fulfilment and automated
+    chat/phone support; ran Facebook-ad and Klaviyo email campaigns. End-to-end DTC operator (sourcing →
+    acquisition → retention).</p>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head">
+      <span class="entry-role">SmallDevTeam — Mobile Application Developer</span>
+      <span class="entry-meta">Sep 2016 – Jan 2021</span>
+    </div>
+    <p class="entry-sub">Kyiv, Ukraine</p>
+    <p class="entry-body">Built the WeightWatching diet app and several puzzle/logic games (EN/RU); Facebook Graph API
+    leaderboards; in-app currency + ad monetization. C#, Unity, React.js, Node.js, Cordova/PhoneGap.</p>
+  </div>
+
+  <div class="entry">
+    <div class="entry-head">
+      <span class="entry-role">Earlier roles</span>
+      <span class="entry-meta">2015 – 2021</span>
+    </div>
+    <p class="entry-body muted">
+      <b>SHR Germany GmbH</b> — Full Stack Developer (2021): Prestashop/WooCommerce, SCSS redesign, custom modules. ·
+      <b>Soulestate.io</b> — Blockchain Developer (2017–2018): Ethereum smart contract for real-estate tokenization. ·
+      <b>Asymmetric Fund</b> — Accounting Technician (2016–2018): automated investor-fund accounting in Excel VBA. ·
+      <b>Soul Apartments</b> — General Manager (2016–2017): ran a 5-apartment Airbnb operation + booking system. ·
+      <b>Altima Web Systems</b> — PHP/SQL Developer (2015): searchable book directory with auth — first professional
+      dev role.
+    </p>
+  </div>
+</section>
+
+<section>
+  <h2>Education</h2>
+  <ul class="two-col">
+    <li><b>BSc, Computer Science</b> — State University of Infrastructure and Technology, Kyiv, Ukraine (2014–2018)</li>
+    <li>Economics (MA, first year) — The University of Edinburgh, UK (2013–2014); Economics (BSc, first year) —
+      Queen Mary University of London, UK (2012–2013)</li>
+    <li><b>Winchester College</b>, Hampshire, UK — independent boarding school, High School Diploma (2007–2012)</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Assessments &amp; Credentials</h2>
+  <p>Verified skill assessments (TestGorilla, 2026, valid to 2028): Communication <b>95th percentile</b> ·
+  Problem Solving <b>89th percentile</b> · Time Management <b>85th percentile</b>. LinkedIn skill assessment:
+  CSS (passed). Capability is otherwise evidenced by the shipped production systems above.</p>
+</section>
+
+<section>
+  <h2>Skills</h2>
+  <div class="skills">
+    <p><b>Languages:</b> TypeScript/JavaScript, Python, C#, PHP, SQL, Solidity, VBA, HTML/CSS/SASS.</p>
+    <p><b>Frontend:</b> Next.js, React, React Native/Expo, Tailwind, shadcn/ui, Three.js, Recharts.</p>
+    <p><b>Backend / data:</b> Convex, Supabase, PowerSync, FastAPI, Node.js, Prisma, Azure SQL, DuckDB.</p>
+    <p><b>AI / ML:</b> Claude (Vision), GPT, Gemini; Azure Document Intelligence, Azure AI Search, embeddings/RAG,
+      ChromaDB; Retell voice agents; local LLMs (LM Studio, Hermes, ComfyUI); MCP servers; Flux/Stable Diffusion, RunPod.</p>
+    <p><b>Cloud / DevOps:</b> Azure (App Service, Entra ID, Graph API, AI Search, Document Intelligence, Foundry),
+      GCloud, Vercel, RunPod, Hyper-V, Git, EAS.</p>
+    <p><b>Auth / payments / integrations:</b> Clerk, Entra ID/MSAL, Stripe, Resend, CCXT, Apify, Firecrawl, Serper.</p>
+    <p><b>Compliance:</b> HIPAA, GDPR, multi-tenant isolation, audit logging, EU residency, privacy-first/local processing.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Languages</h2>
+  <p>English (native) · Ukrainian (native) · Russian (native) · German (A2) · French (A1).</p>
+</section>
+
+</body>
+</html>
