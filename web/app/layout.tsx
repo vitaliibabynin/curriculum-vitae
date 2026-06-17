@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import BackgroundEffect from '../components/background-effect'
@@ -28,6 +28,18 @@ export const metadata: Metadata = {
     description: "Full-stack developer delivering solutions through AI-assisted development.",
     type: "website",
   },
+  appleWebApp: {
+    capable: true,
+    title: "Vitalii B.",
+    statusBarStyle: "black-translucent",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+  ],
 };
 
 export default function RootLayout({
