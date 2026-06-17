@@ -2,8 +2,8 @@
 
 import { motion } from 'framer-motion'
 import Image from 'next/image'
-import { FaGraduationCap, FaGlobe, FaHeart } from 'react-icons/fa'
-import { developerInfo, skillGroups, educations, languages, interests } from '../app/data'
+import { FaGraduationCap, FaGlobe, FaHeart, FaAward } from 'react-icons/fa'
+import { developerInfo, skillGroups, educations, languages, interests, credentials } from '../app/data'
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -68,6 +68,8 @@ export default function AboutSection() {
                   src={developerInfo.imageUrl}
                   alt={`${developerInfo.name} ${developerInfo.surname}`}
                   fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 384px"
                   className="object-cover"
                 />
               </div>
@@ -140,13 +142,18 @@ export default function AboutSection() {
                     variants={itemVariants}
                     className="flex gap-4 p-4 rounded-xl bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-gray-900/20"
                   >
-                    <div className="relative w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600">
-                      <Image
-                        src={edu.logoUrl}
-                        alt={edu.institution}
-                        fill
-                        className="object-cover"
-                      />
+                    <div className="relative w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 flex items-center justify-center">
+                      {edu.logoUrl ? (
+                        <Image
+                          src={edu.logoUrl}
+                          alt={edu.institution}
+                          fill
+                          sizes="64px"
+                          className="object-contain p-1.5"
+                        />
+                      ) : (
+                        <FaGraduationCap className="text-blue-500 dark:text-blue-400" size={24} />
+                      )}
                     </div>
                     <div className="flex-1">
                       <h4 className="font-semibold text-gray-900 dark:text-white">
@@ -155,6 +162,11 @@ export default function AboutSection() {
                       <p className="text-sm text-gray-600 dark:text-gray-300">
                         {edu.degree && `${edu.degree}, `}{edu.field}
                       </p>
+                      {edu.note && (
+                        <p className="text-xs text-gray-500 dark:text-gray-400 italic mt-0.5">
+                          {edu.note}
+                        </p>
+                      )}
                       <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                         {edu.period} • {edu.location}
                       </p>
@@ -162,6 +174,46 @@ export default function AboutSection() {
                   </motion.div>
                 ))}
               </div>
+            </motion.div>
+
+            {/* Credentials */}
+            <motion.div
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              <h3 className="text-2xl font-semibold mb-6 text-gray-900 dark:text-white flex items-center gap-2">
+                <span className="w-8 h-0.5 bg-blue-500 dark:bg-blue-400"></span>
+                <FaAward className="text-blue-500 dark:text-blue-400" />
+                Credentials
+              </h3>
+              <motion.div
+                variants={itemVariants}
+                className="rounded-xl bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 p-5"
+              >
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
+                  {credentials.label}
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  {credentials.items.map((item) => (
+                    <div
+                      key={item.name}
+                      className="flex flex-col items-center text-center rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 px-3 py-4"
+                    >
+                      <span className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+                        {item.percentile}
+                      </span>
+                      <span className="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-wider mt-1">
+                        percentile
+                      </span>
+                      <span className="text-sm text-gray-700 dark:text-gray-300 mt-2">
+                        {item.name}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
             </motion.div>
 
             {/* Languages & Interests */}

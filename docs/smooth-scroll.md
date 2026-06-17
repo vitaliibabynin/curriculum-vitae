@@ -76,7 +76,11 @@ const lenis = new Lenis({
 
 ## Programmatic Scrolling
 
-Use the `scrollToSection` helper for smooth navigation:
+`SmoothScroll` exposes the Lenis instance on `window.lenis` (cleared on unmount) so any component can
+drive a smooth scroll **through Lenis**. This matters: a native `window.scrollTo({ behavior: 'smooth' })`
+fights Lenis every frame and effectively doesn't move, so navigation must go through `lenis.scrollTo()`.
+
+Use the exported `scrollToSection` helper (it prefers Lenis, falls back to native smooth scroll):
 
 ```typescript
 import { scrollToSection } from '@/components/smooth-scroll'
@@ -88,13 +92,15 @@ const handleClick = () => {
 }
 ```
 
+Both `navigation.tsx` (nav links) and `hero-section.tsx` (scroll-down indicator) use this single helper.
+
 ## Independence from Background Animation
 
-The smooth scroll (Lenis/GSAP) operates independently from the background particle animation:
+The smooth scroll (Lenis/GSAP) operates independently from the canvas/WebGL animations:
 
-- **Lenis/GSAP**: Scroll-driven animations, cube rotation
-- **BackgroundEffect**: Runs on separate `requestAnimationFrame` loop
-- **No interference**: Background particles animate smoothly regardless of scroll snapping
+- **Lenis/GSAP**: Scroll-driven animations (timeline line, and the dormant cube if revived)
+- **BackgroundEffect** and **SkillsGlobe**: Run on their own `requestAnimationFrame` loops
+- **No interference**: Each animates smoothly regardless of scroll snapping
 
 ## Troubleshooting
 

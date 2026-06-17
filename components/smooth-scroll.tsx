@@ -28,6 +28,8 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
     })
 
     lenisRef.current = lenis
+    // Expose globally so nav/hero can drive programmatic scrolling through Lenis
+    ;(window as unknown as { lenis?: Lenis }).lenis = lenis
 
     // Sync Lenis with GSAP ScrollTrigger
     lenis.on('scroll', ScrollTrigger.update)
@@ -44,6 +46,7 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
     return () => {
       lenis.destroy()
       gsap.ticker.remove(rafCallback)
+      delete (window as unknown as { lenis?: Lenis }).lenis
     }
   }, [])
 

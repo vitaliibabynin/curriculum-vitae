@@ -3,9 +3,9 @@
 import { motion } from 'framer-motion'
 import ProjectCube from './project-cube'
 
-export default function ProjectsSection() {
+export default function PlaygroundSection() {
   return (
-    <section id="projects" className="relative">
+    <section id="playground" className="relative">
       {/* Section Header */}
       <div className="py-20 px-4 sm:px-6 lg:px-8">
         <motion.div
@@ -16,10 +16,10 @@ export default function ProjectsSection() {
           className="text-center mb-8"
         >
           <h2 className="text-4xl sm:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
-            Featured Projects
+            Playground
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            A selection of projects showcasing full-stack development, 3D visualization, and AI-enhanced workflows.
+            A 3D cube of earlier builds — just for fun. Scroll through to spin it.
           </p>
         </motion.div>
       </div>

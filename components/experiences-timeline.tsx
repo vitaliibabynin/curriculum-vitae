@@ -24,19 +24,21 @@ const itemVariants = {
 
 // Priority order for skills (most important first)
 const skillPriority: Record<string, number> = {
-  // Frameworks & Core (highest priority)
-  'Next.js': 1, 'React.js': 2, 'TypeScript': 3, 'Unity': 4,
-  // Backend & Databases
-  'Node.js': 10, 'Supabase': 11, 'Convex': 12, 'Stripe': 13, 'Clerk': 14,
+  // AI / LLM (lead the modern roles)
+  'Claude / Anthropic SDK': 1, 'LLM Integration': 2, 'Retell': 3,
+  // Frameworks & Core
+  'Next.js': 4, 'React': 5, 'React.js': 5, 'React Native/Expo': 6, 'TypeScript': 7, 'Python': 8, 'Unity': 9,
+  // Backend & Databases & Cloud
+  'FastAPI': 10, 'Node.js': 11, 'Supabase': 12, 'Convex': 13, 'Azure': 14, 'Google Cloud': 15, 'Stripe': 16, 'Clerk': 17,
   // Platforms & CMS
-  'Shopify': 20, 'Vercel': 21, 'Prestashop': 22, 'WooCommerce': 23,
+  'Shopify': 20, 'Vercel': 21, 'Automation': 22, 'Marketing Automation': 23, 'Prestashop': 24, 'WooCommerce': 25,
   // Languages
   'Solidity': 30, 'C#': 31, 'PHP/SQL': 32, 'JavaScript': 33,
   // Styling
   'Tailwind CSS': 40, 'SASS': 41, 'Bootstrap': 42,
   // Tools & Others
   'Liquid': 50, 'Klaviyo': 51, 'Zapier': 52, 'Facebook Business Manager': 53,
-  // AI Tools
+  // AI tooling
   'Claude': 60, 'Cursor': 61,
   // Legacy/Mobile
   'jQuery': 100, 'Cordova': 101, 'PhoneGap': 102, 'MariaDB': 103
