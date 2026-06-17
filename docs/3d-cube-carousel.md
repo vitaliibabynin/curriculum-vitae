@@ -1,8 +1,14 @@
 # 3D Cube Carousel Documentation
 
+> **Status: dormant.** The cube (`components/playground-section.tsx` + `components/project-cube.tsx`) is
+> kept in the repo but **no longer rendered** — `app/page.tsx` does not mount it. The **skills globe**
+> (`docs/skills-globe.md`) is the centerpiece. This doc remains as reference for reviving the cube; to do
+> so, render `<PlaygroundSection />` in `app/page.tsx`. Its data (`projects`, `legacyProject`) is still in
+> `app/data.ts`.
+
 ## Overview
 
-The Projects section features an interactive **3D rotating cube carousel** built with CSS 3D transforms and GSAP ScrollTrigger.
+The cube is an interactive **3D rotating carousel** built with CSS 3D transforms and GSAP ScrollTrigger.
 
 ## How It Works
 

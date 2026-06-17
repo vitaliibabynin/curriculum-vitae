@@ -1,6 +1,6 @@
 import Navigation from '../components/navigation'
 import HeroSection from '../components/hero-section'
-import ProjectsSection from '../components/projects-section'
+import ExpertiseSection from '../components/expertise-section'
 import ExperiencesTimeline from '../components/experiences-timeline'
 import AboutSection from '../components/about-section'
 import ContactSection from '../components/contact-section'
@@ -12,10 +12,10 @@ export default function Home() {
       <main className="relative">
         {/* 1. Hero Section - Full viewport with animated background */}
         <HeroSection />
-        
-        {/* 2. Projects Section - 3D Cube Carousel */}
-        <ProjectsSection />
-        
+
+        {/* 2. Expertise Section - 3D Skills Globe + Selected Work */}
+        <ExpertiseSection />
+
         {/* 3. Experience Section - Animated Timeline */}
         <section id="experience" className="py-20">
           <div className="text-center mb-16 px-4">
@@ -28,15 +28,14 @@ export default function Home() {
           </div>
           <ExperiencesTimeline />
         </section>
-        
-        {/* 4. About Section - Skills, Education, Languages */}
+
+        {/* 4. About Section - Skills, Education, Credentials, Languages */}
         <AboutSection />
-        
+
         {/* 5. Contact Section - Footer */}
+        {/* Playground cube (components/playground-section.tsx) intentionally not rendered — code kept for later. */}
         <ContactSection />
       </main>
-      
-
     </>
   )
 }

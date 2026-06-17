@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { FaBars, FaTimes } from 'react-icons/fa'
 import { navItems } from '../app/data'
 import ThemeToggle from './theme-toggle'
+import { scrollToSection as scrollToElement } from './smooth-scroll'
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
@@ -38,18 +39,10 @@ export default function Navigation() {
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId)
-    if (element) {
-      // Use smooth scroll behavior
-      const offset = 80
-      const elementPosition = element.getBoundingClientRect().top + window.scrollY
-      const offsetPosition = elementPosition - offset
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      })
-      setIsOpen(false)
-    }
+    if (!element) return
+    // Drive programmatic scroll through Lenis (native smooth scroll fights Lenis)
+    scrollToElement(element, 80)
+    setIsOpen(false)
   }
 
   return (

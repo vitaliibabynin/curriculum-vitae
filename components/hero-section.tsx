@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { FaLinkedin, FaGithub, FaChevronDown } from 'react-icons/fa'
 import { developerInfo } from '../app/data'
+import { scrollToSection } from './smooth-scroll'
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -45,11 +46,9 @@ const fadeUpVariants = {
 }
 
 export default function HeroSection() {
-  const scrollToProjects = () => {
-    const element = document.getElementById('projects')
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
-    }
+  const scrollToExpertise = () => {
+    const element = document.getElementById('expertise')
+    if (element) scrollToSection(element, 80)
   }
 
   return (
@@ -122,15 +121,15 @@ export default function HeroSection() {
           className="absolute bottom-12 left-1/2 -translate-x-1/2"
         >
           <motion.button
-            onClick={scrollToProjects}
+            onClick={scrollToExpertise}
             animate={{ y: [0, 10, 0] }}
-            transition={{ 
-              duration: 2, 
-              repeat: Infinity, 
-              ease: "easeInOut" 
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut"
             }}
             className="p-2 rounded-full text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 transition-colors cursor-pointer"
-            aria-label="Scroll to projects"
+            aria-label="Scroll to expertise"
           >
             <FaChevronDown size={28} />
           </motion.button>

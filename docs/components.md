@@ -6,14 +6,16 @@
 |-----------|------|---------|
 | `Navigation` | Client | Fixed header with smooth scroll navigation |
 | `HeroSection` | Client | Full-viewport hero with text animations |
-| `ProjectsSection` | Client | Projects showcase with 3D cube |
-| `ProjectCube` | Client | 3D rotating cube carousel |
+| `ExpertiseSection` | Client | Skills globe + cluster legend + "Selected Work" cards |
+| `SkillsGlobe` | Client | react-three-fiber WebGL globe (cluster anchors + tech nodes) |
 | `ExperiencesTimeline` | Client | Animated work history timeline |
-| `AboutSection` | Client | Skills, education, languages grid |
+| `AboutSection` | Client | Skills, education, credentials, languages grid |
 | `ContactSection` | Client | Footer with contact links |
 | `BackgroundEffect` | Client | Canvas particle animation |
-| `SmoothScroll` | Client | Lenis smooth scroll provider |
+| `SmoothScroll` | Client | Lenis smooth scroll provider; exports `scrollToSection()` |
 | `ThemeToggle` | Client | Light/dark mode toggle |
+| `PlaygroundSection` | Client | _Dormant_ — wraps the cube; not rendered |
+| `ProjectCube` | Client | _Dormant_ — 3D CSS cube carousel; not rendered |
 
 ## Component Details
 
@@ -22,10 +24,11 @@
 **Props:** None
 
 **Features:**
-- 5 navigation items (Home, Projects, Experience, About, Contact)
+- 5 navigation items (Home, Expertise, Experience, About, Contact)
 - Active section indicator with animated background
 - Mobile hamburger menu with slide-down animation
 - Scroll-aware styling (transparent → solid background)
+- Programmatic scroll via the `scrollToSection()` helper from `smooth-scroll.tsx`
 
 ### HeroSection
 
@@ -38,26 +41,33 @@
 - Animated scroll indicator
 - Uses `developerInfo` from data.ts
 
-### ProjectsSection
+### ExpertiseSection
 
 **Props:** None
 
 **Features:**
-- Section header with description
-- 3D cube carousel (desktop)
-- Mobile swipe carousel fallback
-- Legacy project showcase (WeightWatch Original)
+- Section heading + intro
+- `SkillsGlobe` loaded via `next/dynamic({ ssr: false })` with a skeleton fallback
+- Cluster legend (5 cards) — also the accessible / no-WebGL text equivalent of the globe
+- "Selected Work" cards from `selectedProjects` (screenshot banner, blurb, tags, live link)
 
-### ProjectCube
+### SkillsGlobe
 
 **Props:** None
 
 **Features:**
-- CSS 3D transforms (`perspective: 1000px`)
-- GSAP ScrollTrigger pinned scroll
-- 4 faces (Front, Right, Back, Left)
-- Snap points at each 90° rotation
-- Progress indicators
+- react-three-fiber `<Canvas>` (transparent, `dpr={[1,2]}`)
+- 5 cluster anchors (fibonacci-distributed) with billboarded `<Html>` labels
+- Orbiting tech nodes per cluster (colored), hover → tooltip
+- `OrbitControls`: auto-rotate + drag (rotate-only, no zoom/pan)
+- Theme-aware via `MutationObserver`; reduced-motion safe (auto-rotate off)
+- Render loop paused off-screen via `IntersectionObserver` → `frameloop`
+- Data: `skillClusters` in `app/data.ts`. See `docs/skills-globe.md`.
+
+### PlaygroundSection / ProjectCube _(dormant)_
+
+Kept in the repo but **not rendered** (`app/page.tsx` doesn't mount `PlaygroundSection`).
+See `docs/3d-cube-carousel.md` for the cube implementation if you revive it.
 
 ### ExperiencesTimeline
 
@@ -75,8 +85,9 @@
 
 **Features:**
 - 2-column grid layout (desktop)
-- Skills grouped by category (tag pills)
-- Education cards with logos
+- Skills grouped by category (tag pills) — AI/LLM & Compliance lead
+- Education cards with logos (graduation-cap fallback when `logoUrl` is missing)
+- Credentials block (TestGorilla percentile stats)
 - Languages list
 - Interests tags
 
@@ -86,7 +97,7 @@
 
 **Features:**
 - Centered footer layout
-- Email, LinkedIn, GitHub, Resume links
+- Email, LinkedIn, GitHub links (Resume button hidden until the PDF is regenerated)
 - Location display
 - Copyright notice
 
@@ -161,5 +172,5 @@ const smoothEase = [0.22, 1, 0.36, 1] // Framer Motion custom easing
 |------------|-------|-------|
 | `sm` | 640px | Mobile landscape |
 | `md` | 768px | Tablet / Mobile nav breakpoint |
-| `lg` | 1024px | Desktop |
-| `xl` | 1280px | Large desktop (side panel in cube) |
+| `lg` | 1024px | Desktop (3-column Selected Work grid) |
+| `xl` | 1280px | Large desktop |

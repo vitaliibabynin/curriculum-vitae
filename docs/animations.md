@@ -124,7 +124,10 @@ gsap.to(element, {
 })
 ```
 
-### Pinned Section (Projects Cube)
+### Pinned Section (dormant Projects Cube)
+
+> The cube is no longer rendered (see `docs/3d-cube-carousel.md`). Kept here as the canonical
+> pinned-scroll pattern.
 
 ```typescript
 ScrollTrigger.create({
