@@ -110,7 +110,6 @@ export const selectedProjects: SelectedProject[] = [
     blurb: "Multi-exchange / multi-account finance dashboard aggregating balances via CCXT, with encrypted credential storage, daily time-series snapshots and 20+ architecture decision records.",
     tags: ["CCXT", "Convex", "Encrypted credentials", "Recharts"],
     live: "https://financier.site",
-    loginRequired: true,
     image: "/images/projects/financier.jpg"
   }
 ]

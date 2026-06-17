@@ -85,9 +85,6 @@ export default function ExpertiseSection() {
           <h3 className="text-3xl sm:text-4xl font-bold mb-3 text-gray-900 dark:text-white">
             Selected Work
           </h3>
-          <p className="text-base text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            A few representative builds — open the live ones to explore them.
-          </p>
         </motion.div>
 
         <motion.div
