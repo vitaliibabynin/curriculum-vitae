@@ -1,142 +1,99 @@
 'use client'
 
+import { useState } from 'react'
 import dynamic from 'next/dynamic'
-import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { FaExternalLinkAlt } from 'react-icons/fa'
-import { skillClusters, selectedProjects } from '../app/data'
-import { stagger, fadeUp, revealOnScroll } from '../lib/motion'
+import { skillClusters } from '../app/data'
+import { stagger, fadeUp } from '../lib/motion'
 import SectionHeading from './section-heading'
-
-const containerVariants = stagger(0.1)
-const itemVariants = fadeUp()
 
 // Canvas is client-only — load without SSR and show a light skeleton while it mounts.
 const SkillsGlobe = dynamic(() => import('./skills-globe'), {
   ssr: false,
   loading: () => (
-    <div className="h-[380px] sm:h-[480px] lg:h-[540px] w-full flex items-center justify-center">
-      <div className="w-36 h-36 rounded-full border-2 border-dashed border-gray-300 dark:border-gray-700 animate-pulse" />
+    <div className="grid h-[360px] w-full place-items-center sm:h-[460px] lg:h-[560px]">
+      <span className="label animate-pulse text-muted">loading model…</span>
     </div>
   )
 })
 
+const list = stagger(0.08)
+const row = fadeUp(16)
+const totalTechs = skillClusters.reduce((n, c) => n + c.techs.length, 0)
+
+const tick = 'absolute h-4 w-4 border-fg/40'
+
 export default function ExpertiseSection() {
+  const [active, setActive] = useState<string | null>(null)
+
   return (
-    <section id="expertise" aria-labelledby="expertise-title" className="py-20 px-4 sm:px-6 lg:px-8 scroll-mt-20">
-      <div className="max-w-6xl mx-auto">
-        <SectionHeading id="expertise-title" eyebrow="What I build" title="Expertise">
-          Five capability clusters and the technologies behind them. Drag to explore the globe; hover a node for its name.
+    <section id="expertise" aria-labelledby="expertise-title" className="scroll-mt-20 px-5 py-28 sm:px-8 sm:py-36">
+      <div className="mx-auto max-w-7xl">
+        <SectionHeading id="expertise-title" index="02" eyebrow="expertise" title="What I build with">
+          Five capability clusters and the {totalTechs} technologies behind them. Drag the model; hover a cluster to
+          isolate it.
         </SectionHeading>
 
-        {/* 3D Skills Globe */}
-        <SkillsGlobe />
+        <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
+          {/* Globe viewport */}
+          <div className="relative lg:col-span-7">
+            <span className={`${tick} left-0 top-0 border-l border-t`} />
+            <span className={`${tick} right-0 top-0 border-r border-t`} />
+            <span className={`${tick} bottom-0 left-0 border-b border-l`} />
+            <span className={`${tick} bottom-0 right-0 border-b border-r`} />
+            <div className="label absolute left-4 top-3 z-10 text-muted">fig.1 — skills model</div>
+            <div className="label absolute bottom-3 right-4 z-10 text-muted">
+              {skillClusters.length} clusters · {totalTechs} nodes · drag ↻
+            </div>
+            <SkillsGlobe active={active} />
+          </div>
 
-        {/* Cluster legend — also the accessible / no-WebGL text equivalent of the globe */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 mb-20"
-        >
-          {skillClusters.map((c) => (
-            <motion.div
-              key={c.id}
-              variants={itemVariants}
-              className="rounded-xl bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 p-4"
-            >
-              <div className="flex items-center gap-2 mb-2">
-                <span className="inline-block w-2.5 h-2.5 rounded-full" style={{ backgroundColor: c.color }} />
-                <h3 className="text-sm font-semibold text-gray-900 dark:text-white">{c.label}</h3>
-              </div>
-              <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
-                {c.techs.join(' · ')}
-              </p>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Selected Work */}
-        <motion.div {...revealOnScroll} className="text-center mb-8">
-          <h3 className="text-3xl sm:text-4xl font-bold mb-3 text-gray-900 dark:text-white">
-            Selected Work
-          </h3>
-        </motion.div>
-
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
-        >
-          {selectedProjects.map((project) => (
-            <motion.div
-              key={project.id}
-              variants={itemVariants}
-              className="group flex flex-col rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 overflow-hidden shadow-sm dark:shadow-gray-900/20 hover:shadow-lg hover:-translate-y-1 hover:border-blue-300 dark:hover:border-blue-700 transition-all duration-300"
-            >
-              {/* Screenshot / banner */}
-              <div className="relative aspect-video w-full overflow-hidden border-b border-gray-200 dark:border-gray-700">
-                {project.image ? (
-                  <Image
-                    src={project.image}
-                    alt={`${project.title} screenshot`}
-                    fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+          {/* Cluster index — also the accessible / no-WebGL equivalent of the globe */}
+          <motion.ol
+            variants={list}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="border-t border-line lg:col-span-5"
+            onMouseLeave={() => setActive(null)}
+          >
+            {skillClusters.map((c, i) => {
+              const on = active === c.id
+              return (
+                <motion.li
+                  key={c.id}
+                  variants={row}
+                  tabIndex={0}
+                  onMouseEnter={() => setActive(c.id)}
+                  onFocus={() => setActive(c.id)}
+                  onBlur={() => setActive(null)}
+                  className="group relative cursor-default border-b border-line py-5 outline-none"
+                >
+                  <motion.span
+                    aria-hidden="true"
+                    className="absolute inset-y-0 left-0 w-0.5 origin-top"
+                    style={{ backgroundColor: c.color }}
+                    initial={false}
+                    animate={{ scaleY: on ? 1 : 0 }}
+                    transition={{ duration: 0.3 }}
                   />
-                ) : (
-                  <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-transparent">
-                    <span className="text-base font-semibold text-gray-400 dark:text-gray-500">
-                      {project.title}
-                    </span>
+                  <div className="flex items-baseline justify-between gap-4 pl-4">
+                    <h3 className="flex items-baseline gap-3 font-display text-xl font-semibold uppercase tracking-wide sm:text-2xl">
+                      <span className="label text-muted">{String(i + 1).padStart(2, '0')}</span>
+                      <span className="transition-colors duration-300" style={{ color: on ? c.color : undefined }}>
+                        {c.label}
+                      </span>
+                    </h3>
+                    <span className="label text-muted">{c.techs.length}</span>
                   </div>
-                )}
-              </div>
-
-              {/* Content */}
-              <div className="flex flex-col flex-1 p-5">
-                <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                  {project.title}
-                </h4>
-                <p className="text-sm text-gray-600 dark:text-gray-300 mb-4 flex-1">
-                  {project.blurb}
-                </p>
-                <div className="flex flex-wrap gap-1.5 mb-3">
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-2 py-0.5 text-xs rounded-full bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 border border-blue-100 dark:border-blue-800"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                {project.live ? (
-                  <a
-                    href={project.live}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
-                  >
-                    <FaExternalLinkAlt size={12} aria-hidden="true" />
-                    Visit site
-                    <span className="sr-only"> — {project.title} (opens in a new tab)</span>
-                    {project.loginRequired && (
-                      <span className="text-xs text-gray-400 dark:text-gray-500">· Google login</span>
-                    )}
-                  </a>
-                ) : (
-                  <span className="inline-flex items-center text-xs text-gray-400 dark:text-gray-500 italic">
-                    Private / client engagement
-                  </span>
-                )}
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+                  <p className="mt-2 pl-4 font-mono text-xs leading-relaxed text-muted transition-colors group-hover:text-fg/80">
+                    {c.techs.join('  ·  ')}
+                  </p>
+                </motion.li>
+              )
+            })}
+          </motion.ol>
+        </div>
       </div>
     </section>
   )

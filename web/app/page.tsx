@@ -1,6 +1,7 @@
 import Navigation from '../components/navigation'
 import HeroSection from '../components/hero-section'
 import ExpertiseSection from '../components/expertise-section'
+import SelectedWork from '../components/selected-work'
 import ExperienceSection from '../components/experience-section'
 import AboutSection from '../components/about-section'
 import ContactSection from '../components/contact-section'
@@ -13,6 +14,7 @@ export default function Home() {
       <main id="main" className="relative">
         <HeroSection />
         <ExpertiseSection />
+        <SelectedWork />
         <ExperienceSection />
         <AboutSection />
         <ContactSection />

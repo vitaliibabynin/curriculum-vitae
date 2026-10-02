@@ -82,26 +82,27 @@ export default function Navigation() {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: easeOutExpo }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled || isOpen
-            ? 'bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-lg dark:shadow-gray-900/50'
-            : 'bg-transparent'
+        className={`fixed top-0 left-0 right-0 z-50 border-b transition-colors duration-300 ${
+          isScrolled || isOpen ? 'border-line bg-bg/85 backdrop-blur-md' : 'border-transparent bg-transparent'
         }`}
       >
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <div className="flex justify-between items-center h-16">
             <a
               href="#hero"
               onClick={(e) => handleNavClick(e, 'hero')}
-              className="text-xl font-bold transition-transform hover:scale-105"
+              className="group flex items-center gap-2.5"
               aria-label="Back to top"
             >
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">VB</span>
+              <span className="grid h-8 w-8 place-items-center bg-fg font-display text-sm font-bold text-bg transition-colors group-hover:bg-signal group-hover:text-on-signal">
+                VB
+              </span>
+              <span className="label hidden text-muted sm:inline">Vitalii Babynin</span>
             </a>
 
             {/* Desktop */}
             <ul className="hidden md:flex items-center gap-1">
-              {navItems.map((item) => {
+              {navItems.map((item, index) => {
                 const active = activeSection === item.id
                 return (
                   <li key={item.id}>
@@ -109,17 +110,16 @@ export default function Navigation() {
                       href={`#${item.id}`}
                       onClick={(e) => handleNavClick(e, item.id)}
                       aria-current={active ? 'location' : undefined}
-                      className={`relative block px-4 py-2 text-sm font-medium transition-colors rounded-full ${
-                        active
-                          ? 'text-blue-600 dark:text-blue-400'
-                          : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                      className={`label relative flex items-center gap-1.5 px-3 py-2 transition-colors ${
+                        active ? 'text-fg' : 'text-muted hover:text-fg'
                       }`}
                     >
+                      <span className={active ? 'text-signal' : 'opacity-50'}>{String(index + 1).padStart(2, '0')}</span>
                       {item.name}
                       {active && (
                         <motion.span
                           layoutId="activeNav"
-                          className="absolute inset-0 bg-blue-50 dark:bg-blue-900/20 rounded-full -z-10"
+                          className="absolute inset-x-3 -bottom-px h-0.5 bg-signal"
                           transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                         />
                       )}
@@ -134,7 +134,7 @@ export default function Navigation() {
               <button
                 type="button"
                 onClick={() => setIsOpen((v) => !v)}
-                className="md:hidden p-2 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                className="md:hidden p-2 text-muted hover:text-fg transition-colors"
                 aria-label={isOpen ? 'Close menu' : 'Open menu'}
                 aria-expanded={isOpen}
                 aria-controls="mobile-menu"
@@ -147,7 +147,7 @@ export default function Navigation() {
 
         {/* Reading progress */}
         <motion.div
-          className="absolute bottom-0 left-0 right-0 h-0.5 origin-left bg-gradient-to-r from-blue-500 to-purple-500"
+          className="absolute -bottom-px left-0 right-0 h-px origin-left bg-signal"
           style={{ scaleX: progress, opacity: isScrolled ? 1 : 0 }}
           aria-hidden="true"
         />
@@ -163,7 +163,7 @@ export default function Navigation() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsOpen(false)}
-              className="fixed inset-0 z-40 bg-black/20 dark:bg-black/40 md:hidden"
+              className="fixed inset-0 z-40 bg-bg/60 backdrop-blur-sm md:hidden"
               aria-hidden="true"
             />
             <motion.div
@@ -175,7 +175,7 @@ export default function Navigation() {
               transition={{ duration: 0.2 }}
               className="fixed inset-x-0 top-16 z-50 md:hidden"
             >
-              <ul className="mx-4 mt-2 p-2 rounded-2xl bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-xl border border-gray-200 dark:border-gray-700">
+              <ul className="mx-5 mt-2 border border-line bg-surface p-2">
                 {navItems.map((item, index) => {
                   const active = activeSection === item.id
                   return (
@@ -189,12 +189,11 @@ export default function Navigation() {
                         href={`#${item.id}`}
                         onClick={(e) => handleNavClick(e, item.id)}
                         aria-current={active ? 'location' : undefined}
-                        className={`block px-4 py-3 rounded-xl text-sm font-medium transition-colors ${
-                          active
-                            ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400'
-                            : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'
+                        className={`flex items-baseline gap-3 px-3 py-3 font-display text-2xl font-semibold uppercase transition-colors ${
+                          active ? 'text-signal' : 'text-fg hover:text-signal'
                         }`}
                       >
+                        <span className="label text-muted">{String(index + 1).padStart(2, '0')}</span>
                         {item.name}
                       </a>
                     </motion.li>

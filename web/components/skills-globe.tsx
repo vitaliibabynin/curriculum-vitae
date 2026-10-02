@@ -69,7 +69,7 @@ function buildClusters(): ClusterData[] {
   })
 }
 
-function ClusterLines({ anchor, nodes, color }: { anchor: THREE.Vector3; nodes: NodeData[]; color: string }) {
+function ClusterLines({ anchor, nodes, color, opacity }: { anchor: THREE.Vector3; nodes: NodeData[]; color: string; opacity: number }) {
   const geometry = useMemo(() => {
     const positions: number[] = []
     // spoke from core to the cluster anchor
@@ -87,39 +87,44 @@ function ClusterLines({ anchor, nodes, color }: { anchor: THREE.Vector3; nodes: 
 
   return (
     <lineSegments geometry={geometry}>
-      <lineBasicMaterial color={color} transparent opacity={0.35} />
+      <lineBasicMaterial color={color} transparent opacity={opacity} />
     </lineSegments>
   )
 }
 
-function Scene({ isDark }: { isDark: boolean }) {
+function Scene({ isDark, active }: { isDark: boolean; active: string | null }) {
   const clusters = useMemo(buildClusters, [])
   const [hovered, setHovered] = useState<NodeData | null>(null)
 
-  const coreColor = isDark ? '#334155' : '#cbd5e1'
+  const coreColor = isDark ? '#3a413d' : '#b9beb9'
 
   return (
     <group>
       {/* Core */}
       <mesh>
         <icosahedronGeometry args={[1.25, 1]} />
-        <meshBasicMaterial color={coreColor} wireframe transparent opacity={isDark ? 0.35 : 0.55} />
+        <meshBasicMaterial color={coreColor} wireframe transparent opacity={isDark ? 0.4 : 0.6} />
       </mesh>
 
-      {clusters.map((c) => (
+      {clusters.map((c) => {
+        const dim = active !== null && active !== c.id
+        return (
         <group key={c.id}>
-          <ClusterLines anchor={c.anchor} nodes={c.nodes} color={c.color} />
+          <ClusterLines anchor={c.anchor} nodes={c.nodes} color={c.color} opacity={dim ? 0.06 : active === c.id ? 0.85 : 0.4} />
 
           {/* Cluster label */}
           <Html
             position={c.anchor.toArray() as Vec3}
             center
-            distanceFactor={10}
+            distanceFactor={5}
             zIndexRange={[10, 0]}
             className="pointer-events-none select-none"
           >
-            <div className="flex items-center gap-1.5 whitespace-nowrap rounded-full bg-white/85 dark:bg-gray-900/85 backdrop-blur-sm px-2.5 py-1 text-xs font-medium text-gray-800 dark:text-gray-100 border border-gray-200/70 dark:border-gray-700/70 shadow-sm">
-              <span className="inline-block w-2 h-2 rounded-full" style={{ backgroundColor: c.color }} />
+            <div
+              className="label flex items-center gap-1.5 whitespace-nowrap border bg-surface/90 px-2 py-1 text-fg backdrop-blur-sm transition-opacity duration-300"
+              style={{ borderColor: c.color, opacity: dim ? 0.25 : 1 }}
+            >
+              <span className="inline-block h-2 w-2" style={{ backgroundColor: c.color }} />
               {c.label}
             </div>
           </Html>
@@ -142,26 +147,27 @@ function Scene({ isDark }: { isDark: boolean }) {
                   document.body.style.cursor = 'auto'
                 }}
               >
-                <sphereGeometry args={[0.06, 16, 16]} />
-                <meshBasicMaterial color={node.color} />
+                <boxGeometry args={[0.09, 0.09, 0.09]} />
+                <meshBasicMaterial color={node.color} transparent opacity={dim ? 0.15 : 1} />
               </mesh>
             )
           })}
         </group>
-      ))}
+        )
+      })}
 
       {/* Hover tooltip */}
       {hovered && (
         <Html
           position={hovered.pos.toArray() as Vec3}
           center
-          distanceFactor={8}
+          distanceFactor={5}
           zIndexRange={[30, 0]}
           className="pointer-events-none select-none"
         >
           <div
-            className="whitespace-nowrap rounded-md px-2 py-1 text-xs font-semibold text-white shadow-lg"
-            style={{ backgroundColor: hovered.color }}
+            className="label whitespace-nowrap px-2 py-1 font-medium"
+            style={{ backgroundColor: hovered.color, color: '#0b0d0c' }}
           >
             {hovered.tech}
           </div>
@@ -171,7 +177,7 @@ function Scene({ isDark }: { isDark: boolean }) {
   )
 }
 
-export default function SkillsGlobe() {
+export default function SkillsGlobe({ active = null }: { active?: string | null }) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [isDark, setIsDark] = useState(false)
   const [reducedMotion, setReducedMotion] = useState(false)
@@ -211,7 +217,7 @@ export default function SkillsGlobe() {
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.8 }}
-      className="h-[380px] sm:h-[480px] lg:h-[540px] w-full"
+      className="h-[360px] sm:h-[460px] lg:h-[560px] w-full"
     >
       <Canvas
         frameloop={inView ? 'always' : 'never'}
@@ -220,7 +226,7 @@ export default function SkillsGlobe() {
         gl={{ powerPreference: 'high-performance', antialias: true, alpha: true }}
         style={{ background: 'transparent' }}
       >
-        <Scene isDark={isDark} />
+        <Scene isDark={isDark} active={active} />
         <OrbitControls
           enableZoom={false}
           enablePan={false}

@@ -3,24 +3,35 @@
 @source "../components";
 @source "../app";
 
+/* ── Brand tokens ─────────────────────────────────────────────────────────────
+   "Parsed": graphite ink, cool paper, one vermilion signal. The signal marks what the
+   machine extracted — boxes, labels, the active thing. Use it sparingly. */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --card-bg: #ffffff;
-  --card-border: #e5e7eb;
-  --shadow-color: rgba(0, 0, 0, 0.06);
-  --shadow-color-lg: rgba(0, 0, 0, 0.08);
-  --muted-text: #6b7280;
+  --bg: #f2f3f1;
+  --surface: #ffffff;
+  --surface-2: #e7e9e6;
+  --line: #d3d6d2;
+  --fg: #0e100f;
+  --muted: #5b625e;
+  --signal: #e2470f;
+  --on-signal: #ffffff;
+  --ok: #12855a;
+  --grid: rgba(14, 16, 15, 0.06);
+  color-scheme: light;
 }
 
 .dark {
-  --background: #0a0a0a;
-  --foreground: #ededed;
-  --card-bg: #1f2937;
-  --card-border: #374151;
-  --shadow-color: rgba(0, 0, 0, 0.3);
-  --shadow-color-lg: rgba(0, 0, 0, 0.4);
-  --muted-text: #9ca3af;
+  --bg: #0b0d0c;
+  --surface: #121514;
+  --surface-2: #191d1b;
+  --line: #262b28;
+  --fg: #eceeea;
+  --muted: #8b928d;
+  --signal: #ff5a1f;
+  --on-signal: #0b0d0c;
+  --ok: #46d394;
+  --grid: rgba(236, 238, 234, 0.045);
+  color-scheme: dark;
 }
 
 html {
@@ -29,98 +40,53 @@ html {
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: var(--font-space-grotesk), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  color: var(--fg);
+  background: var(--bg);
   position: relative;
+  font-feature-settings: "ss02", "zero";
 }
 
-/* Smooth theme transitions for all elements */
-*,
-*::before,
-*::after {
-  transition: background-color 0.3s ease, 
-              border-color 0.3s ease, 
-              color 0.3s ease,
-              box-shadow 0.3s ease;
+::selection {
+  background: var(--signal);
+  color: var(--on-signal);
 }
 
-/* Disable transitions for motion preferences */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    transition-duration: 0.01ms !important;
-  }
+/* Theme switch fades colours only on surfaces that opt in (cheaper than a global * transition). */
+.theme-fade {
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
 }
 
 /* Keyboard focus ring (mouse clicks don't show it) */
 :focus-visible {
-  outline: 2px solid #3b82f6;
+  outline: 2px solid var(--signal);
   outline-offset: 3px;
-  border-radius: 4px;
 }
 
 /* Lenis smooth scroll */
-html.lenis, html.lenis body {
-  height: auto;
-}
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+.lenis.lenis-scrolling iframe { pointer-events: none; }
 
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
-}
-
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
-}
-
-.lenis.lenis-stopped {
-  overflow: hidden;
-}
-
-.lenis.lenis-scrolling iframe {
-  pointer-events: none;
-}
-
-/* Custom utilities */
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-  
-  .backface-hidden {
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-  }
-  
-  .preserve-3d {
-    transform-style: preserve-3d;
-  }
-  
-  .perspective-1000 {
-    perspective: 1000px;
-  }
-
-  /* Theme-aware shadows */
-  .shadow-theme {
-    box-shadow: 0 1px 3px var(--shadow-color), 0 1px 2px var(--shadow-color);
-  }
-
-  .shadow-theme-lg {
-    box-shadow: 0 10px 15px -3px var(--shadow-color-lg), 0 4px 6px -2px var(--shadow-color);
-  }
-
-  .shadow-theme-xl {
-    box-shadow: 0 20px 25px -5px var(--shadow-color-lg), 0 10px 10px -5px var(--shadow-color);
+  .text-balance { text-wrap: balance; }
+  .text-pretty { text-wrap: pretty; }
+  /* 3D helpers used by the dormant project cube */
+  .backface-hidden { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+  .preserve-3d { transform-style: preserve-3d; }
+  .perspective-1000 { perspective: 1000px; }
+  /* Monospace annotation label: the site's "machine voice" */
+  .label {
+    font-family: var(--font-plex-mono), ui-monospace, monospace;
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
 }
 
-/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;

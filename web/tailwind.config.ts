@@ -1,33 +1,40 @@
 import type { Config } from "tailwindcss";
 
+// Brand tokens live as CSS variables in app/globals.css (light + .dark); Tailwind maps them to utilities,
+// so components write `bg-bg text-fg border-line text-signal` instead of paired dark: variants.
 const config: Config = {
   content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   darkMode: 'class',
   theme: {
     extend: {
+      colors: {
+        bg: 'var(--bg)',
+        surface: 'var(--surface)',
+        'surface-2': 'var(--surface-2)',
+        line: 'var(--line)',
+        fg: 'var(--fg)',
+        muted: 'var(--muted)',
+        signal: 'var(--signal)',
+        'on-signal': 'var(--on-signal)',
+        ok: 'var(--ok)',
+      },
       fontFamily: {
-        sans: ['var(--font-space-grotesk)', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
-        mono: ['var(--font-jetbrains-mono)', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'monospace'],
-      },
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-      },
-      animation: {
-        'float': 'float 20s ease-in-out infinite',
-        'float-reverse': 'float 25s ease-in-out infinite reverse',
-        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        sans: ['var(--font-plex)', 'system-ui', 'sans-serif'],
+        display: ['var(--font-plex-cond)', 'var(--font-plex)', 'system-ui', 'sans-serif'],
+        mono: ['var(--font-plex-mono)', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
       },
       keyframes: {
-        float: {
-          '0%, 100%': { transform: 'translateY(0) translateX(0)' },
-          '50%': { transform: 'translateY(-20px) translateX(10px)' },
-        },
+        marquee: { from: { transform: 'translateX(0)' }, to: { transform: 'translateX(-50%)' } },
+        scan: { '0%': { top: '0%' }, '100%': { top: '100%' } },
+        blink: { '0%, 49%': { opacity: '1' }, '50%, 100%': { opacity: '0' } },
+      },
+      animation: {
+        marquee: 'marquee 40s linear infinite',
+        scan: 'scan 3.2s cubic-bezier(0.65, 0, 0.35, 1) infinite alternate',
+        blink: 'blink 1s steps(1) infinite',
       },
     },
   },
