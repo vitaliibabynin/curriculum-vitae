@@ -1,7 +1,7 @@
 # Project status — where we are
 
 A "where are we" snapshot of the **Vitalii Babynin portfolio**. Synthesis only — points to the authoritative
-docs/code rather than restating them. **As of 2026-06-17.**
+docs/code rather than restating them. **As of 2026-10-02.**
 
 ## What this is
 
@@ -24,6 +24,18 @@ rendered** (relocated during the skills-globe rebuild; may return as a "Playgrou
 section's **Resume** button is live again (2026-06-17): it links to `/resume/resume.pdf`, a two-page ATS-friendly
 CV generated from the career KB's `cv-full.md`. Source + regeneration steps live in `web/resume-src/`; superseded
 PDFs are versioned under `web/public/resume/archive/` (see that folder's `README.md`).
+
+## 2026-10-02 refresh (PR `feat/chirayou-refresh`)
+
+- **Chirayou** experience expanded from a one-liner to outcome-level highlights (sourced from the personal
+  Chirayou comms record; contract §12 keeps internal tool names, figures and colleagues off the site).
+  Resume PDF regenerated to match (v2 archived).
+- **Refactor:** shared motion variants (`web/lib/motion.ts`), `SectionHeading`, `ExperienceSection`; typed
+  `Experience`; dropped the timeline's skill-priority sort and the unused `@studio-freight/lenis` dependency.
+- **UX/a11y:** no-flash theme init (fixes a light-mode-on-dark-OS background bug), hero CTAs (Get in touch /
+  Resume), reading-progress bar, IntersectionObserver nav with real anchors + `aria-current`, Escape/backdrop
+  closes the mobile menu, skip link, focus rings, copy-email button, reduced-motion via `MotionConfig`,
+  collapsed earlier roles removed from the tab order, profile photo no longer eagerly preloaded.
 
 ## Repo structure (post harness-upgrade, 2026-06-17)
 

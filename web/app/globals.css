@@ -23,20 +23,7 @@
   --muted-text: #9ca3af;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not(.light) {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-    --card-bg: #1f2937;
-    --card-border: #374151;
-    --shadow-color: rgba(0, 0, 0, 0.3);
-    --shadow-color-lg: rgba(0, 0, 0, 0.4);
-    --muted-text: #9ca3af;
-  }
-}
-
 html {
-  scroll-behavior: smooth;
   /* Non-static so Framer Motion's window-scroll useScroll can measure offsets correctly */
   position: relative;
 }
@@ -66,6 +53,13 @@ body {
   *::after {
     transition-duration: 0.01ms !important;
   }
+}
+
+/* Keyboard focus ring (mouse clicks don't show it) */
+:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 3px;
+  border-radius: 4px;
 }
 
 /* Lenis smooth scroll */

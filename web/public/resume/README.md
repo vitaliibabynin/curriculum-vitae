@@ -23,4 +23,5 @@ version**, snapshot the current live file into `archive/` and add a row to the i
 
 | File | Archived | Why superseded |
 |---|---|---|
+| `resume-2026-10-02-v2.pdf` | 2026-10-02 | Chirayou entry was a one-line placeholder; replaced by outcome-level highlights (within the contract's confidentiality clause). |
 | `resume-2024-10-14-v1.pdf` | 2026-06-17 | Original portfolio CV (Oct 2024). Stale — predated the AI-native pivot and the current role/project set. Replaced by a fresh two-page CV generated from `cv-full.md`. |

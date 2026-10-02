@@ -5,6 +5,11 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { FaExternalLinkAlt } from 'react-icons/fa'
 import { skillClusters, selectedProjects } from '../app/data'
+import { stagger, fadeUp, revealOnScroll } from '../lib/motion'
+import SectionHeading from './section-heading'
+
+const containerVariants = stagger(0.1)
+const itemVariants = fadeUp()
 
 // Canvas is client-only — load without SSR and show a light skeleton while it mounts.
 const SkillsGlobe = dynamic(() => import('./skills-globe'), {
@@ -16,35 +21,13 @@ const SkillsGlobe = dynamic(() => import('./skills-globe'), {
   )
 })
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
-}
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const } }
-}
-
 export default function ExpertiseSection() {
   return (
-    <section id="expertise" className="py-20 px-4 sm:px-6 lg:px-8">
+    <section id="expertise" aria-labelledby="expertise-title" className="py-20 px-4 sm:px-6 lg:px-8 scroll-mt-20">
       <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-8"
-        >
-          <h2 className="text-4xl sm:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
-            Expertise
-          </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Five capability clusters and the technologies behind them. Drag to explore the globe; hover a node for its name.
-          </p>
-        </motion.div>
+        <SectionHeading id="expertise-title" eyebrow="What I build" title="Expertise">
+          Five capability clusters and the technologies behind them. Drag to explore the globe; hover a node for its name.
+        </SectionHeading>
 
         {/* 3D Skills Globe */}
         <SkillsGlobe />
@@ -75,13 +58,7 @@ export default function ExpertiseSection() {
         </motion.div>
 
         {/* Selected Work */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-8"
-        >
+        <motion.div {...revealOnScroll} className="text-center mb-8">
           <h3 className="text-3xl sm:text-4xl font-bold mb-3 text-gray-900 dark:text-white">
             Selected Work
           </h3>
@@ -98,7 +75,7 @@ export default function ExpertiseSection() {
             <motion.div
               key={project.id}
               variants={itemVariants}
-              className="flex flex-col rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 overflow-hidden shadow-sm dark:shadow-gray-900/20 hover:shadow-md dark:hover:shadow-gray-900/30 transition-shadow"
+              className="group flex flex-col rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 overflow-hidden shadow-sm dark:shadow-gray-900/20 hover:shadow-lg hover:-translate-y-1 hover:border-blue-300 dark:hover:border-blue-700 transition-all duration-300"
             >
               {/* Screenshot / banner */}
               <div className="relative aspect-video w-full overflow-hidden border-b border-gray-200 dark:border-gray-700">
@@ -108,7 +85,7 @@ export default function ExpertiseSection() {
                     alt={`${project.title} screenshot`}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    className="object-cover object-top"
+                    className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
                   />
                 ) : (
                   <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-transparent">
@@ -144,8 +121,9 @@ export default function ExpertiseSection() {
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1.5 text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
                   >
-                    <FaExternalLinkAlt size={12} />
-                    Visit Site
+                    <FaExternalLinkAlt size={12} aria-hidden="true" />
+                    Visit site
+                    <span className="sr-only"> — {project.title} (opens in a new tab)</span>
                     {project.loginRequired && (
                       <span className="text-xs text-gray-400 dark:text-gray-500">· Google login</span>
                     )}

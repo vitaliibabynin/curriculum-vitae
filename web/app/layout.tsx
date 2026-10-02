@@ -3,6 +3,10 @@ import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import BackgroundEffect from '../components/background-effect'
 import SmoothScroll from '../components/smooth-scroll'
+import { developerInfo } from './data'
+
+// Runs before first paint so the saved / system theme is applied without a light→dark flash.
+const themeInitScript = `(function(){try{var t=localStorage.getItem('theme');var d=t?t==='dark':matchMedia('(prefers-color-scheme: dark)').matches;document.documentElement.classList.toggle('dark',d);}catch(e){}})();`
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -18,15 +22,25 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
+const title = `${developerInfo.name} ${developerInfo.surname} — ${developerInfo.title}`;
+const description =
+  "Software engineer and AI architect in Germany. AI-native products end to end: LLM pipelines, voice and chat agents, document extraction, multi-tenant SaaS and offline-first mobile.";
+
 export const metadata: Metadata = {
-  title: "Vitalii Babynin — Software Engineer & AI Architect",
-  description: "Full-stack developer delivering solutions through AI-assisted development. Specializing in Next.js, TypeScript, and modern web technologies.",
-  keywords: ["Full Stack Developer", "AI Architect", "Next.js", "TypeScript", "React", "Software Engineer"],
-  authors: [{ name: "Vitalii Babynin" }],
+  title,
+  description,
+  keywords: ["AI Engineer", "AI Architect", "Software Engineer", "LLM", "Claude", "MCP", "Next.js", "TypeScript", "React"],
+  authors: [{ name: `${developerInfo.name} ${developerInfo.surname}` }],
   openGraph: {
-    title: "Vitalii Babynin — Software Engineer & AI Architect",
-    description: "Full-stack developer delivering solutions through AI-assisted development.",
-    type: "website",
+    title,
+    description,
+    type: "profile",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary",
+    title,
+    description,
   },
   appleWebApp: {
     capable: true,
@@ -48,10 +62,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
       <body
         className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} antialiased relative min-h-screen font-sans`}
       >
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-full focus:bg-blue-600 focus:text-white focus:shadow-lg"
+        >
+          Skip to content
+        </a>
         <SmoothScroll>
           <BackgroundEffect />
           <div className="relative z-0">
