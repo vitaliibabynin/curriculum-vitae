@@ -1,7 +1,8 @@
 {
   "env": {
     "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
-    "CLAUDE_CODE_USE_POWERSHELL_TOOL": "1"
+    "CLAUDE_CODE_USE_POWERSHELL_TOOL": "1",
+    "CLAUDE_CODE_SUBAGENT_MODEL": "opus"
   },
   "enableAllProjectMcpServers": true,
   "disabledMcpjsonServers": [],
@@ -25,6 +26,9 @@
       "Bash(npm run lint:*)",
       "Bash(npm run test:*)",
       "Bash(npx playwriter:*)",
+      "Bash(npx playwriter@latest:*)",
+      "Bash(playwriter:*)",
+      "Bash(powershell.exe*Start-Process chrome*)",
       "Bash(vercel project:*)",
       "Bash(vercel projects:*)",
       "Bash(vercel inspect:*)",
@@ -43,6 +47,9 @@
       "PowerShell(npm run lint:*)",
       "PowerShell(npm run test:*)",
       "PowerShell(npx playwriter:*)",
+      "PowerShell(npx playwriter@latest:*)",
+      "PowerShell(playwriter:*)",
+      "PowerShell(Start-Process chrome*)",
       "PowerShell(vercel project:*)",
       "PowerShell(vercel projects:*)",
       "PowerShell(vercel inspect:*)"
@@ -162,7 +169,8 @@
       "PowerShell(dd *)",
       "PowerShell(git push --force *)",
       "PowerShell(git push -f *)",
-      "PowerShell(git reset --hard *)"
+      "PowerShell(git reset --hard *)",
+      "PowerShell(*playwriter serve --replace*)"
     ]
   }
 }

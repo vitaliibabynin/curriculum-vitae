@@ -33,7 +33,8 @@ The repo is organized by **stage of commitment**, with the app isolated in `web/
 - `strategy/` — pre-plan ideation (lean: `research/` only).
 - `plans/` — committed build plans (`completed/`, `canceled/`).
 - `docs/` — current-state + technical-reference docs (this folder).
-- `.claude/` — harness: settings, `playwriter` agent + skill, `/save` skill.
+- `.claude/` — harness: settings, `playwriter` + `scout` agents, `playwriter` / `/save` / `/resume` skills
+  (refreshed 2026-10-02: Playwriter 0.7.0, Windows relay, `install:` browser keys).
 
 See root `CLAUDE.md` for the full layout and conventions, and `web/CLAUDE.md` for app conventions.
 

@@ -96,4 +96,4 @@ npm install framer-motion gsap lenis three @react-three/fiber @react-three/drei
 ## Browser visual QA
 
 Use the `playwriter` agent/skill (CLI, not MCP). Run the dev server here, then drive `http://localhost:3000`;
-screenshots go to the gitignored repo-root `tmp/`.
+screenshots go to the gitignored repo-root `tmp/`. Regenerate the resume PDF with the `/resume` skill.

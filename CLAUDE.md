@@ -17,7 +17,8 @@ Organized by **stage of commitment** — ideas → committed work → as-built �
 - `docs/` — **current state + technical reference**: what the site is today + how the animation/interaction
   systems work (`status.md`, `deployment.md`, `animations.md`, `skills-globe.md`, `3d-cube-carousel.md`,
   `smooth-scroll.md`, `components.md`). Own `CLAUDE.md`.
-- `.claude/` — harness: `settings.json` (+ `settings.local.json`), the `playwriter` agent + skill, the `/save` skill.
+- `.claude/` — harness: `settings.json` (+ `settings.local.json`), the `playwriter` + `scout` agents, the
+  `playwriter`, `/save` and `/resume` skills.
 - `tmp/` — gitignored scratch (Playwriter screenshots land here; never committed).
 
 Each subfolder's `CLAUDE.md` owns the conventions for that folder. Read it before adding files there.
@@ -44,10 +45,15 @@ npm run lint         # ESLint (flat config, eslint.config.mjs)
 
 ## Skills & agents
 
-- `/save` — review changes since last commit, light tidy, run `web/` build+lint, update docs, commit to `main`,
-  push to `origin` (which **auto-deploys to Vercel**).
+- `/save` — review changes since last commit, light tidy, run `web/` build+lint, update docs, commit **this
+  session's** paths to `main` (never `git add -A`), push to `origin` (which **auto-deploys to Vercel**).
+- `/resume` — regenerate `web/public/resume/resume.pdf` from `web/resume-src/resume.html` (headless Chrome),
+  archiving the outgoing version on material changes. Content traces to the off-repo career KB; nothing invented.
 - `playwriter` (agent + skill) — browser automation via the Playwriter **CLI** (the MCP server is intentionally
-  not used). Screenshots → gitignored `tmp/`. Used for visual QA of the site.
+  not used), driving the `Vitalii` Chrome profile (`install:Chrome:rq4g4k6uujkd`). Screenshots → gitignored
+  `tmp/`. Used for visual QA of the site.
+- `scout` (agent) — cheap read-only lane for fan-out lookups (grep/map/reconcile); never edits.
+- Subagents default to Opus (`CLAUDE_CODE_SUBAGENT_MODEL` in `settings.json`).
 
 ## Git & deploy
 
