@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, ReactNode } from 'react'
 import Lenis from 'lenis'
+import { MotionConfig } from 'framer-motion'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -50,7 +51,8 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
     }
   }, [])
 
-  return <>{children}</>
+  // reducedMotion="user": Framer Motion skips transform animations when the OS asks for reduced motion.
+  return <MotionConfig reducedMotion="user">{children}</MotionConfig>
 }
 
 // Export a helper function to scroll to sections
