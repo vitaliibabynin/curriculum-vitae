@@ -1,39 +1,20 @@
 import Navigation from '../components/navigation'
 import HeroSection from '../components/hero-section'
 import ExpertiseSection from '../components/expertise-section'
-import ExperiencesTimeline from '../components/experiences-timeline'
+import ExperienceSection from '../components/experience-section'
 import AboutSection from '../components/about-section'
 import ContactSection from '../components/contact-section'
 
+// Playground cube (components/playground-section.tsx) is intentionally not rendered — code kept for later.
 export default function Home() {
   return (
     <>
       <Navigation />
-      <main className="relative">
-        {/* 1. Hero Section - Full viewport with animated background */}
+      <main id="main" className="relative">
         <HeroSection />
-
-        {/* 2. Expertise Section - 3D Skills Globe + Selected Work */}
         <ExpertiseSection />
-
-        {/* 3. Experience Section - Animated Timeline */}
-        <section id="experience" className="py-20">
-          <div className="text-center mb-16 px-4">
-            <h2 className="text-4xl sm:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
-              Experience
-            </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-400">
-              A journey through my professional career
-            </p>
-          </div>
-          <ExperiencesTimeline />
-        </section>
-
-        {/* 4. About Section - Skills, Education, Credentials, Languages */}
+        <ExperienceSection />
         <AboutSection />
-
-        {/* 5. Contact Section - Footer */}
-        {/* Playground cube (components/playground-section.tsx) intentionally not rendered — code kept for later. */}
         <ContactSection />
       </main>
     </>

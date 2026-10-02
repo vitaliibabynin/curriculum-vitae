@@ -46,9 +46,11 @@ app/
 components/
 ├── navigation.tsx        # Fixed header; scrolls via smooth-scroll helper
 ├── hero-section.tsx      # Text animations, particle bg
+├── section-heading.tsx   # Shared eyebrow + title + lead used by every section
 ├── expertise-section.tsx # Heading + dynamic(SkillsGlobe) + cluster legend + Selected Work
 ├── skills-globe.tsx      # r3f WebGL globe: cluster anchors + orbiting tech nodes
-├── experiences-timeline.tsx # Animated timeline
+├── experience-section.tsx   # Section wrapper: heading + timeline
+├── experiences-timeline.tsx # Animated timeline (highlights, Current badge, collapsible earlier roles)
 ├── about-section.tsx     # Skills, education, credentials, languages
 ├── contact-section.tsx   # Footer
 ├── background-effect.tsx # Canvas particles
@@ -56,6 +58,9 @@ components/
 ├── theme-toggle.tsx      # Light/dark toggle
 ├── playground-section.tsx# (dormant) wraps the cube — not rendered
 └── project-cube.tsx      # (dormant) 3D CSS cube carousel — not rendered
+
+lib/
+└── motion.ts             # Shared Framer Motion variants (stagger, fadeUp, popIn, revealOnScroll)
 
 public/images/projects/    # Selected Work screenshots
 public/images/education/    # Institution logos
@@ -79,7 +84,11 @@ npm install framer-motion gsap lenis three @react-three/fiber @react-three/drei
 
 - All interactive components use `'use client'`.
 - Data-driven from `app/data.ts`.
-- Dark mode via the `dark` class on `html` (components watch it with a `MutationObserver`).
+- Dark mode via the `dark` class on `html`, set **before paint** by an inline script in `app/layout.tsx` (saved
+  choice, else OS preference) so there is no theme flash; components watch it with a `MutationObserver`.
+- Reduced motion: `MotionConfig reducedMotion="user"` (in `smooth-scroll.tsx`) + the CSS media query.
+- Experience entries are typed (`Experience` in `data.ts`); `stack` is ordered strongest-first (first six shown).
+  Chirayou is outcome-level only: contract §12 confidentiality, no internal tool names, figures or colleagues.
 - Smooth scroll via Lenis (see root `docs/smooth-scroll.md`); `html`/`body` are `position: relative` so Framer
   Motion's window-scroll `useScroll` can measure offsets.
 - The globe is loaded via `next/dynamic({ ssr: false })`, is reduced-motion safe, and pauses its render loop

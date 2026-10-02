@@ -149,59 +149,84 @@ export const skillClusters = [
   }
 ]
 
-// Top experiences (condensed timeline)
-export const topExperiences = [
+// Top experiences (condensed timeline). `stack` is listed strongest-first — the card shows the first six.
+// Chirayou: internal specifics are confidential (contract §12) — keep it outcome-level, no internal tool
+// names, figures, colleagues or campaigns. Only the website is public.
+export type Experience = {
+  title: string
+  employer: string
+  period: string
+  location: string
+  workMode: "Remote" | "Hybrid" | "On-site"
+  description: string
+  highlights?: string[]
+  stack: string[]
+  link?: { label: string; href: string }
+  youtubeLink?: string
+}
+
+export const topExperiences: Experience[] = [
   {
     title: "Senior Software Engineer & Head of AI Development",
     employer: "Chirayou GmbH",
     period: "May 2026 – Present",
     location: "Königswinter, Germany",
-    workMode: "Remote" as const,
-    description: "Lead AI-assisted development across the company's digital products and build AI-driven internal workflows and marketing automation that cut manual work. (Health-tech; internal specifics confidential.)",
-    stack: ["Next.js", "TypeScript", "LLM Integration", "Automation", "Marketing Automation"]
+    workMode: "Remote",
+    description: "Preventive-health company. Joined as the first dedicated AI engineer on the product and growth side, building AI into the company's digital products and the team's daily workflows — solo, AI-agent driven, with a human approval on everything that reaches the public.",
+    highlights: [
+      "Designed and built the company's internal AI operations platform end to end: content, marketing and media workflows with an append-only audit trail.",
+      "AI content pipeline: a topic becomes a cited, bilingual (DE/EN) article that passes compliance and fact-check gates before one-click publishing.",
+      "Rebuilt and launched the public company website, with gated previews, edge A/B testing and a confirmed manual release to production.",
+      "Human-in-the-loop paid-ads recommender and landing-page experiments with a measured false-positive rate.",
+      "Video studio for social reels: transcription, edit-by-text, branded captions and per-platform export.",
+      "MCP server that brings brand, claims-compliance checks and on-brand imagery into each colleague's own Claude.",
+      "Health-data environment: GDPR and Art. 9 special-category data handled under professional secrecy."
+    ],
+    stack: ["Claude / Anthropic SDK", "MCP", "TypeScript", "Next.js", "Google Cloud", "Cloudflare Workers", "BigQuery", "Cloud SQL", "Docker", "GitHub Actions"],
+    link: { label: "chirayou.com", href: "https://www.chirayou.com" }
   },
   {
     title: "Founder & Technical Lead",
     employer: "Robot Army",
     period: "Sep 2024 – Present",
     location: "Mönchengladbach, Germany",
-    workMode: "Remote" as const,
+    workMode: "Remote",
     description: "Independent AI software practice. Architect, build, deploy and operate AI products and prototypes end-to-end as sole senior technical lead — voice/chat agents, document-extraction pipelines, multi-tenant SaaS, semantic search, and offline-first mobile apps.",
-    stack: ["Next.js", "React Native/Expo", "TypeScript", "Python", "Convex", "Clerk", "Stripe", "Azure", "Google Cloud", "Claude / Anthropic SDK"]
+    stack: ["Claude / Anthropic SDK", "Next.js", "React Native/Expo", "TypeScript", "Python", "Convex", "Azure", "Google Cloud", "Stripe", "Clerk"]
   },
   {
     title: "Shopify Web Developer",
     employer: "Freelance",
     period: "Mar 2021 – Sep 2024",
     location: "Düsseldorf, Germany",
-    workMode: "Remote" as const,
+    workMode: "Remote",
     description: "Built custom Shopify websites with payments, tracking, fulfillment, chatbots, and marketing integrations.",
-    stack: ["Shopify", "Liquid", "Bootstrap", "Klaviyo", "Zapier", "Facebook Business Manager"]
+    stack: ["Shopify", "Liquid", "Klaviyo", "Zapier", "Bootstrap", "Facebook Business Manager"]
   },
   {
     title: "Full Stack Developer",
     employer: "SHR Germany GmbH",
     period: "Jan 2021 – Mar 2021",
     location: "Hilden, Germany",
-    workMode: "On-site" as const,
+    workMode: "On-site",
     description: "Created and maintained Prestashop/WooCommerce websites with Bootstrap 5, dark mode, and custom modules.",
-    stack: ["JavaScript", "jQuery", "PHP/SQL", "MariaDB", "SASS", "Prestashop", "WooCommerce"]
+    stack: ["Prestashop", "WooCommerce", "PHP/SQL", "JavaScript", "SASS", "jQuery", "MariaDB"]
   },
   {
     title: "Mobile App Developer",
     employer: "SmallDevTeam",
     period: "Sep 2016 – Jan 2021",
     location: "Kyiv, Ukraine",
-    workMode: "Hybrid" as const,
+    workMode: "Hybrid",
     description: "Created WeightWatching app, puzzle/logic games, and Facebook Graph API integrations.",
-    stack: ["C#", "Unity", "React.js", "Cordova", "PhoneGap"]
+    stack: ["Unity", "C#", "React.js", "Cordova", "PhoneGap"]
   },
   {
     title: "Blockchain Developer",
     employer: "Soulestate.io",
     period: "May 2017 – Sep 2018",
     location: "Kyiv, Ukraine",
-    workMode: "Hybrid" as const,
+    workMode: "Hybrid",
     description: "Developed smart contract on Ethereum for real estate investment digitization.",
     stack: ["Solidity", "Ethereum"],
     youtubeLink: "https://www.youtube.com/watch?v=Ti0wd2Cbtz0&t=43s"
