@@ -26,8 +26,8 @@ export default function HeroSection() {
   const ref = useRef<HTMLElement>(null)
   const reduced = useReducedMotion()
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
-  const lift = useTransform(scrollYProgress, [0, 1], [0, reduced ? 0 : -120])
-  const fade = useTransform(scrollYProgress, [0, 0.8], [1, 0])
+  // Gentle drift only — no opacity fade, which made the small labels unreadable mid-scroll.
+  const lift = useTransform(scrollYProgress, [0, 1], [0, reduced ? 0 : -80])
 
   const go = (id: string) => {
     const el = document.getElementById(id)
@@ -36,12 +36,12 @@ export default function HeroSection() {
 
   return (
     <section ref={ref} id="hero" className="relative flex min-h-[100svh] flex-col justify-between overflow-hidden pt-24">
-      <motion.div style={{ y: lift, opacity: fade }} className="mx-auto grid w-full max-w-7xl flex-1 items-center gap-14 px-5 sm:px-8 lg:grid-cols-12 lg:gap-10">
+      <motion.div style={{ y: lift }} className="mx-auto grid w-full max-w-7xl flex-1 items-center gap-14 px-5 sm:px-8 lg:grid-cols-12 lg:gap-10">
         {/* Identity */}
         <motion.div variants={containerVariants} initial="hidden" animate="visible" className="lg:col-span-7">
           <motion.p variants={item} className="label mb-14 flex items-center gap-2 text-muted">
             <span className="inline-block h-1.5 w-1.5 bg-signal" />
-            profile.pdf <span className="text-fg/40">→</span> parsed
+            profile.pdf <span className="text-fg/70">→</span> parsed
           </motion.p>
 
           <FieldBox field="full_name" confidence={0.99} immediate delay={1.1} className="inline-block">
@@ -78,10 +78,10 @@ export default function HeroSection() {
               Resume <span className="label text-muted">pdf</span>
             </a>
             <span className="ml-1 flex gap-5 pl-2">
-              <a href={developerInfo.linkedIn} target="_blank" rel="noopener noreferrer" className="label text-muted transition-colors hover:text-signal">
+              <a href={developerInfo.linkedIn} target="_blank" rel="noopener noreferrer" className="label text-fg/85 underline decoration-line underline-offset-4 transition-colors hover:text-signal hover:decoration-signal">
                 LinkedIn ↗
               </a>
-              <a href={developerInfo.github} target="_blank" rel="noopener noreferrer" className="label text-muted transition-colors hover:text-signal">
+              <a href={developerInfo.github} target="_blank" rel="noopener noreferrer" className="label text-fg/85 underline decoration-line underline-offset-4 transition-colors hover:text-signal hover:decoration-signal">
                 GitHub ↗
               </a>
             </span>

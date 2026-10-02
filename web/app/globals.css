@@ -12,10 +12,10 @@
   --surface-2: #e7e9e6;
   --line: #d3d6d2;
   --fg: #0e100f;
-  --muted: #5b625e;
-  --signal: #e2470f;
+  --muted: #4c534f;
+  --signal: #c03a0a;
   --on-signal: #ffffff;
-  --ok: #12855a;
+  --ok: #0d7149;
   --grid: rgba(14, 16, 15, 0.06);
   color-scheme: light;
 }
@@ -26,7 +26,7 @@
   --surface-2: #191d1b;
   --line: #262b28;
   --fg: #eceeea;
-  --muted: #8b928d;
+  --muted: #a0a7a2;
   --signal: #ff5a1f;
   --on-signal: #0b0d0c;
   --ok: #46d394;

@@ -70,6 +70,7 @@ lib/
 public/images/projects/    # Selected Work screenshots
 public/images/education/    # Institution logos
 public/resume/             # resume.pdf (live, Resume-button target) + archive/ (versioned old PDFs) + README
+icon-src/                  # generate-icons.js → favicon.ico, icon/apple-icon, PWA icons (see its README)
 resume-src/                # HTML source for resume.pdf + regeneration steps (not served; rendered to public/)
 ```
 
@@ -107,7 +108,10 @@ npm install framer-motion gsap lenis three @react-three/fiber @react-three/drei
 - **Brand ("Parsed")**: graphite ink, cool paper, one vermilion `signal` accent; IBM Plex Sans / Sans Condensed
   (display, uppercase) / Mono (`.label` annotations). Tokens are CSS variables in `globals.css` (`:root` + `.dark`)
   mapped to Tailwind colours (`bg-bg`, `text-fg`, `text-muted`, `border-line`, `bg-surface`, `text-signal`, `text-ok`),
-  so components rarely need `dark:` variants. **No purple / blue→purple gradients** — the old palette read as a
+  so components rarely need `dark:` variants.
+  **Contrast:** light-mode signal is `#c03a0a` and ok `#0d7149` (the brighter dark-mode values fail WCAG on
+  paper); all text passes 4.5:1 in both themes. Don't fade whole content blocks on scroll (it made labels
+  unreadable). **No purple / blue→purple gradients** — the old palette read as a
   default AI build. Square corners; the signal colour marks what the "machine" extracted or what's active.
 - External links use `rel="noopener noreferrer"`.
 

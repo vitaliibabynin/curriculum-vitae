@@ -141,7 +141,7 @@ export default function ExtractionDemo() {
           </div>
 
           {/* structured output */}
-          <div className="border-t border-dashed border-line bg-surface-2/60 px-4 py-4 font-mono text-[12.5px] leading-6 sm:px-5">
+          <div className="border-t border-dashed border-line bg-surface-2/35 px-4 py-4 font-mono text-[12.5px] leading-6 sm:px-5">
             <div className="text-muted">{'{'}</div>
             {fields.map((f, i) => (
               <motion.div

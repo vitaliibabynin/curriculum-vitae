@@ -98,7 +98,7 @@ export default function ContactSection() {
                   href={l.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="label text-muted transition-colors hover:text-signal"
+                  className="label text-fg/85 underline decoration-line underline-offset-4 transition-colors hover:text-signal hover:decoration-signal"
                 >
                   {l.label} ↗
                 </a>
