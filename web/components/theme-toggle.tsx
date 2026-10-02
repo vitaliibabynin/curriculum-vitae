@@ -27,11 +27,12 @@ export default function ThemeToggle() {
     <button
       type="button"
       onClick={toggleTheme}
-      className="p-2 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+      className="label flex items-center gap-2 border border-line px-2.5 py-1.5 text-muted transition-colors hover:border-fg hover:text-fg"
       aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
       aria-pressed={darkMode ?? undefined}
     >
-      {darkMode ? <FaSun size={18} /> : <FaMoon size={18} />}
+      {darkMode ? <FaSun size={12} /> : <FaMoon size={12} />}
+      <span className="hidden sm:inline">{darkMode ? 'light' : 'dark'}</span>
     </button>
   )
 }

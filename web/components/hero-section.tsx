@@ -1,145 +1,129 @@
 'use client'
 
-import { motion, type Variants } from 'framer-motion'
-import { FaLinkedin, FaGithub, FaChevronDown, FaFileDownload, FaArrowRight, FaMapMarkerAlt } from 'react-icons/fa'
+import { useRef } from 'react'
+import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
 import { developerInfo } from '../app/data'
 import { scrollToSection } from './smooth-scroll'
-import { easeOutExpo, fadeUp, stagger } from '../lib/motion'
+import { stagger, fadeUp } from '../lib/motion'
+import ScrambleText from './scramble-text'
+import FieldBox from './field-box'
+import Magnetic from './magnetic'
+import ExtractionDemo from './extraction-demo'
 
-const wordVariants: Variants = {
-  hidden: { opacity: 0, y: 50, clipPath: 'inset(100% 0 0 0)' },
-  visible: {
-    opacity: 1,
-    y: 0,
-    clipPath: 'inset(0% 0 0 0)',
-    transition: { duration: 0.8, ease: easeOutExpo }
-  }
-}
+const containerVariants = stagger(0.12, 0.2)
+const item = fadeUp(24, 0.7)
 
-const containerVariants = stagger(0.15, 0.3)
-const fadeUpVariants = fadeUp(30, 0.6)
-
-const socialClass =
-  'p-3 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 transition-all duration-300 hover:scale-110'
+const TICKER = [
+  'voice → json',
+  'scans → records',
+  'chat → crm',
+  'documents → search',
+  'tenders → pipelines',
+  'field notes → audit trail',
+]
 
 export default function HeroSection() {
-  const scrollTo = (id: string) => {
-    const element = document.getElementById(id)
-    if (element) scrollToSection(element, 80)
+  const ref = useRef<HTMLElement>(null)
+  const reduced = useReducedMotion()
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
+  const lift = useTransform(scrollYProgress, [0, 1], [0, reduced ? 0 : -120])
+  const fade = useTransform(scrollYProgress, [0, 0.8], [1, 0])
+
+  const go = (id: string) => {
+    const el = document.getElementById(id)
+    if (el) scrollToSection(el, 72)
   }
 
   return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Content */}
-      <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 py-24 max-w-5xl mx-auto">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="space-y-6"
-        >
-          {/* Name */}
-          <div className="overflow-hidden">
-            <motion.h1 
-              variants={wordVariants}
-              className="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tight"
-            >
-              <span className="bg-gradient-to-r from-gray-900 via-blue-800 to-gray-900 dark:from-white dark:via-blue-300 dark:to-white bg-clip-text text-transparent">
-                {developerInfo.name} {developerInfo.surname}
-              </span>
-            </motion.h1>
-          </div>
+    <section ref={ref} id="hero" className="relative flex min-h-[100svh] flex-col justify-between overflow-hidden pt-24">
+      <motion.div style={{ y: lift, opacity: fade }} className="mx-auto grid w-full max-w-7xl flex-1 items-center gap-14 px-5 sm:px-8 lg:grid-cols-12 lg:gap-10">
+        {/* Identity */}
+        <motion.div variants={containerVariants} initial="hidden" animate="visible" className="lg:col-span-7">
+          <motion.p variants={item} className="label mb-14 flex items-center gap-2 text-muted">
+            <span className="inline-block h-1.5 w-1.5 bg-signal" />
+            profile.pdf <span className="text-fg/40">→</span> parsed
+          </motion.p>
 
-          {/* Title */}
-          <motion.div variants={fadeUpVariants} className="overflow-hidden">
-            <p className="text-xl sm:text-2xl lg:text-3xl text-gray-600 dark:text-gray-300 font-light">
-              {developerInfo.title}
-            </p>
-          </motion.div>
+          <FieldBox field="full_name" confidence={0.99} immediate delay={1.1} className="inline-block">
+            <h1 className="font-display text-[clamp(3.6rem,16vw,9.75rem)] font-bold uppercase leading-[0.84] tracking-[-0.02em]">
+              <ScrambleText text={developerInfo.name} duration={700} className="block" />
+              <ScrambleText text={developerInfo.surname} delay={180} duration={800} className="block" />
+            </h1>
+          </FieldBox>
 
-          {/* Tagline */}
-          <motion.div variants={fadeUpVariants}>
-            <p className="text-lg sm:text-xl text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
-              {developerInfo.tagline}
-            </p>
-            <p className="mt-3 inline-flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400">
-              <FaMapMarkerAlt size={12} aria-hidden="true" />
-              {developerInfo.location}
-            </p>
-          </motion.div>
+          <motion.p variants={item} className="mt-10 font-display text-2xl font-medium uppercase tracking-wide sm:text-3xl">
+            Software Engineer <span className="text-signal">&amp;</span> AI Architect
+          </motion.p>
+          <motion.p variants={item} className="mt-4 max-w-xl text-lg text-muted text-pretty">
+            {developerInfo.tagline} Ten years of shipping software, the last two AI-native, built to GDPR-grade
+            governance.
+          </motion.p>
 
-          {/* Calls to action */}
-          <motion.div variants={fadeUpVariants} className="flex flex-wrap items-center justify-center gap-3 pt-2">
-            <button
-              type="button"
-              onClick={() => scrollTo('contact')}
-              className="group inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 transition-shadow"
-            >
-              Get in touch
-              <FaArrowRight size={12} aria-hidden="true" className="transition-transform group-hover:translate-x-0.5" />
-            </button>
+          <motion.div variants={item} className="mt-9 flex flex-wrap items-center gap-3">
+            <Magnetic>
+              <button
+                type="button"
+                onClick={() => go('contact')}
+                className="group inline-flex items-center gap-3 bg-signal px-6 py-3.5 font-medium text-on-signal transition-transform active:scale-[0.98]"
+              >
+                Get in touch
+                <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">→</span>
+              </button>
+            </Magnetic>
             <a
               href={developerInfo.resumeUrl}
               download
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/70 dark:bg-gray-800/70 backdrop-blur text-gray-800 dark:text-gray-200 font-medium border border-gray-200 dark:border-gray-700 hover:border-blue-400 dark:hover:border-blue-500 transition-colors"
+              className="inline-flex items-center gap-3 border border-line px-6 py-3.5 font-medium transition-colors hover:border-fg"
             >
-              <FaFileDownload size={14} aria-hidden="true" />
-              Resume (PDF)
+              Resume <span className="label text-muted">pdf</span>
             </a>
+            <span className="ml-1 flex gap-5 pl-2">
+              <a href={developerInfo.linkedIn} target="_blank" rel="noopener noreferrer" className="label text-muted transition-colors hover:text-signal">
+                LinkedIn ↗
+              </a>
+              <a href={developerInfo.github} target="_blank" rel="noopener noreferrer" className="label text-muted transition-colors hover:text-signal">
+                GitHub ↗
+              </a>
+            </span>
           </motion.div>
 
-          {/* Social Links */}
-          <motion.div 
-            variants={fadeUpVariants}
-            className="flex items-center justify-center gap-4 pt-2"
-          >
-            <a
-              href={developerInfo.linkedIn}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`${socialClass} hover:bg-blue-100 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400`}
-              aria-label="LinkedIn"
-            >
-              <FaLinkedin size={24} />
-            </a>
-            <a
-              href={developerInfo.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`${socialClass} hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white`}
-              aria-label="GitHub"
-            >
-              <FaGithub size={24} />
-            </a>
-          </motion.div>
+          <motion.dl variants={item} className="mt-12 grid max-w-xl grid-cols-3 gap-px border border-line bg-line">
+            {[
+              ['based', 'Germany'],
+              ['since', '2015'],
+              ['focus', 'LLM systems'],
+            ].map(([k, v]) => (
+              <div key={k} className="bg-bg px-3 py-3 theme-fade">
+                <dt className="label text-muted">{k}</dt>
+                <dd className="mt-1 text-sm font-medium">{v}</dd>
+              </div>
+            ))}
+          </motion.dl>
         </motion.div>
 
-      </div>
-
-      {/* Scroll Indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 0.8 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
-      >
-        <motion.button
-          onClick={() => scrollTo('expertise')}
-          animate={{ y: [0, 10, 0] }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className="p-2 rounded-full text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 transition-colors cursor-pointer"
-          aria-label="Scroll to expertise"
+        {/* Live demo */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="lg:col-span-5"
         >
-          <FaChevronDown size={28} />
-        </motion.button>
+          <p className="label mb-3 text-muted">what I build, in one loop</p>
+          <ExtractionDemo />
+        </motion.div>
       </motion.div>
 
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/50 dark:to-gray-900/50 pointer-events-none" />
+      {/* Ticker */}
+      <div className="relative mt-16 overflow-hidden border-y border-line py-3" aria-hidden="true">
+        <div className="flex w-max animate-marquee gap-10 whitespace-nowrap motion-reduce:animate-none">
+          {[...TICKER, ...TICKER, ...TICKER, ...TICKER].map((t, i) => (
+            <span key={i} className="label flex items-center gap-10 text-muted">
+              {t}
+              <span className="inline-block h-1 w-1 bg-signal" />
+            </span>
+          ))}
+        </div>
+      </div>
     </section>
   )
 }

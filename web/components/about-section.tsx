@@ -1,237 +1,166 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
-import { FaGraduationCap, FaGlobe, FaHeart, FaAward } from 'react-icons/fa'
+import { motion, useInView, useReducedMotion, animate } from 'framer-motion'
 import { developerInfo, skillGroups, educations, languages, interests, credentials } from '../app/data'
-import { stagger, fadeUp, popIn } from '../lib/motion'
+import { easeOutExpo, stagger, fadeUp } from '../lib/motion'
 import SectionHeading from './section-heading'
+import FieldBox from './field-box'
 
-const containerVariants = stagger(0.1)
-const itemVariants = fadeUp()
-const tagVariants = popIn
+const list = stagger(0.06)
+const row = fadeUp(14)
+const yearsShipping = new Date().getFullYear() - 2015
+
+function CountUp({ to, suffix = '' }: { to: number; suffix?: string }) {
+  const ref = useRef<HTMLSpanElement>(null)
+  const inView = useInView(ref, { once: true })
+  const reduced = useReducedMotion()
+  const [value, setValue] = useState(reduced ? to : 0)
+
+  useEffect(() => {
+    if (!inView || reduced) return
+    const controls = animate(0, to, { duration: 1.4, ease: easeOutExpo, onUpdate: (v) => setValue(Math.round(v)) })
+    return () => controls.stop()
+  }, [inView, reduced, to])
+
+  return (
+    <span ref={ref}>
+      {value}
+      {suffix}
+    </span>
+  )
+}
+
+function SubHeading({ children }: { children: string }) {
+  return <h3 className="label mb-5 text-muted">{children}</h3>
+}
 
 export default function AboutSection() {
   return (
-    <section id="about" aria-labelledby="about-title" className="py-20 px-4 sm:px-6 lg:px-8 scroll-mt-20">
-      <div className="max-w-6xl mx-auto">
-        <SectionHeading id="about-title" eyebrow="Background" title="About Me">
-          {developerInfo.about}
-        </SectionHeading>
+    <section id="about" aria-labelledby="about-title" className="scroll-mt-20 px-5 py-28 sm:px-8 sm:py-36">
+      <div className="mx-auto max-w-7xl">
+        <SectionHeading id="about-title" index="05" eyebrow="about" title="Background" />
 
-        {/* Main Grid */}
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Left Column - Profile Image & Quick Info */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="lg:col-span-1"
-          >
-            <div className="sticky top-24">
-              {/* Profile Image */}
-              <div className="relative w-full aspect-square max-w-sm mx-auto rounded-2xl overflow-hidden shadow-xl dark:shadow-gray-900/50 border border-gray-200 dark:border-gray-700">
-                <Image
-                  src={developerInfo.imageUrl}
-                  alt={`${developerInfo.name} ${developerInfo.surname}`}
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 384px"
-                  className="object-cover"
-                />
-              </div>
+        <div className="grid gap-14 lg:grid-cols-12 lg:gap-12">
+          {/* Portrait + facts */}
+          <div className="lg:col-span-4">
+            <div className="lg:sticky lg:top-28">
+              <FieldBox field="portrait" confidence={1} className="block">
+                <div className="group relative aspect-[4/5] overflow-hidden border border-line bg-surface-2">
+                  <Image
+                    src={developerInfo.imageUrl}
+                    alt={`${developerInfo.name} ${developerInfo.surname}`}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 400px"
+                    className="object-cover grayscale transition-[filter] duration-700 group-hover:grayscale-0"
+                  />
+                </div>
+              </FieldBox>
 
-              {/* Location */}
-              <div className="text-center mt-6">
-                <p className="text-gray-600 dark:text-gray-400 flex items-center justify-center gap-2">
-                  <FaGlobe size={16} className="text-blue-500 dark:text-blue-400" />
-                  {developerInfo.location}
-                </p>
+              <dl className="mt-8 divide-y divide-line border-y border-line text-sm">
+                <div className="flex justify-between py-3">
+                  <dt className="label text-muted">location</dt>
+                  <dd>{developerInfo.location}</dd>
+                </div>
+                {languages.map((l) => (
+                  <div key={l.name} className="flex justify-between py-3">
+                    <dt className="label text-muted">{l.name}</dt>
+                    <dd>{l.level}</dd>
+                  </div>
+                ))}
+                <div className="flex justify-between gap-6 py-3">
+                  <dt className="label shrink-0 text-muted">off-hours</dt>
+                  <dd className="text-right">{interests.join(', ')}</dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+
+          <div className="space-y-20 lg:col-span-8">
+            {/* Lead */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: easeOutExpo }}
+              className="text-2xl leading-snug text-pretty sm:text-3xl"
+            >
+              {developerInfo.about}
+            </motion.p>
+
+            {/* Numbers */}
+            <div>
+              <SubHeading>{credentials.label}</SubHeading>
+              <div className="grid gap-px border border-line bg-line sm:grid-cols-4">
+                <div className="bg-bg p-5 theme-fade">
+                  <p className="font-display text-5xl font-bold">
+                    <CountUp to={yearsShipping} />
+                  </p>
+                  <p className="label mt-3 text-muted">years shipping</p>
+                </div>
+                {credentials.items.map((c) => {
+                  const pct = parseInt(c.percentile, 10)
+                  return (
+                    <div key={c.name} className="bg-bg p-5 theme-fade">
+                      <p className="font-display text-5xl font-bold">
+                        <CountUp to={pct} />
+                        <span className="text-2xl text-muted">th</span>
+                      </p>
+                      <p className="label mt-3 text-muted">{c.name} · pct</p>
+                      <div className="mt-3 h-1 bg-surface-2">
+                        <motion.div
+                          className="h-full origin-left bg-signal"
+                          initial={{ scaleX: 0 }}
+                          whileInView={{ scaleX: pct / 100 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 1.4, ease: easeOutExpo }}
+                        />
+                      </div>
+                    </div>
+                  )
+                })}
               </div>
             </div>
-          </motion.div>
 
-          {/* Right Column - Skills, Education, Languages */}
-          <div className="lg:col-span-2 space-y-12">
             {/* Skills */}
-            <motion.div
-              variants={containerVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-            >
-              <h3 className="text-2xl font-semibold mb-6 text-gray-900 dark:text-white flex items-center gap-2">
-                <span className="w-8 h-0.5 bg-blue-500 dark:bg-blue-400"></span>
-                Skills
-              </h3>
-              <div className="space-y-6">
-                {skillGroups.map((group) => (
-                  <motion.div key={group.name} variants={itemVariants}>
-                    <h4 className="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">
-                      {group.name}
-                    </h4>
-                    <motion.div 
-                      className="flex flex-wrap gap-2"
-                      variants={containerVariants}
-                    >
-                      {group.skills.map((skill) => (
-                        <motion.span
-                          key={skill}
-                          variants={tagVariants}
-                          className="px-3 py-1.5 text-sm rounded-full bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 border border-blue-100 dark:border-blue-800 "
-                        >
-                          {skill}
-                        </motion.span>
-                      ))}
-                    </motion.div>
+            <div>
+              <SubHeading>Skills, strongest first</SubHeading>
+              <motion.dl variants={list} initial="hidden" whileInView="visible" viewport={{ once: true }} className="border-t border-line">
+                {skillGroups.map((g) => (
+                  <motion.div key={g.name} variants={row} className="grid gap-2 border-b border-line py-4 sm:grid-cols-[13rem_1fr] sm:gap-6">
+                    <dt className="font-display text-lg font-semibold uppercase tracking-wide">{g.name}</dt>
+                    <dd className="text-sm leading-relaxed text-muted">{g.skills.join(' · ')}</dd>
                   </motion.div>
                 ))}
-              </div>
-            </motion.div>
+              </motion.dl>
+            </div>
 
             {/* Education */}
-            <motion.div
-              variants={containerVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-            >
-              <h3 className="text-2xl font-semibold mb-6 text-gray-900 dark:text-white flex items-center gap-2">
-                <span className="w-8 h-0.5 bg-blue-500 dark:bg-blue-400"></span>
-                <FaGraduationCap className="text-blue-500 dark:text-blue-400" />
-                Education
-              </h3>
-              <div className="space-y-4">
-                {educations.map((edu) => (
-                  <motion.div
-                    key={edu.institution}
-                    variants={itemVariants}
-                    className="flex gap-4 p-4 rounded-xl bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-gray-900/20"
-                  >
-                    <div className="relative w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 flex items-center justify-center">
-                      {edu.logoUrl ? (
-                        <Image
-                          src={edu.logoUrl}
-                          alt={edu.institution}
-                          fill
-                          sizes="64px"
-                          className="object-contain p-1.5"
-                        />
-                      ) : (
-                        <FaGraduationCap className="text-blue-500 dark:text-blue-400" size={24} />
-                      )}
+            <div>
+              <SubHeading>Education</SubHeading>
+              <motion.ul variants={list} initial="hidden" whileInView="visible" viewport={{ once: true }} className="border-t border-line">
+                {educations.map((e) => (
+                  <motion.li key={e.institution} variants={row} className="flex items-center gap-5 border-b border-line py-4">
+                    <div className="relative h-12 w-12 shrink-0 overflow-hidden border border-line bg-white">
+                      {e.logoUrl && <Image src={e.logoUrl} alt="" fill sizes="48px" className="object-contain p-1 grayscale" />}
                     </div>
-                    <div className="flex-1">
-                      <h4 className="font-semibold text-gray-900 dark:text-white">
-                        {edu.institution}
-                      </h4>
-                      <p className="text-sm text-gray-600 dark:text-gray-300">
-                        {edu.degree && `${edu.degree}, `}{edu.field}
-                      </p>
-                      {edu.note && (
-                        <p className="text-xs text-gray-500 dark:text-gray-400 italic mt-0.5">
-                          {edu.note}
-                        </p>
-                      )}
-                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                        {edu.period} • {edu.location}
+                    <div className="min-w-0 flex-1">
+                      <p className="font-medium">{e.institution}</p>
+                      <p className="text-sm text-muted">
+                        {e.degree && `${e.degree}, `}
+                        {e.field}
+                        {e.note && ` — ${e.note}`}
                       </p>
                     </div>
-                  </motion.div>
+                    <div className="label hidden shrink-0 text-right text-muted sm:block">
+                      {e.period}
+                      <br />
+                      {e.location}
+                    </div>
+                  </motion.li>
                 ))}
-              </div>
-            </motion.div>
-
-            {/* Credentials */}
-            <motion.div
-              variants={containerVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-            >
-              <h3 className="text-2xl font-semibold mb-6 text-gray-900 dark:text-white flex items-center gap-2">
-                <span className="w-8 h-0.5 bg-blue-500 dark:bg-blue-400"></span>
-                <FaAward className="text-blue-500 dark:text-blue-400" />
-                Credentials
-              </h3>
-              <motion.div
-                variants={itemVariants}
-                className="rounded-xl bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 p-5"
-              >
-                <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
-                  {credentials.label}
-                </p>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                  {credentials.items.map((item) => (
-                    <div
-                      key={item.name}
-                      className="flex flex-col items-center text-center rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 px-3 py-4"
-                    >
-                      <span className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-                        {item.percentile}
-                      </span>
-                      <span className="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-wider mt-1">
-                        percentile
-                      </span>
-                      <span className="text-sm text-gray-700 dark:text-gray-300 mt-2">
-                        {item.name}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
-            </motion.div>
-
-            {/* Languages & Interests */}
-            <div className="grid sm:grid-cols-2 gap-8">
-              {/* Languages */}
-              <motion.div
-                variants={containerVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-              >
-                <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white flex items-center gap-2">
-                  <FaGlobe className="text-blue-500 dark:text-blue-400" size={18} />
-                  Languages
-                </h3>
-                <div className="space-y-2">
-                  {languages.map((lang) => (
-                    <motion.div
-                      key={lang.name}
-                      variants={itemVariants}
-                      className="flex items-center justify-between py-2 border-b border-gray-200 dark:border-gray-700/50 last:border-0"
-                    >
-                      <span className="text-gray-700 dark:text-gray-300">{lang.name}</span>
-                      <span className="text-sm text-gray-500 dark:text-gray-400">{lang.level}</span>
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.div>
-
-              {/* Interests */}
-              <motion.div
-                variants={containerVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-              >
-                <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white flex items-center gap-2">
-                  <FaHeart className="text-red-500 dark:text-red-400" size={18} />
-                  Interests
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {interests.map((interest) => (
-                    <motion.span
-                      key={interest}
-                      variants={tagVariants}
-                      className="px-3 py-1 text-sm rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600"
-                    >
-                      {interest}
-                    </motion.span>
-                  ))}
-                </div>
-              </motion.div>
+              </motion.ul>
             </div>
           </div>
         </div>

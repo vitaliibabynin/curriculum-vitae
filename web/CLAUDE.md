@@ -46,14 +46,19 @@ app/
 components/
 ├── navigation.tsx        # Fixed header; scrolls via smooth-scroll helper
 ├── hero-section.tsx      # Text animations, particle bg
-├── section-heading.tsx   # Shared eyebrow + title + lead used by every section
+├── section-heading.tsx   # Index rule + decoded display title + lead (every section)
+├── extraction-demo.tsx   # Hero loop: free text → boxed fields → JSON record (invented demo inputs)
+├── selected-work.tsx     # #work — project rows with clip-path reveal + parallax
+├── scramble-text.tsx     # Glyph-decode text effect (sr-only real text)
+├── field-box.tsx         # OCR-style bounding box + field label annotation
+├── magnetic.tsx          # Pointer-attracted wrapper for primary CTAs
 ├── expertise-section.tsx # Heading + dynamic(SkillsGlobe) + cluster legend + Selected Work
 ├── skills-globe.tsx      # r3f WebGL globe: cluster anchors + orbiting tech nodes
 ├── experience-section.tsx   # Section wrapper: heading + timeline
 ├── experiences-timeline.tsx # Animated timeline (highlights, Current badge, collapsible earlier roles)
 ├── about-section.tsx     # Skills, education, credentials, languages
 ├── contact-section.tsx   # Footer
-├── background-effect.tsx # Canvas particles
+├── background-effect.tsx # Document grid + pointer spotlight + grain (no canvas)
 ├── smooth-scroll.tsx     # Lenis + GSAP sync; exports scrollToSection() helper
 ├── theme-toggle.tsx      # Light/dark toggle
 ├── playground-section.tsx# (dormant) wraps the cube — not rendered
@@ -99,7 +104,11 @@ npm install framer-motion gsap lenis three @react-three/fiber @react-three/drei
 - **Components:** kebab-case files, PascalCase exports. **Variables/functions:** camelCase. **Types:** PascalCase.
 - Type inference for `data.ts` structures; explicit interfaces for component props; derive prop types with
   `typeof` where it reads cleanly.
-- Tailwind for all styling; dark mode via `dark:` variants; custom animations in `globals.css`.
+- **Brand ("Parsed")**: graphite ink, cool paper, one vermilion `signal` accent; IBM Plex Sans / Sans Condensed
+  (display, uppercase) / Mono (`.label` annotations). Tokens are CSS variables in `globals.css` (`:root` + `.dark`)
+  mapped to Tailwind colours (`bg-bg`, `text-fg`, `text-muted`, `border-line`, `bg-surface`, `text-signal`, `text-ok`),
+  so components rarely need `dark:` variants. **No purple / blue→purple gradients** — the old palette read as a
+  default AI build. Square corners; the signal colour marks what the "machine" extracted or what's active.
 - External links use `rel="noopener noreferrer"`.
 
 ## Browser visual QA

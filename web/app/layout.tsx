@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import { IBM_Plex_Sans, IBM_Plex_Sans_Condensed, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import BackgroundEffect from '../components/background-effect'
 import SmoothScroll from '../components/smooth-scroll'
@@ -8,17 +8,25 @@ import { developerInfo } from './data'
 // Runs before first paint so the saved / system theme is applied without a light→dark flash.
 const themeInitScript = `(function(){try{var t=localStorage.getItem('theme');var d=t?t==='dark':matchMedia('(prefers-color-scheme: dark)').matches;document.documentElement.classList.toggle('dark',d);}catch(e){}})();`
 
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-space-grotesk",
-  weight: ["300", "400", "500", "600", "700"],
+// IBM Plex: an engineering face with document-processing heritage — fits a site about parsing documents.
+const plex = IBM_Plex_Sans({
+  subsets: ["latin", "latin-ext", "cyrillic"],
+  variable: "--font-plex",
+  weight: ["400", "500", "600"],
   display: "swap",
 });
 
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-jetbrains-mono",
-  weight: ["400", "500", "600"],
+const plexCondensed = IBM_Plex_Sans_Condensed({
+  subsets: ["latin", "latin-ext"],
+  variable: "--font-plex-cond",
+  weight: ["500", "600", "700"],
+  display: "swap",
+});
+
+const plexMono = IBM_Plex_Mono({
+  subsets: ["latin", "latin-ext"],
+  variable: "--font-plex-mono",
+  weight: ["400", "500"],
   display: "swap",
 });
 
@@ -51,8 +59,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+    { media: "(prefers-color-scheme: light)", color: "#f2f3f1" },
+    { media: "(prefers-color-scheme: dark)", color: "#0b0d0c" },
   ],
 };
 
@@ -67,11 +75,11 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body
-        className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} antialiased relative min-h-screen font-sans`}
+        className={`${plex.variable} ${plexCondensed.variable} ${plexMono.variable} antialiased relative min-h-screen font-sans bg-bg text-fg theme-fade`}
       >
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-full focus:bg-blue-600 focus:text-white focus:shadow-lg"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-full focus:bg-signal focus:text-on-signal focus:shadow-lg"
         >
           Skip to content
         </a>

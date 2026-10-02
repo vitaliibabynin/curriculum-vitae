@@ -2,16 +2,10 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { FaEnvelope, FaLinkedin, FaGithub, FaFileDownload, FaMapMarkerAlt, FaCopy, FaCheck } from 'react-icons/fa'
 import { developerInfo } from '../app/data'
-import { stagger, fadeUp } from '../lib/motion'
-
-const containerVariants = stagger(0.1)
-const itemVariants = fadeUp()
-
-const pillClass =
-  'inline-flex items-center gap-2 px-6 py-3 rounded-full border transition-all hover:-translate-y-0.5 hover:shadow-md'
-const ghostPill = `${pillClass} bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-700 shadow-sm`
+import { easeOutExpo } from '../lib/motion'
+import ScrambleText from './scramble-text'
+import Magnetic from './magnetic'
 
 function CopyEmailButton({ email }: { email: string }) {
   const [copied, setCopied] = useState(false)
@@ -30,87 +24,96 @@ function CopyEmailButton({ email }: { email: string }) {
     <button
       type="button"
       onClick={copy}
-      className="p-3 rounded-full bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-gray-700 shadow-sm hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+      className={`label border px-3 py-2 transition-colors ${copied ? 'border-ok text-ok' : 'border-line text-muted hover:border-fg hover:text-fg'}`}
       aria-label={copied ? 'Email copied' : 'Copy email address'}
-      title={copied ? 'Copied!' : 'Copy email'}
     >
-      {copied ? <FaCheck className="text-emerald-500" /> : <FaCopy />}
+      {copied ? '✓ copied' : 'copy'}
       <span className="sr-only" aria-live="polite">{copied ? 'Copied to clipboard' : ''}</span>
     </button>
   )
 }
 
+const links = [
+  { label: 'LinkedIn', href: developerInfo.linkedIn },
+  { label: 'GitHub', href: developerInfo.github },
+]
+
 export default function ContactSection() {
   const fullName = `${developerInfo.name} ${developerInfo.surname}`
 
   return (
-    <footer
-      id="contact"
-      aria-labelledby="contact-title"
-      className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900/50 border-t border-gray-200 dark:border-gray-800 scroll-mt-20"
-    >
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        className="max-w-4xl mx-auto text-center"
-      >
-        <motion.h2
-          id="contact-title"
-          variants={itemVariants}
-          className="text-3xl sm:text-4xl font-bold mb-4 text-gray-900 dark:text-white"
-        >
-          Let&apos;s Connect
-        </motion.h2>
-        <motion.p variants={itemVariants} className="text-gray-600 dark:text-gray-400 mb-8">
-          Open to new opportunities and interesting AI projects.
-        </motion.p>
+    <footer id="contact" aria-labelledby="contact-title" className="relative scroll-mt-20 overflow-hidden border-t border-line px-5 pt-28 sm:px-8 sm:pt-36">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-8 flex items-center gap-4">
+          <span className="label text-signal">06</span>
+          <span className="h-px flex-1 bg-line" />
+          <span className="label text-muted">/ contact</span>
+        </div>
 
-        <motion.div variants={itemVariants} className="flex flex-wrap justify-center items-center gap-3 mb-8">
-          <span className="inline-flex items-center gap-2">
-            <a href={`mailto:${developerInfo.email}`} className={ghostPill}>
-              <FaEnvelope className="text-blue-500 dark:text-blue-400" aria-hidden="true" />
-              {developerInfo.email}
-            </a>
-            <CopyEmailButton email={developerInfo.email} />
+        <h2 id="contact-title" className="font-display text-[clamp(3.5rem,13vw,11rem)] font-bold uppercase leading-[0.82] tracking-[-0.02em]">
+          <ScrambleText text="Let's build" className="block" />
+          <span className="block text-signal">
+            <ScrambleText text="something real." delay={200} />
           </span>
+        </h2>
 
-          <a href={developerInfo.linkedIn} target="_blank" rel="noopener noreferrer" className={ghostPill}>
-            <FaLinkedin className="text-blue-600 dark:text-blue-400" aria-hidden="true" />
-            LinkedIn
-          </a>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.3, ease: easeOutExpo }}
+          className="mt-14 grid gap-10 lg:grid-cols-12"
+        >
+          <div className="lg:col-span-7">
+            <p className="max-w-lg text-lg text-muted text-pretty">
+              Open to senior engineering and AI architecture roles, and to projects where messy real-world input has
+              to become reliable data.
+            </p>
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <a
+                href={`mailto:${developerInfo.email}`}
+                className="group font-display text-2xl font-semibold underline decoration-line decoration-2 underline-offset-8 transition-colors hover:text-signal hover:decoration-signal sm:text-4xl"
+              >
+                {developerInfo.email}
+              </a>
+              <CopyEmailButton email={developerInfo.email} />
+            </div>
+          </div>
 
-          <a href={developerInfo.github} target="_blank" rel="noopener noreferrer" className={ghostPill}>
-            <FaGithub className="text-gray-800 dark:text-gray-200" aria-hidden="true" />
-            GitHub
-          </a>
-
-          <a
-            href={developerInfo.resumeUrl}
-            download
-            className={`${pillClass} bg-blue-600 hover:bg-blue-700 text-white border-transparent shadow-sm`}
-          >
-            <FaFileDownload aria-hidden="true" />
-            Resume
-          </a>
+          <div className="flex flex-col justify-end gap-4 lg:col-span-5 lg:items-end">
+            <Magnetic>
+              <a
+                href={developerInfo.resumeUrl}
+                download
+                className="group inline-flex items-center gap-3 bg-signal px-6 py-3.5 font-medium text-on-signal"
+              >
+                Download resume
+                <span aria-hidden="true" className="transition-transform group-hover:translate-y-0.5">↓</span>
+              </a>
+            </Magnetic>
+            <div className="flex gap-6">
+              {links.map((l) => (
+                <a
+                  key={l.label}
+                  href={l.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="label text-muted transition-colors hover:text-signal"
+                >
+                  {l.label} ↗
+                </a>
+              ))}
+            </div>
+          </div>
         </motion.div>
 
-        <motion.p
-          variants={itemVariants}
-          className="text-sm text-gray-500 dark:text-gray-400 flex items-center justify-center gap-1"
-        >
-          <FaMapMarkerAlt size={14} aria-hidden="true" />
-          {developerInfo.location}
-        </motion.p>
-
-        <motion.p
-          variants={itemVariants}
-          className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800 text-sm text-gray-500 dark:text-gray-400"
-        >
-          © {new Date().getFullYear()} {fullName}. Built with Next.js, Tailwind CSS, and lots of coffee.
-        </motion.p>
-      </motion.div>
+        <div className="label mt-28 flex flex-col gap-2 border-t border-line py-6 text-muted sm:flex-row sm:justify-between">
+          <span>
+            © {new Date().getFullYear()} {fullName} · {developerInfo.location}
+          </span>
+          <span>Next.js · Three.js · set in IBM Plex</span>
+        </div>
+      </div>
     </footer>
   )
 }

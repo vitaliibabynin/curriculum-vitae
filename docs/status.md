@@ -37,6 +37,14 @@ PDFs are versioned under `web/public/resume/archive/` (see that folder's `README
   closes the mobile menu, skip link, focus rings, copy-email button, reduced-motion via `MotionConfig`,
   collapsed earlier roles removed from the tab order, profile photo no longer eagerly preloaded.
 
+## 2026-10-02 brand redesign (PR `feat/brand-redesign`)
+
+New concept **"Parsed"**: the site reads like a CV being machine-parsed (OCR bounding boxes, field labels, mono
+annotations). Palette graphite / cool paper / vermilion signal (purple dropped); IBM Plex type. Hero has a live
+extraction demo; display titles decode from glyphs; Expertise globe is linked to a hoverable cluster index;
+Selected Work is its own `#work` section; Experience has a sticky year display; About has count-up credential
+meters. Guided by Anthropic's frontend-design skill (subject-grounded direction, one dominant colour + sharp accent).
+
 ## Repo structure (post harness-upgrade, 2026-06-17)
 
 The repo is organized by **stage of commitment**, with the app isolated in `web/`:

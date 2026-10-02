@@ -120,31 +120,31 @@ export const skillClusters = [
   {
     id: "ai",
     label: "AI / LLM Engineering",
-    color: "#6366f1", // indigo
+    color: "#ff5a1f", // signal vermilion
     techs: ["Claude", "GPT", "Gemini", "Azure Document Intelligence", "Retell", "RAG", "ChromaDB", "MCP", "langextract"]
   },
   {
     id: "field",
     label: "Offline-First Field Capture",
-    color: "#10b981", // emerald
+    color: "#3fb68b", // field green
     techs: ["React Native / Expo", "PowerSync", "Convex", "QR / NFC", "Real-time sync"]
   },
   {
     id: "compliance",
     label: "Compliance & Governance",
-    color: "#f59e0b", // amber
+    color: "#e3b23c", // ochre
     techs: ["HIPAA", "GDPR", "Multi-tenant isolation", "Audit logging", "EU residency", "Local LLMs"]
   },
   {
     id: "fullstack",
     label: "Full-Stack",
-    color: "#8b5cf6", // violet
+    color: "#5b8def", // steel blue
     techs: ["Next.js", "React", "TypeScript", "Tailwind", "FastAPI", "Prisma", "Node.js", "Python"]
   },
   {
     id: "cloud",
     label: "Cloud & Integration",
-    color: "#0ea5e9", // sky
+    color: "#9aa39e", // stone
     techs: ["Azure", "Google Cloud", "Vercel", "RunPod", "Microsoft Graph", "Entra ID", "Stripe", "CCXT"]
   }
 ]
@@ -367,10 +367,11 @@ export const languages = [
 // Interests
 export const interests = ["Piano composition", "Guitar", "Biking", "Boating", "Traveling"]
 
-// Navigation items (5-section structure; bottom "Playground" cube is intentionally unlisted)
+// Navigation items (6-section structure; bottom "Playground" cube is intentionally unlisted)
 export const navItems = [
   { name: 'Home', id: 'hero' },
   { name: 'Expertise', id: 'expertise' },
+  { name: 'Work', id: 'work' },
   { name: 'Experience', id: 'experience' },
   { name: 'About', id: 'about' },
   { name: 'Contact', id: 'contact' }

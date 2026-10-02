@@ -1,17 +1,22 @@
 'use client'
 
-import { useState, useRef } from 'react'
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
-import { FaMapMarkerAlt, FaBriefcase, FaChevronDown, FaYoutube, FaExternalLinkAlt } from 'react-icons/fa'
+import { useEffect, useRef, useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { topExperiences, additionalExperiences, type Experience } from '../app/data'
-import { stagger, fadeUp } from '../lib/motion'
+import { easeOutExpo, fadeUp } from '../lib/motion'
+import { scrollToSection } from './smooth-scroll'
 
 const VISIBLE_SKILLS = 6
 
-const chipClass =
-  'px-2 py-0.5 text-xs rounded-full bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600'
-
 const isCurrent = (exp: Experience) => /present/i.test(exp.period)
+
+// "May 2017 – Sep 2018" → ["2017", "2018"]; "… – Present" → [start, "NOW"]
+function yearSpan(period: string): [string, string] {
+  const years = period.match(/\d{4}/g) ?? []
+  const start = years[0] ?? ''
+  const end = /present/i.test(period) ? 'NOW' : (years[1] ?? start)
+  return [start, end]
+}
 
 function StackChips({ stack }: { stack: string[] }) {
   const [expanded, setExpanded] = useState(false)
@@ -19,9 +24,11 @@ function StackChips({ stack }: { stack: string[] }) {
   const visible = expanded ? stack : stack.slice(0, VISIBLE_SKILLS)
 
   return (
-    <ul className="flex flex-wrap gap-1.5" aria-label="Tech stack">
+    <ul className="flex flex-wrap gap-2" aria-label="Tech stack">
       {visible.map((tech) => (
-        <li key={tech} className={chipClass}>{tech}</li>
+        <li key={tech} className="label border border-line px-2 py-1 text-muted">
+          {tech}
+        </li>
       ))}
       {hidden > 0 && (
         <li>
@@ -29,9 +36,9 @@ function StackChips({ stack }: { stack: string[] }) {
             type="button"
             onClick={() => setExpanded((v) => !v)}
             aria-expanded={expanded}
-            className="px-2 py-0.5 text-xs rounded-full bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors"
+            className="label border border-dashed border-line px-2 py-1 text-signal transition-colors hover:border-signal"
           >
-            {expanded ? 'Show less' : `+${hidden} more`}
+            {expanded ? '− less' : `+${hidden} more`}
           </button>
         </li>
       )}
@@ -39,171 +46,204 @@ function StackChips({ stack }: { stack: string[] }) {
   )
 }
 
-function ExperienceCard({ exp }: { exp: Experience }) {
+function Entry({ exp, index, register }: { exp: Experience; index: number; register: (el: HTMLElement | null) => void }) {
   const current = isCurrent(exp)
 
   return (
-    <motion.li variants={fadeUp(30)} className="relative pl-12 sm:pl-20">
-      {/* Timeline dot — pulses for current roles */}
-      <span className="absolute left-2 sm:left-6 top-7 flex h-4 w-4" aria-hidden="true">
-        {current && <span className="absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-60 animate-ping" />}
-        <span className="relative inline-flex h-4 w-4 rounded-full bg-blue-500 border-4 border-white dark:border-gray-900" />
-      </span>
-
-      <article className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm hover:shadow-md dark:shadow-gray-900/20 transition-shadow border border-gray-200 dark:border-gray-700">
-        <header className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-3">
-          <div>
-            <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{exp.title}</h3>
-            <p className="text-blue-600 dark:text-blue-400 font-medium">{exp.employer}</p>
-          </div>
-          <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 shrink-0">
-            <FaBriefcase size={14} aria-hidden="true" />
-            <span>{exp.period}</span>
-            {current && (
-              <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
-                Current
-              </span>
-            )}
-          </div>
-        </header>
-
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-gray-500 dark:text-gray-400 mb-3">
-          <span className="flex items-center gap-1">
-            <FaMapMarkerAlt size={14} aria-hidden="true" />
-            {exp.location}
+    <motion.article
+      ref={register}
+      data-index={index}
+      variants={fadeUp(30, 0.7)}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: '-10% 0px' }}
+      className="scroll-mt-28 border-t border-line pb-16 pt-8"
+    >
+      <div className="label mb-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-muted">
+        <span className="text-fg">{exp.period}</span>
+        <span>{exp.location}</span>
+        <span>{exp.workMode}</span>
+        {current && (
+          <span className="flex items-center gap-1.5 text-ok">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="absolute inline-flex h-full w-full animate-ping bg-ok opacity-70" />
+              <span className="relative inline-flex h-1.5 w-1.5 bg-ok" />
+            </span>
+            current
           </span>
-          <span className={chipClass}>{exp.workMode}</span>
-        </div>
-
-        <p className="text-gray-600 dark:text-gray-300 mb-4">{exp.description}</p>
-
-        {exp.highlights && (
-          <ul className="mb-4 space-y-1.5 text-sm text-gray-600 dark:text-gray-300">
-            {exp.highlights.map((h) => (
-              <li key={h} className="flex gap-2">
-                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-gradient-to-br from-blue-500 to-purple-500" aria-hidden="true" />
-                <span>{h}</span>
-              </li>
-            ))}
-          </ul>
         )}
+      </div>
 
+      <h3 className="font-display text-3xl font-bold uppercase leading-[0.95] tracking-tight sm:text-4xl text-balance">
+        {exp.title}
+      </h3>
+      <p className="mt-2 flex flex-wrap items-baseline gap-x-4 font-medium text-signal">
+        {exp.employer}
+        {exp.link && (
+          <a
+            href={exp.link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="label text-muted underline-offset-4 transition-colors hover:text-signal hover:underline"
+          >
+            {exp.link.label} ↗
+          </a>
+        )}
+      </p>
+
+      <p className="mt-5 max-w-2xl text-muted text-pretty">{exp.description}</p>
+
+      {exp.highlights && (
+        <ul className="mt-6 max-w-2xl divide-y divide-line border-y border-line">
+          {exp.highlights.map((h, i) => (
+            <li key={h} className="flex gap-4 py-3 text-sm text-fg/90">
+              <span className="label mt-0.5 shrink-0 text-signal">{String.fromCharCode(97 + i)}</span>
+              <span className="text-pretty">{h}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+
+      <div className="mt-6">
         <StackChips stack={exp.stack} />
+      </div>
 
-        {(exp.link || exp.youtubeLink) && (
-          <div className="flex flex-wrap gap-4 mt-4 text-sm">
-            {exp.link && (
-              <a
-                href={exp.link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
-              >
-                <FaExternalLinkAlt size={12} aria-hidden="true" />
-                {exp.link.label}
-              </a>
-            )}
-            {exp.youtubeLink && (
-              <a
-                href={exp.youtubeLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 transition-colors"
-              >
-                <FaYoutube size={16} aria-hidden="true" />
-                Watch video
-              </a>
-            )}
-          </div>
-        )}
-      </article>
-    </motion.li>
+      {exp.youtubeLink && (
+        <a
+          href={exp.youtubeLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="label mt-5 inline-block text-muted underline-offset-4 transition-colors hover:text-signal hover:underline"
+        >
+          ▶ Watch the demo video ↗
+        </a>
+      )}
+    </motion.article>
   )
 }
 
 export default function ExperiencesTimeline() {
+  const [active, setActive] = useState(0)
   const [showAll, setShowAll] = useState(false)
-  const containerRef = useRef<HTMLDivElement>(null)
+  const entries = useRef<(HTMLElement | null)[]>([])
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start center', 'end center']
-  })
-  const lineHeight = useTransform(scrollYProgress, [0, 1], ['0%', '100%'])
+  // The entry crossing the middle band of the viewport drives the sticky year display.
+  useEffect(() => {
+    const io = new IntersectionObserver(
+      (items) => {
+        for (const it of items) {
+          if (it.isIntersecting) setActive(Number((it.target as HTMLElement).dataset.index))
+        }
+      },
+      { rootMargin: '-40% 0px -55% 0px' }
+    )
+    entries.current.forEach((el) => el && io.observe(el))
+    return () => io.disconnect()
+  }, [])
+
+  const exp = topExperiences[active]
+  const [from, to] = yearSpan(exp.period)
 
   return (
-    <div ref={containerRef} className="relative max-w-4xl mx-auto px-4 sm:px-6">
-      {/* Timeline line: track + scroll-driven progress */}
-      <div className="absolute left-4 sm:left-8 top-0 bottom-0 w-0.5 bg-gray-200 dark:bg-gray-700" aria-hidden="true" />
-      <motion.div
-        className="absolute left-4 sm:left-8 top-0 w-0.5 bg-gradient-to-b from-blue-500 to-purple-500 origin-top"
-        style={{ height: lineHeight }}
-        aria-hidden="true"
-      />
+    <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
+      {/* Sticky index (desktop) */}
+      <aside className="hidden lg:col-span-4 lg:block" aria-hidden="true">
+        <div className="sticky top-28">
+          <div className="relative h-[clamp(9rem,13vw,12rem)] overflow-hidden font-display font-bold uppercase leading-[0.85] tracking-tight">
+            <AnimatePresence mode="popLayout" initial={false}>
+              <motion.div
+                key={active}
+                initial={{ y: '100%' }}
+                animate={{ y: '0%' }}
+                exit={{ y: '-100%' }}
+                transition={{ duration: 0.6, ease: easeOutExpo }}
+                className="absolute inset-0 text-[clamp(4rem,6.2vw,5.75rem)]"
+              >
+                <span className="block">{from}</span>
+                <span className="block text-signal">{to === from ? '' : `— ${to}`}</span>
+              </motion.div>
+            </AnimatePresence>
+          </div>
 
-      <motion.ol
-        variants={stagger(0.15)}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: '-100px' }}
-        className="space-y-8"
-      >
-        {topExperiences.map((exp) => (
-          <ExperienceCard key={exp.title + exp.employer} exp={exp} />
-        ))}
-      </motion.ol>
+          <ol className="mt-10 border-t border-line">
+            {topExperiences.map((e, i) => (
+              <li key={e.title + e.employer}>
+                <button
+                  type="button"
+                  tabIndex={-1}
+                  onClick={() => {
+                    const el = entries.current[i]
+                    if (el) scrollToSection(el, 110)
+                  }}
+                  className={`label flex w-full items-center justify-between border-b border-line py-2.5 text-left transition-colors ${
+                    i === active ? 'text-fg' : 'text-muted hover:text-fg'
+                  }`}
+                >
+                  <span className="flex items-center gap-3">
+                    <span className={`h-1.5 w-1.5 transition-colors ${i === active ? 'bg-signal' : 'bg-line'}`} />
+                    {e.employer}
+                  </span>
+                  <span>{yearSpan(e.period)[0]}</span>
+                </button>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </aside>
 
-      <div className="mt-8 text-center">
-        <button
-          type="button"
-          onClick={() => setShowAll((v) => !v)}
-          aria-expanded={showAll}
-          aria-controls="earlier-experience"
-          className="inline-flex items-center gap-2 px-6 py-3 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors border border-gray-200 dark:border-gray-700"
-        >
-          <FaChevronDown
-            size={14}
-            aria-hidden="true"
-            className={`transition-transform duration-300 ${showAll ? 'rotate-180' : ''}`}
+      {/* Entries */}
+      <div className="lg:col-span-8">
+        {topExperiences.map((e, i) => (
+          <Entry
+            key={e.title + e.employer}
+            exp={e}
+            index={i}
+            register={(el) => {
+              entries.current[i] = el
+            }}
           />
-          {showAll ? 'Hide earlier roles' : `Show ${additionalExperiences.length} earlier roles`}
-        </button>
-      </div>
+        ))}
 
-      {/* Earlier roles — unmounted when collapsed so they stay out of the tab order */}
-      <AnimatePresence initial={false}>
-        {showAll && (
-          <motion.ol
-            id="earlier-experience"
-            key="earlier"
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: 'easeInOut' }}
-            className="overflow-hidden"
+        {/* Earlier roles */}
+        <div className="border-t border-line pt-6">
+          <button
+            type="button"
+            onClick={() => setShowAll((v) => !v)}
+            aria-expanded={showAll}
+            aria-controls="earlier-experience"
+            className="label flex w-full items-center justify-between py-2 text-muted transition-colors hover:text-fg"
           >
-            <div className="mt-8 space-y-6 pl-12 sm:pl-20">
-              {additionalExperiences.map((exp) => (
-                <li key={exp.title + exp.employer} className="relative">
-                  <span
-                    className="absolute -left-10 sm:-left-14 top-5 w-3 h-3 rounded-full bg-gray-400 dark:bg-gray-600 border-2 border-white dark:border-gray-900"
-                    aria-hidden="true"
-                  />
-                  <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4 border border-gray-200 dark:border-gray-700/50">
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
-                      <h3 className="font-medium text-gray-900 dark:text-white">
-                        {exp.title} — {exp.employer}
-                      </h3>
-                      <span className="text-sm text-gray-500 dark:text-gray-400">{exp.period}</span>
+            <span>{showAll ? 'hide' : 'show'} {additionalExperiences.length} earlier roles · 2015 – 2018</span>
+            <span aria-hidden="true" className={`text-base transition-transform duration-300 ${showAll ? 'rotate-45' : ''}`}>
+              +
+            </span>
+          </button>
+          <AnimatePresence initial={false}>
+            {showAll && (
+              <motion.ul
+                id="earlier-experience"
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.35, ease: easeOutExpo }}
+                className="overflow-hidden"
+              >
+                {additionalExperiences.map((e) => (
+                  <li key={e.title + e.employer} className="grid gap-1 border-t border-line py-4 sm:grid-cols-[8rem_1fr] sm:gap-6">
+                    <span className="label pt-1 text-muted">{e.period}</span>
+                    <div>
+                      <p className="font-medium">
+                        {e.title} <span className="text-muted">— {e.employer}</span>
+                      </p>
+                      <p className="mt-1 text-sm text-muted">{e.description}</p>
                     </div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{exp.description}</p>
-                  </div>
-                </li>
-              ))}
-            </div>
-          </motion.ol>
-        )}
-      </AnimatePresence>
+                  </li>
+                ))}
+              </motion.ul>
+            )}
+          </AnimatePresence>
+        </div>
+      </div>
     </div>
   )
 }
